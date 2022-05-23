@@ -1,0 +1,5 @@
+*
+!files/
+!CMakeLists.txt
+!findRaylib.cmake
+!.gitignore
