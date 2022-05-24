@@ -21,3 +21,4 @@ include(findRaylib.cmake)
 
 FILE(GLOB SOURCES files/main.cpp)
 ADD_EXECUTABLE(bomberman ${SOURCES})
+TARGET_LINK_LIBRARIES(bomberman raylib)
