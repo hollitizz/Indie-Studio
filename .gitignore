@@ -2,4 +2,5 @@
 !files/
 !CMakeLists.txt
 !findRaylib.cmake
+!resources
 !.gitignore
