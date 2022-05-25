@@ -20,7 +20,11 @@ if (NOT raylib_FOUND) # If there's none, fetch and build raylib
     add_subdirectory(${raylib_SOURCE_DIR} ${raylib_BINARY_DIR})
   endif()
 endif()
-
-FILE(GLOB SOURCES files/main.cpp)
+IF(UNIX)
+  SET(MY_MATH_LIB -lm)
+ELSE(UNIX)
+  SET(MY_MATH_LIB)
+ENDIF(UNIX)
+FILE(GLOB SOURCES files/menu_start.cpp)
 ADD_EXECUTABLE(bomberman ${SOURCES})
 TARGET_LINK_LIBRARIES(bomberman raylib)

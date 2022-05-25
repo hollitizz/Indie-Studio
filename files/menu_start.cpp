@@ -6,6 +6,7 @@
 */
 
 #include <iostream>
+#include <math.h>
 #include "raylib.h"
 
 typedef enum GameScreen { LOGO = 0, MENU, GAME, SETTINGS, RULES} GameScreen;
@@ -25,7 +26,6 @@ int map(void)
 
     Image image = LoadImage("ressources/map_bomb.png");      // Load cubicmap image (RAM)
     Texture2D cubicmap = LoadTextureFromImage(image);       // Convert image to texture to display (VRAM)
-
     Mesh mesh = GenMeshCubicmap(image, (Vector3){ 1.0f, 1.0f, 1.0f });
     Model model = LoadModelFromMesh(mesh);
 
@@ -34,22 +34,25 @@ int map(void)
     model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;             // Set map diffuse texture
 
     Vector3 mapPosition = { -8.0f, 0.0f, -8.0f };          // Set model position
-
+    Vector3 playerPosition = { -6.7f, 1.0f, 4.9f };
+    Vector3 playerSize = { 0.5f, 0.1f, 0.5f };
     UnloadImage(image);     // Unload cubesmap image from RAM, already uploaded to VRAM
 
-    SetCameraMode(camera, CAMERA_FREE);  // Set an orbital camera mode
+    SetCameraMode(camera, CAMERA_THIRD_PERSON);  // Set an orbital camera mode
 
     SetTargetFPS(60);                       // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
-
     // Main game loop
     while (!WindowShouldClose())            // Detect window close button or ESC key
     {
         // Update
         //----------------------------------------------------------------------------------
-        UpdateCamera(&camera);              // Update camera
+        // UpdateCamera(&camera);              // Update camera
+        if (IsKeyDown(KEY_W)) playerPosition.x -= 0.1;
+        if (IsKeyDown(KEY_A)) playerPosition.z += 0.1;
+        if (IsKeyDown(KEY_S)) playerPosition.x += 0.1;
+        if (IsKeyDown(KEY_D)) playerPosition.z -= 0.1;
         //----------------------------------------------------------------------------------
-
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
@@ -59,17 +62,16 @@ int map(void)
             BeginMode3D(camera);
 
                 DrawModel(model, mapPosition, 1.0f, WHITE);
+                DrawCube(playerPosition, 0.5, 1, 0.5, DARKBLUE);
 
             EndMode3D();
 
-            DrawTextureEx(cubicmap, (Vector2){ screenWidth - cubicmap.width*4.0f - 20, 20.0f }, 0.0f, 4.0f, WHITE);
-            DrawRectangleLines(screenWidth - cubicmap.width*4 - 20, 20, cubicmap.width*4, cubicmap.height*4, GREEN);
-
-            DrawText("cubicmap image used to", 658, 90, 10, GRAY);
-            DrawText("generate map 3d model", 658, 104, 10, GRAY);
-
+            // DrawTextureEx(cubicmap, (Vector2){ screenWidth - cubicmap.width*4.0f - 60, 20.0f }, 0.0f, 8.0f, WHITE);
+            // DrawRectangle((screenWidth - cubicmap.width*4.0f - 52) * (playerPosition.z / 4.9), 28.0 * (playerPosition.x / -6.5), 8, 8, RED);
+            // DrawRectangleLines(screenWidth - cubicmap.width*4 - 20, 20, cubicmap.width*4, cubicmap.height*4, GREEN);
+            // DrawText("cubicmap image used to", 658, 90, 10, GRAY);
+            // DrawText("generate map 3d model", 658, 104, 10, GRAY);
             DrawFPS(10, 10);
-
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
@@ -82,7 +84,7 @@ int map(void)
 
     CloseWindow();              // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
-
+    exit(0);
     return 0;
 }
 
@@ -112,11 +114,11 @@ int test(void)
         {
             case MENU:
             {
-                if (IsKeyPressed(KEY_A) || IsGestureDetected(GESTURE_TAP))
+                if (IsKeyPressed(KEY_Q) || IsGestureDetected(GESTURE_TAP))
                 {
                     currentScreen = GAME;
                 }
-                if (IsKeyPressed(KEY_Z) || IsGestureDetected(GESTURE_TAP))
+                if (IsKeyPressed(KEY_W) || IsGestureDetected(GESTURE_TAP))
                 {
                     currentScreen = GAME;
                 }
