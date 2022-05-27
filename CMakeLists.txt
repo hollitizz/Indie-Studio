@@ -25,6 +25,9 @@ IF(UNIX)
 ELSE(UNIX)
   SET(MY_MATH_LIB)
 ENDIF(UNIX)
-FILE(GLOB SOURCES files/menu_start.cpp)
+
+INCLUDE_DIRECTORIES(headers/)
+FILE(GLOB SOURCES sources/Raylib.cpp sources/menu_start.cpp)
+
 ADD_EXECUTABLE(bomberman ${SOURCES})
 TARGET_LINK_LIBRARIES(bomberman raylib)

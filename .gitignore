@@ -1,6 +1,13 @@
 *
-!files/
-!CMakeLists.txt
-!findRaylib.cmake
-!ressources/
 !.gitignore
+
+!assets/
+!assets/*
+
+!headers/
+!headers/*
+
+!sources/
+!sources/*
+
+!CMakeLists.txt
