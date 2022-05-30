@@ -27,7 +27,7 @@ ELSE(UNIX)
 ENDIF(UNIX)
 
 INCLUDE_DIRECTORIES(headers/)
-FILE(GLOB SOURCES sources/Raylib.cpp sources/menu_start.cpp)
+FILE(GLOB SOURCES sources/Raylib.cpp sources/test.cpp)
 
 ADD_EXECUTABLE(bomberman ${SOURCES})
 TARGET_LINK_LIBRARIES(bomberman raylib)
