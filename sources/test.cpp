@@ -12,6 +12,7 @@
 #include "../_deps/raylib-build/raylib/include/raylib.h"
 
 #include <stdlib.h>           // Required for: free()
+#include <iostream>
 
 int main(void)
 {
@@ -23,11 +24,12 @@ int main(void)
     InitWindow(screenWidth, screenHeight, "raylib [models] example - first person maze");
 
     // Define the camera to look into our 3d world
-    Camera camera = { { 0.0f, 40.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 1.0f, 0.0f }, 25.0f, 0 };
+    Camera camera = { { 0.0f, 30.0f, 8.0f }, { 0.0f, 4.0f, 0.0f }, { 0.0f, 1.0f, 0.0f }, 35.0f, 0 };
 
     Image imMap = LoadImage("assets/map_bomb.png");      // Load cubicmap image (RAM)
     Texture2D cubicmap = LoadTextureFromImage(imMap);       // Convert image to texture to display (VRAM)
     Mesh mesh = GenMeshCubicmap(imMap, (Vector3){ 1.0f, 1.0f, 1.0f });
+
     Model model = LoadModelFromMesh(mesh);
 
     // NOTE: By default each cube is mapped to one part of texture atlas
@@ -38,25 +40,26 @@ int main(void)
     Color *mapPixels = LoadImageColors(imMap);
     UnloadImage(imMap);             // Unload image from RAM
 
-    // Vector2 mapDeplacement = {cubicmap.width, cubicmap.height};
-    Vector3 mapPosition = { -16.0f, 0.0f, -8.0f };  // Set model position
-    Vector3 playerPosition = { -15.0f, 0.5f, -7.0f };  // Set player position
-    SetCameraMode(camera, CAMERA_THIRD_PERSON);     // Set camera mode
+
+    Vector3 mapDeplacement = {9, 0};
+    Vector3 mapPosition = { -16.0f + mapDeplacement.x, 0.0f, -8.0f + mapDeplacement.y };  // Set model position
+    Vector3 playerPosition = { -6, 0.5, -7 }; // Set player position
+    SetCameraMode(camera, CAMERA_FREE);     // Set camera mode
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
 
+    UpdateCamera(&camera);      // Update camera
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
         // Update
         //----------------------------------------------------------------------------------
-        Vector3 oldCamPos = playerPosition;    // Store old camera position
+        Vector3 oldPlayerPos = playerPosition;    // Store old camera position
         if (IsKeyDown(KEY_W)) playerPosition.z -= 0.1;
         if (IsKeyDown(KEY_A)) playerPosition.x -= 0.1;
         if (IsKeyDown(KEY_S)) playerPosition.z += 0.1;
         if (IsKeyDown(KEY_D)) playerPosition.x += 0.1;
-        UpdateCamera(&camera);      // Update camera
 
         // Check player collision (we simplify to 2D collision detection)
         Vector2 playerPos = { playerPosition.x, playerPosition.z };
@@ -73,7 +76,7 @@ int main(void)
         else if (playerCellY >= cubicmap.height) playerCellY = cubicmap.height - 1;
 
         // Check map collisions using image data and player position
-        // TODO: Improvement: Just check player surrounding cells for collision
+        // TODO: Improvement: Just check player surrounding cells for collision oldCamPos
         for (int y = 0; y < cubicmap.height; y++)
         {
             for (int x = 0; x < cubicmap.width; x++)
@@ -83,7 +86,7 @@ int main(void)
                     (Rectangle){ mapPosition.x - 0.5f + x*1.0f, mapPosition.z - 0.5f + y*1.0f, 1.0f, 1.0f })))
                 {
                     // Collision detected, reset camera position
-                    playerPosition = oldCamPos;
+                    playerPosition = oldPlayerPos;
                 }
             }
         }
@@ -101,7 +104,7 @@ int main(void)
             EndMode3D();
 
             DrawTextureEx(cubicmap, (Vector2){ GetScreenWidth() - cubicmap.width*4.0f - 20, 20.0f }, 0.0f, 4.0f, WHITE);
-            DrawRectangleLines(GetScreenWidth() - cubicmap.width*4 - 20, 20, cubicmap.width*4, cubicmap.height*4, GREEN);
+            DrawRectangleLines(GetScreenWidth() - cubicmap.width*4 - 20, 20, cubicmap.width*4, cubicmap.height*4, BLACK);
 
             // Draw player position radar
             DrawRectangle(GetScreenWidth() - cubicmap.width*4 - 20 + playerCellX*4, 20 + playerCellY*4, 4, 4, RED);
