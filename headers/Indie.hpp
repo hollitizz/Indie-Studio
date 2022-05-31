@@ -13,6 +13,7 @@
 
 namespace Indie
 {
+    class State;
     namespace Scenes
     {
         enum Type {
@@ -27,34 +28,44 @@ namespace Indie
                 virtual void start() = 0;
                 virtual void stop() = 0;
                 virtual void display() = 0;
-                virtual void test() = 0;
+                virtual void event() = 0;
             private:
         };
         class AScene : public IScene {
             public:
-                AScene(Raylib *raylib);
+                AScene(Raylib *raylib, Indie::State *state);
                 ~AScene() = default;
                 virtual void start();
                 virtual void stop();
                 virtual void display();
-                virtual void test() = 0;
-            private:
+                virtual void event() = 0;
+            protected:
                 Raylib *_Raylib;
+                State *_State;
         };
         class SMenu : public AScene {
             public:
-                SMenu(Raylib *raylib);
+                SMenu(Raylib *raylib, Indie::State *state);
                 ~SMenu();
-                void test() override;
+                void event() override;
             private:
         };
         class SGame : public AScene {
             public:
-                SGame(Raylib *raylib);
+                SGame(Raylib *raylib, Indie::State *state);
                 ~SGame();
-                void test() override;
+                void event() override;
             private:
         };
+    };
+    class State {
+        public:
+            State();
+            ~State() = default;
+            void setScene(Indie::Scenes::Type scene);
+            Indie::Scenes::Type getScene() const;
+        private:
+            Indie::Scenes::Type _sceneCurrent;
     };
     class Bomberman {
         public:
@@ -63,7 +74,7 @@ namespace Indie
             void loop();
         private:
             std::map<Scenes::Type, std::shared_ptr<Scenes::IScene>> _scenes;
-            Indie::Scenes::Type _sceneCurrent;
             Raylib _Raylib;
+            State _State;
     };
 };
