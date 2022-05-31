@@ -23,6 +23,11 @@ void Raylib::createWindow(int width, int height, std::string title, size_t fps)
     SetTargetFPS(fps);
 }
 
+bool Raylib::isOpen()
+{
+    return !WindowShouldClose();
+}
+
 void Raylib::setCamera(Vector3 pos, Vector3 target, Vector3 up, float fovy, int projection)
 {
     _camera.position = pos;
