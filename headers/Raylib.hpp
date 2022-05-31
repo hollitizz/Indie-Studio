@@ -25,6 +25,7 @@ class Raylib {
         Raylib();
         ~Raylib();
         void createWindow(int width, int height, std::string title, size_t fps);
+        bool isOpen();
 
         void setCamera(Vector3 pos, Vector3 target, Vector3 up, float fovy, int projection);
         Camera getCamera() const;
