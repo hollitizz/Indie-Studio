@@ -33,26 +33,26 @@ namespace Indie
         };
         class AScene : public IScene {
             public:
-                AScene(Raylib *raylib, Indie::State *state);
+                AScene(Raylib &raylib, Indie::State &state);
                 ~AScene() = default;
                 virtual void start();
                 virtual void stop();
                 virtual void display();
                 virtual void event() = 0;
             protected:
-                Raylib *_Raylib;
-                State *_State;
+                Raylib &_Raylib;
+                State &_State;
         };
         class SMenu : public AScene {
             public:
-                SMenu(Raylib *raylib, Indie::State *state);
+                SMenu(Raylib &raylib, Indie::State &state);
                 ~SMenu();
                 void event() override;
             private:
         };
         class SGame : public AScene {
             public:
-                SGame(Raylib *raylib, Indie::State *state);
+                SGame(Raylib &raylib, Indie::State &state);
                 ~SGame();
                 void event() override;
             private:

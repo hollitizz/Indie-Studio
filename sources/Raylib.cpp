@@ -11,9 +11,7 @@ Raylib::Raylib()
 {}
 
 Raylib::~Raylib()
-{
-    CloseWindow();
-}
+{}
 
 void Raylib::createWindow(int width, int height, std::string title, size_t fps)
 {
@@ -21,6 +19,12 @@ void Raylib::createWindow(int width, int height, std::string title, size_t fps)
     _screenSize.second = height;
     InitWindow(_screenSize.first, _screenSize.second, title.c_str());
     SetTargetFPS(fps);
+    SetExitKey(KEY_NULL);
+}
+
+void Raylib::closeWindow()
+{
+    CloseWindow();
 }
 
 bool Raylib::isOpen()
