@@ -19,6 +19,8 @@ namespace Indie
         enum Type {
             Menu,
             Game,
+            Hud,
+            Pause,
             Settings,
             Over
         };
@@ -56,6 +58,35 @@ namespace Indie
                 ~SGame();
                 void event() override;
             private:
+                std::map<Scenes::Type, std::shared_ptr<Scenes::IScene>> _scenes;
+        };
+        class SHud : public AScene {
+            public:
+                SHud(Raylib &raylib, Indie::State &state);
+                ~SHud();
+                void event() override;
+            private:
+        };
+        class SPause : public AScene {
+            public:
+                SPause(Raylib &raylib, Indie::State &state);
+                ~SPause();
+                void event() override;
+            private:
+        };
+        class SSettings : public AScene {
+            public:
+                SSettings(Raylib &raylib, Indie::State &state);
+                ~SSettings();
+                void event() override;
+            private:
+        };
+        class SOver : public AScene {
+            public:
+                SOver(Raylib &raylib, Indie::State &state);
+                ~SOver();
+                void event() override;
+            private:
         };
     };
     class State {
@@ -63,9 +94,12 @@ namespace Indie
             State();
             ~State() = default;
             void setScene(Indie::Scenes::Type scene);
+            void setGameScene(Indie::Scenes::Type scene);
             Indie::Scenes::Type getScene() const;
+            Indie::Scenes::Type getGameScene() const;
         private:
             Indie::Scenes::Type _sceneCurrent;
+            Indie::Scenes::Type _sceneGameCurrent;
     };
     class Bomberman {
         public:
