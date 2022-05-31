@@ -104,6 +104,10 @@ void Indie::Scenes::SPause::event()
         _State.setGameScene(Indie::Scenes::Settings);
         std::cout << "Settings" << std::endl;
     }
+    if (_Raylib.isKeyPressed(KEY_Q)) {
+        _Raylib.closeWindow();
+        std::cout << "Exit" << std::endl;
+    }
 }
 
 Indie::Scenes::SSettings::SSettings(Raylib &raylib, Indie::State &state) : AScene(raylib, state)
@@ -123,6 +127,10 @@ void Indie::Scenes::SSettings::event()
     if (_Raylib.isKeyPressed(KEY_B)) {
         _State.setGameScene(Indie::Scenes::Pause);
         std::cout << "Pause" << std::endl;
+    }
+    if (_Raylib.isKeyPressed(KEY_Q)) {
+        _Raylib.closeWindow();
+        std::cout << "Exit" << std::endl;
     }
 }
 
