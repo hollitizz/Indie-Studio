@@ -25,6 +25,7 @@ class Raylib {
         Raylib();
         ~Raylib();
         void createWindow(int width, int height, std::string title, size_t fps);
+        void closeWindow();
         bool isOpen();
 
         void setCamera(Vector3 pos, Vector3 target, Vector3 up, float fovy, int projection);
@@ -42,6 +43,8 @@ class Raylib {
         bool isMouseDown() const;
         bool isMouseReleased() const;
         Vector2 getMousePosition() const;
+
+        std::string _test = "base";
 
     protected:
     private:
