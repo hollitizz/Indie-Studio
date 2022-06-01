@@ -27,7 +27,9 @@ ELSE(UNIX)
 ENDIF(UNIX)
 
 INCLUDE_DIRECTORIES(headers/)
-FILE(GLOB SOURCES sources/Raylib.cpp sources/menu_start.cpp sources/Indie.cpp)
+INCLUDE_DIRECTORIES(headers/Scenes/)
+INCLUDE_DIRECTORIES(headers/Dependencies/)
+FILE(GLOB SOURCES sources/Dependencies/*.cpp sources/Scenes/*.cpp sources/Bomberman.cpp sources/State.cpp sources/main.cpp)
 
 ADD_EXECUTABLE(bomberman ${SOURCES})
 TARGET_LINK_LIBRARIES(bomberman raylib)

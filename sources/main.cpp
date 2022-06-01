@@ -5,9 +5,7 @@
 ** main
 */
 
-#include <iostream>
-#include "Indie.hpp"
-#include "Raylib.hpp"
+#include "Bomberman.hpp"
 
 int main(int ac, char **av)
 {

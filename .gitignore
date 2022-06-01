@@ -3,11 +3,14 @@
 
 !assets/
 !assets/*
+!assets/**/*
 
 !headers/
 !headers/*
+!headers/**/*
 
 !sources/
 !sources/*
+!sources/**/*
 
 !CMakeLists.txt
