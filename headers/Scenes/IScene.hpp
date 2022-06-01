@@ -14,8 +14,6 @@ namespace Indie
         class IScene {
             public:
                 virtual ~IScene() = default;
-                virtual void start() = 0;
-                virtual void stop() = 0;
                 virtual void display() = 0;
                 virtual void displayAll() = 0;
                 virtual void event() = 0;

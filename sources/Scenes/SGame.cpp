@@ -11,6 +11,7 @@
 #include "SPause.hpp"
 #include "SSettings.hpp"
 #include "SOver.hpp"
+#include "DrawScope.hpp"
 
 Indie::Scenes::SGame::SGame(Raylib &raylib, Indie::State &state) : AScene(raylib, state)
 {
@@ -36,6 +37,8 @@ void Indie::Scenes::SGame::event()
 
 void Indie::Scenes::SGame::display()
 {
+    DrawScope _(_Raylib);
+
     _Raylib.drawText("SGame", {10, 10}, 20, BLACK);
     _scenes[_State.getGameScene()]->display();
 }

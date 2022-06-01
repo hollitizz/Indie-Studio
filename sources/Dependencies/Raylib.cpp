@@ -29,7 +29,10 @@ void Raylib::closeWindow()
 
 Vector2 Raylib::getScreenSize() const
 {
-    return {GetScreenWidth(), GetScreenHeight()};
+    return {
+        static_cast<float>(GetScreenWidth()),
+        static_cast<float>(GetScreenHeight())
+    };
 }
 
 
@@ -37,6 +40,27 @@ bool Raylib::isOpen()
 {
     return !WindowShouldClose();
 }
+
+
+void Raylib::beginDrawing()
+{
+    BeginDrawing();
+};
+
+void Raylib::clearBackground()
+{
+    ClearBackground(WHITE);
+};
+
+void Raylib::clearBackground(Color color)
+{
+    ClearBackground(color);
+};
+
+void Raylib::endDrawing()
+{
+    EndDrawing();
+};
 
 void Raylib::setCamera(Vector3 pos, Vector3 target, Vector3 up, float fovy, int projection)
 {
@@ -57,14 +81,34 @@ void Raylib::drawText(const std::string &text, Vector2 pos, float scale, Color c
     DrawText(text.c_str(), pos.x, pos.y, scale, color);
 }
 
+void Raylib::drawTextEx(Font font, const std::string &text, Vector2 pos, float scale, Color color)
+{
+    DrawTextEx(font, text.c_str(), {pos.x, pos.y}, scale, 10, color);
+}
+
 void Raylib::drawTextEx(Font font, const std::string &text, Vector2 pos, float scale, float spacing, Color color)
 {
     DrawTextEx(font, text.c_str(), {pos.x, pos.y}, scale, spacing, color);
 }
 
+Vector2 Raylib::measureTextEx(Font font, std::string text, int scale) const
+{
+    return MeasureTextEx(font, text.c_str(), scale, 10);
+};
+
+Vector2 Raylib::measureTextEx(Font font, std::string text, int scale, int spacing) const
+{
+    return MeasureTextEx(font, text.c_str(), scale, spacing);
+};
+
 void Raylib::drawFps(const Vector2 &pos)
 {
     DrawFPS(pos.x, pos.y);
+}
+
+Font Raylib::getDefaultFont() const
+{
+    return GetFontDefault();
 }
 
 char Raylib::getPressedCharacter() const

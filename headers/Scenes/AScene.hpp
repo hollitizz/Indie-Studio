@@ -20,12 +20,10 @@ namespace Indie
             public:
                 AScene(Raylib &raylib, State &state);
                 ~AScene() = default;
-                virtual void start();
-                virtual void stop();
                 virtual void displayAll();
-                virtual void display() = 0;
                 virtual void event() = 0;
             protected:
+                virtual void display() = 0;
                 Raylib &_Raylib;
                 State &_State;
         };

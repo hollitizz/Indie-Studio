@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "SOver.hpp"
+#include "DrawScope.hpp"
 
 Indie::Scenes::SOver::SOver(Raylib &raylib, Indie::State &state) : AScene(raylib, state)
 {

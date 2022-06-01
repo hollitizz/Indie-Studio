@@ -25,8 +25,6 @@ void Indie::Bomberman::loop()
         _scenes[_State.getScene()]->event();
         if (!_Raylib.isOpen())
             break;
-        _scenes[_State.getScene()]->start();
         _scenes[_State.getScene()]->display();
-        _scenes[_State.getScene()]->stop();
     }
 }

@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "SPause.hpp"
+#include "DrawScope.hpp"
 
 Indie::Scenes::SPause::SPause(Raylib &raylib, Indie::State &state) : AScene(raylib, state)
 {

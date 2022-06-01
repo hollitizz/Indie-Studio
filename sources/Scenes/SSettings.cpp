@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "SSettings.hpp"
+#include "DrawScope.hpp"
 
 Indie::Scenes::SSettings::SSettings(Raylib &raylib, Indie::State &state) : AScene(raylib, state)
 {

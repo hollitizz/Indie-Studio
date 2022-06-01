@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "SMenu.hpp"
+#include "DrawScope.hpp"
 
 Indie::Scenes::SMenu::SMenu(Raylib &raylib, Indie::State &state) : AScene(raylib, state)
 {
@@ -30,11 +31,24 @@ void Indie::Scenes::SMenu::event()
 }
 
 void Indie::Scenes::SMenu::display() {
+    DrawScope _(_Raylib);
     Vector2 screenSize = _Raylib.getScreenSize();
-    // Vector2 textSize;
-    // std::string text;
+    Vector2 textSize;
+    std::string text;
+    Font font = _Raylib.getDefaultFont();
 
-    // text = "IndieStudio";
-    // textSize = MeasureTextEx(GetFontDefault(), text.c, 70);
-    // _Raylib.drawText("Indie Studio", {screenSize.x / 2, screenSize.y / 2}, 70, BLACK);
+    text = "IndieStudio";
+    textSize = _Raylib.measureTextEx(GetFontDefault(), text.c_str(), 70);
+    _Raylib.drawTextEx(
+        font, text,
+        {screenSize.x / 2 - textSize.x / 2, screenSize.y / 4 - textSize.y / 2},
+        70, BLACK
+    );
+    text = "Bomberman";
+    textSize = _Raylib.measureTextEx(GetFontDefault(), text.c_str(), 50);
+    _Raylib.drawTextEx(
+        font, text,
+        {screenSize.x / 2 - textSize.x / 2, screenSize.y / 4 + textSize.y / 2},
+        50, BLACK
+    );
 }

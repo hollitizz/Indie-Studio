@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "SHud.hpp"
+#include "DrawScope.hpp"
 
 Indie::Scenes::SHud::SHud(Raylib &raylib, Indie::State &state) : AScene(raylib, state)
 {
@@ -26,5 +27,7 @@ void Indie::Scenes::SHud::event()
 
 void Indie::Scenes::SHud::display()
 {
+    DrawScope _(_Raylib);
+
     _Raylib.drawText("SHud", {10, 25}, 20, BLACK);
 }
