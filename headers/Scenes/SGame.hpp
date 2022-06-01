@@ -24,6 +24,7 @@ namespace Indie
                 ~SGame();
                 void event() override;
                 void display() override;
+                // TODO: reset() fct when the game is over
             private:
                 std::map<Scenes::Type, std::shared_ptr<Scenes::IScene>> _scenes;
         };

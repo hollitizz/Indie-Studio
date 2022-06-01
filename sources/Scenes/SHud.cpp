@@ -17,14 +17,6 @@ Indie::Scenes::SHud::SHud(Raylib &raylib, Indie::State &state) : AScene(raylib, 
 Indie::Scenes::SHud::~SHud()
 {}
 
-void Indie::Scenes::SHud::event()
-{
-    if (_Raylib.isKeyPressed(KEY_ESCAPE)) {
-        _State.setGameScene(Indie::Scenes::Pause);
-        std::cout << "Pause" << std::endl;
-    }
-}
-
 void Indie::Scenes::SHud::display()
 {
     DrawScope _(_Raylib);

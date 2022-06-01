@@ -123,7 +123,7 @@ int Raylib::getKeyPressed() const
 
 bool Raylib::isKeyPressed(int button) const
 {
-    return IsKeyPressed(button);
+    return (GetKeyPressed() == button);
 }
 
 bool Raylib::isKeyReleased(int button) const

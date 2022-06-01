@@ -31,3 +31,13 @@ Indie::Scenes::Type Indie::State::getGameScene() const
 {
     return _sceneGameCurrent;
 }
+
+void Indie::State::setIsGamePaused(bool isGamePaused)
+{
+    _isGamePaused = isGamePaused;
+}
+
+bool Indie::State::getIsGamePaused() const
+{
+    return _isGamePaused;
+}

@@ -12,10 +12,17 @@
 Indie::Scenes::SMenu::SMenu(Raylib &raylib, Indie::State &state) : AScene(raylib, state)
 {
     std::cout << "SMenu init" << std::endl;
+
+    // Vector2 windowSize = _Raylib.getScreenSize();
+    // ImageResize(&_backgroundImage, windowSize.x, windowSize.y);
+    // _backgroundTexture = LoadTextureFromImage(_backgroundImage);
+
 }
 
 Indie::Scenes::SMenu::~SMenu()
-{}
+{
+    std::cout << "SMenu destructor" << std::endl;
+}
 
 void Indie::Scenes::SMenu::event()
 {
@@ -30,25 +37,50 @@ void Indie::Scenes::SMenu::event()
     }
 }
 
-void Indie::Scenes::SMenu::display() {
-    DrawScope _(_Raylib);
-    Vector2 screenSize = _Raylib.getScreenSize();
+void Indie::Scenes::SMenu::displayBackground()
+{
+    // Image background = LoadImage("assets/Menu/menu_background.png");
+    // Texture2D tBackground = LoadTextureFromImage(background);
+    // DrawTexture(tBackground, 0, 0, WHITE);
+    // UnloadImage(background);
+    // UnloadTexture(tBackground);
+    // TODO: init background in a constructor
+}
+
+void Indie::Scenes::SMenu::displayButtons()
+{
+
+}
+
+void Indie::Scenes::SMenu::displayTexts()
+{
+    Vector2 windowSize = _Raylib.getScreenSize();
     Vector2 textSize;
     std::string text;
     Font font = _Raylib.getDefaultFont();
+    int fontSize = 0;
 
     text = "IndieStudio";
-    textSize = _Raylib.measureTextEx(GetFontDefault(), text.c_str(), 70);
+    fontSize = windowSize.x / 27.5;
+    textSize = _Raylib.measureTextEx(GetFontDefault(), text.c_str(), fontSize);
     _Raylib.drawTextEx(
         font, text,
-        {screenSize.x / 2 - textSize.x / 2, screenSize.y / 4 - textSize.y / 2},
+        {windowSize.x / 2 - textSize.x / 2, windowSize.y / 4 - textSize.y / 2},
         70, BLACK
     );
     text = "Bomberman";
+    fontSize = windowSize.x / 38.4;
     textSize = _Raylib.measureTextEx(GetFontDefault(), text.c_str(), 50);
     _Raylib.drawTextEx(
         font, text,
-        {screenSize.x / 2 - textSize.x / 2, screenSize.y / 4 + textSize.y / 2},
+        {windowSize.x / 2 - textSize.x / 2, windowSize.y / 4 + textSize.y / 2},
         50, BLACK
     );
+}
+
+void Indie::Scenes::SMenu::display() {
+    DrawScope _(_Raylib);
+    displayBackground();
+    displayButtons();
+    displayTexts();
 }

@@ -20,9 +20,9 @@ namespace Indie
             public:
                 SHud(Raylib &raylib, Indie::State &state);
                 ~SHud();
-                void event() override;
+                void event() {};
                 void display() override;
             private:
         };
-    }
-}
+    };
+};

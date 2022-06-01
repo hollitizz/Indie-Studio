@@ -23,6 +23,10 @@ namespace Indie
                 void event() override;
                 void display() override;
             private:
+                void displayBackground();
+                void displayButtons();
+                void displayTexts();
+                Texture2D _backgroundTexture;
         };
     }
 }

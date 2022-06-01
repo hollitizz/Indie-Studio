@@ -21,6 +21,7 @@ void Indie::Scenes::SSettings::event()
 {
     if (_Raylib.isKeyPressed(KEY_ESCAPE)) {
         _State.setGameScene(Indie::Scenes::Hud);
+        _State.setIsGamePaused(false);
         std::cout << "Hud" << std::endl;
     }
     if (_Raylib.isKeyPressed(KEY_B)) {

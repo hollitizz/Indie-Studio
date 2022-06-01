@@ -19,7 +19,10 @@ namespace Indie
             void setGameScene(Indie::Scenes::Type scene);
             Indie::Scenes::Type getScene() const;
             Indie::Scenes::Type getGameScene() const;
+            void setIsGamePaused(bool isGamePaused);
+            bool getIsGamePaused() const;
         private:
+            bool _isGamePaused = false;
             Indie::Scenes::Type _sceneCurrent;
             Indie::Scenes::Type _sceneGameCurrent;
     };

@@ -28,11 +28,19 @@ Indie::Scenes::SGame::~SGame()
 
 void Indie::Scenes::SGame::event()
 {
+    if (_State.getIsGamePaused()) {
+        _scenes[_State.getGameScene()]->event();
+        return;
+    }
     if (_Raylib.isKeyPressed(KEY_M)) {
         _State.setScene(Indie::Scenes::Menu);
         std::cout << "SMenu" << std::endl;
     }
-    _scenes[_State.getGameScene()]->event();
+    if (_Raylib.isKeyPressed(KEY_ESCAPE)) {
+        _State.setGameScene(Indie::Scenes::Pause);
+        _State.setIsGamePaused(true);
+        std::cout << "Pause" << std::endl;
+    }
 }
 
 void Indie::Scenes::SGame::display()
