@@ -21,6 +21,7 @@ namespace Indie
                 SPause(Raylib &raylib, Indie::State &state);
                 ~SPause();
                 void event() override;
+                void display() override;
             private:
         };
     }

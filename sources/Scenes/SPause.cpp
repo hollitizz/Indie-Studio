@@ -31,3 +31,8 @@ void Indie::Scenes::SPause::event()
         std::cout << "Exit" << std::endl;
     }
 }
+
+void Indie::Scenes::SPause::display()
+{
+    _Raylib.drawText("SPause", {10, 25}, 20, BLACK);
+}

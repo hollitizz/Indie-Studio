@@ -27,6 +27,12 @@ void Raylib::closeWindow()
     CloseWindow();
 }
 
+Vector2 Raylib::getScreenSize() const
+{
+    return {GetScreenWidth(), GetScreenHeight()};
+}
+
+
 bool Raylib::isOpen()
 {
     return !WindowShouldClose();
@@ -49,6 +55,11 @@ Camera Raylib::getCamera() const
 void Raylib::drawText(const std::string &text, Vector2 pos, float scale, Color color)
 {
     DrawText(text.c_str(), pos.x, pos.y, scale, color);
+}
+
+void Raylib::drawTextEx(Font font, const std::string &text, Vector2 pos, float scale, float spacing, Color color)
+{
+    DrawTextEx(font, text.c_str(), {pos.x, pos.y}, scale, spacing, color);
 }
 
 void Raylib::drawFps(const Vector2 &pos)

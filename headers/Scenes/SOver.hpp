@@ -21,6 +21,7 @@ namespace Indie
                 SOver(Raylib &raylib, Indie::State &state);
                 ~SOver();
                 void event() override;
+                void display() override;
             private:
         };
     }

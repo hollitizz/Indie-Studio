@@ -21,6 +21,7 @@ namespace Indie
                 SSettings(Raylib &raylib, Indie::State &state);
                 ~SSettings();
                 void event() override;
+                void display() override;
             private:
         };
     }

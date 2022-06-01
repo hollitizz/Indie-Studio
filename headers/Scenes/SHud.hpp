@@ -21,6 +21,7 @@ namespace Indie
                 SHud(Raylib &raylib, Indie::State &state);
                 ~SHud();
                 void event() override;
+                void display() override;
             private:
         };
     }

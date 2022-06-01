@@ -28,3 +28,13 @@ void Indie::Scenes::SMenu::event()
         std::cout << "SGame" << std::endl;
     }
 }
+
+void Indie::Scenes::SMenu::display() {
+    Vector2 screenSize = _Raylib.getScreenSize();
+    // Vector2 textSize;
+    // std::string text;
+
+    // text = "IndieStudio";
+    // textSize = MeasureTextEx(GetFontDefault(), text.c, 70);
+    // _Raylib.drawText("Indie Studio", {screenSize.x / 2, screenSize.y / 2}, 70, BLACK);
+}

@@ -23,3 +23,8 @@ void Indie::Scenes::SHud::event()
         std::cout << "Pause" << std::endl;
     }
 }
+
+void Indie::Scenes::SHud::display()
+{
+    _Raylib.drawText("SHud", {10, 25}, 20, BLACK);
+}

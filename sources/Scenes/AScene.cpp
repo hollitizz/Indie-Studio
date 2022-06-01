@@ -7,7 +7,8 @@
 
 #include "AScene.hpp"
 
-Indie::Scenes::AScene::AScene(Raylib &raylib, Indie::State &state) : _Raylib(raylib), _State(state)
+Indie::Scenes::AScene::AScene(Raylib &raylib, Indie::State &state):
+_Raylib(raylib), _State(state)
 {}
 
 void Indie::Scenes::AScene::start()
@@ -21,7 +22,7 @@ void Indie::Scenes::AScene::stop()
     EndDrawing();
 }
 
-void Indie::Scenes::AScene::display()
+void Indie::Scenes::AScene::displayAll()
 {
     _Raylib.drawFps({10, 10});
 }

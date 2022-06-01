@@ -19,5 +19,5 @@ namespace Indie
             Settings,
             Over
         };
-    }    
+    };
 };

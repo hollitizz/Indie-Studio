@@ -31,3 +31,8 @@ void Indie::Scenes::SSettings::event()
         std::cout << "Exit" << std::endl;
     }
 }
+
+void Indie::Scenes::SSettings::display()
+{
+    _Raylib.drawText("SSettings", {10, 25}, 20, BLACK);
+}

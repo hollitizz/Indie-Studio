@@ -32,8 +32,10 @@ class Raylib {
         Camera getCamera() const;
 
         void drawText(const std::string &text, Vector2 pos, float scale, Color color);
+        void drawTextEx(Font font, const std::string &text, Vector2 pos, float scale, float spacing, Color color);
         void drawFps(const Vector2 &pos);
 
+        Vector2 getScreenSize() const;
         char getPressedCharacter() const;
         int getKeyPressed() const;
         bool isKeyPressed(int button) const;

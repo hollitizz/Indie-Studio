@@ -20,3 +20,8 @@ void Indie::Scenes::SOver::event()
 {
     if (_Raylib.isKeyPressed(KEY_ESCAPE)) {}
 }
+
+void Indie::Scenes::SOver::display()
+{
+    _Raylib.drawText("SOver", {10, 25}, 20, BLACK);
+}

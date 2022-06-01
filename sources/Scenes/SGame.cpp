@@ -33,3 +33,9 @@ void Indie::Scenes::SGame::event()
     }
     _scenes[_State.getGameScene()]->event();
 }
+
+void Indie::Scenes::SGame::display()
+{
+    _Raylib.drawText("SGame", {10, 10}, 20, BLACK);
+    _scenes[_State.getGameScene()]->display();
+}

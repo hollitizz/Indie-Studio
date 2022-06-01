@@ -21,6 +21,7 @@ namespace Indie
                 SMenu(Raylib &raylib, State &state);
                 ~SMenu();
                 void event() override;
+                void display() override;
             private:
         };
     }

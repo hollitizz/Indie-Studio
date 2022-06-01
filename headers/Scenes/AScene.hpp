@@ -22,7 +22,8 @@ namespace Indie
                 ~AScene() = default;
                 virtual void start();
                 virtual void stop();
-                virtual void display();
+                virtual void displayAll();
+                virtual void display() = 0;
                 virtual void event() = 0;
             protected:
                 Raylib &_Raylib;
