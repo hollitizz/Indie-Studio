@@ -10,6 +10,8 @@
 #include "AScene.hpp"
 #include "Raylib.hpp"
 #include "State.hpp"
+#include "Button.hpp"
+#include <vector>
 
 namespace Indie
 {
@@ -27,6 +29,7 @@ namespace Indie
                 void displayButtons();
                 void displayTexts();
                 Texture2D _backgroundTexture;
+                std::vector<std::shared_ptr<Button>> _buttons;
         };
     }
 }

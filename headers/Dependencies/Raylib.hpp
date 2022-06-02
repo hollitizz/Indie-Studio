@@ -42,7 +42,8 @@ class Raylib {
         Vector2 measureTextEx(Font, std::string text, int scale) const;
         Vector2 measureTextEx(Font, std::string text, int scale, int spacing) const;
         void drawFps(const Vector2 &pos);
-
+        void drawTexture(Texture2D texture, Vector2 position);
+        void drawRectangleRec(Rectangle &rec, Color color);
         Font getDefaultFont() const;
 
         Vector2 getScreenSize() const;
@@ -54,8 +55,11 @@ class Raylib {
         bool isMousePressed() const;
         bool isMouseDown() const;
         bool isMouseReleased() const;
+        bool checkCollisionPointRec(Rectangle &rec, const Vector2 &point) const;
         Vector2 getMousePosition() const;
 
+        Texture2D loadTexture(const std::string path);
+        void unloadTexture(Texture2D texture);
     protected:
     private:
         std::pair<int, int> _screenSize;

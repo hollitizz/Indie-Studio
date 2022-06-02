@@ -5,6 +5,7 @@
 ** Raylib
 */
 
+#include <iostream>
 #include "Raylib.hpp"
 
 Raylib::Raylib()
@@ -106,6 +107,16 @@ void Raylib::drawFps(const Vector2 &pos)
     DrawFPS(pos.x, pos.y);
 }
 
+void Raylib::drawTexture(Texture2D texture, Vector2 position)
+{
+    DrawTexture(texture, position.x, position.y, WHITE);
+}
+
+void Raylib::drawRectangleRec(Rectangle &rec, Color color)
+{
+    DrawRectangleRec(rec, color);
+}
+
 Font Raylib::getDefaultFont() const
 {
     return GetFontDefault();
@@ -123,7 +134,7 @@ int Raylib::getKeyPressed() const
 
 bool Raylib::isKeyPressed(int button) const
 {
-    return (GetKeyPressed() == button);
+    return IsKeyPressed(button);
 }
 
 bool Raylib::isKeyReleased(int button) const
@@ -146,7 +157,27 @@ bool Raylib::isMouseReleased() const
     return IsMouseButtonReleased(MOUSE_BUTTON_LEFT);
 }
 
+bool Raylib::checkCollisionPointRec(Rectangle &rec, const Vector2 &point) const
+{
+    return CheckCollisionPointRec(point, rec);
+}
+
 Vector2 Raylib::getMousePosition() const
 {
     return GetMousePosition();
+}
+
+Texture2D Raylib::loadTexture(const std::string path)
+{
+    Image image = LoadImage(path.c_str());
+    Vector2 windowSize = getScreenSize();
+    ImageResize(&image, windowSize.x, windowSize.y);
+    Texture2D texture = LoadTextureFromImage(image);
+    UnloadImage(image);
+    return texture;
+}
+
+void Raylib::unloadTexture(Texture2D texture)
+{
+    UnloadTexture(texture);
 }
