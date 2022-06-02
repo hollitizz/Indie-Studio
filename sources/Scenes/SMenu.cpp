@@ -12,6 +12,7 @@
 
 Indie::Scenes::SMenu::SMenu(Raylib &raylib, Indie::State &state) : AScene(raylib, state)
 {
+    Vector2 windowSize = _Raylib.getScreenSize();
     std::cout << "SMenu init" << std::endl;
 
     _backgroundTexture = _Raylib.loadTexture("assets/Menu/menu_background.png");
@@ -19,20 +20,24 @@ Indie::Scenes::SMenu::SMenu(Raylib &raylib, Indie::State &state) : AScene(raylib
         std::make_shared<Indie::Scenes::BPlay>(
             raylib,
             state,
-            Vector2{200, 100},
-            Vector2{100, 100},
+            Vector2{300, 70},
+            Vector2{windowSize.x / 2 - 150, windowSize.y / 2 - 50},
             "Play",
             50,
-            _Raylib.getDefaultFont())
+            _Raylib.getDefaultFont(),
+            ButtonColor{BLUE, ORANGE, RED}
+        )
     );
     _buttons.push_back(
         std::make_shared<Indie::Scenes::BExit>(
             raylib,
-            Vector2{200, 100},
-            Vector2{100, 250},
+            state,
+            Vector2{300, 70},
+            Vector2{windowSize.x / 2 - 150, windowSize.y / 2 + 30},
             "Exit",
             50,
-            _Raylib.getDefaultFont()
+            _Raylib.getDefaultFont(),
+            ButtonColor{BLUE, ORANGE, RED}
         )
     );
 }
@@ -47,12 +52,14 @@ void Indie::Scenes::SMenu::event()
 {
     for (auto &button : _buttons) {
         button->event();
+        if (button->getBtnAction())
+            break;
     }
     if (_Raylib.isKeyPressed(KEY_ESCAPE)) {
         _Raylib.closeWindow();
         std::cout << "Exit Game" << std::endl;
     }
-    if (_Raylib.isKeyPressed('G')) {
+    if (_Raylib.isKeyPressed(KEY_G)) {
         _State.setScene(Indie::Scenes::Game);
         _State.setGameScene(Indie::Scenes::Hud);
         std::cout << "SGame" << std::endl;

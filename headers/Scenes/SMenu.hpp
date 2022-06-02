@@ -10,7 +10,8 @@
 #include "AScene.hpp"
 #include "Raylib.hpp"
 #include "State.hpp"
-#include "Button.hpp"
+#include "BExit.hpp"
+#include "BPlay.hpp"
 #include <vector>
 
 namespace Indie
