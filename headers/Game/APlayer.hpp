@@ -6,22 +6,27 @@
 */
 
 #pragma once
-#include "raylib.h"
+#include "Raylib.hpp"
+#include "Map.hpp"
+#include <iostream>
+#include <array>
 
 namespace Indie {
     namespace Game {
         class APlayer {
             public:
-                APlayer(Raylib &raylib, bool isAi, Vector2 position, std::string texturePath);
-                ~APlayer();
+                APlayer(Raylib &raylib, Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath);
+                ~APlayer() = default;
+                virtual void display();
+                virtual bool getIsAlive() const;
+                virtual void move() = 0;
             protected:
-            private:
-                bool isAlive = true;
                 Raylib &_Raylib;
-                bool isAi;
-
-                Vector3 position;
-                Texture2D texture;
+                Map &_Map;
+                bool _isAlive = true;
+                Vector3 _position;
+                Texture2D _texture;
+                std::array<KeyboardKey, 5> _keyMap;
         };
     };
 };

@@ -31,7 +31,7 @@ namespace Indie {
                 virtual void event();
                 virtual void display();
 
-                bool getBtnAction() const;
+                virtual bool getBtnAction() const;
 
                 enum ButtonType {
                     Normal,

@@ -6,18 +6,17 @@
 */
 
 #pragma once
-#include "raylib.h"
 #include "APlayer.hpp"
 
 namespace Indie {
     namespace Game {
         class Human: public APlayer {
             public:
-                Human(Raylib &raylib, bool isAi, Vector2 position, std::string texturePath);
-                ~Human();
+                Human(Raylib &raylib, Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath);
+                virtual ~Human();
+                void move() override;
             protected:
             private:
-                Raylib &_Raylib;
         };
     };
 };

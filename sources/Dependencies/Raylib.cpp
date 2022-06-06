@@ -134,6 +134,11 @@ void Raylib::drawModel(Model model, Vector3 position)
     DrawModel(model, position, 1, WHITE);
 }
 
+void Raylib::drawCubeTexture(Texture2D texture, Vector3 position)
+{
+    DrawCubeTexture(texture, position, 0.5, 1, 0.5, WHITE);
+}
+
 void Raylib::drawRectangleRec(Rectangle &rec, Color color)
 {
     DrawRectangleRec(rec, color);

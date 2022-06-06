@@ -16,7 +16,10 @@ namespace Indie {
             public:
                 Map(Raylib &raylib, Vector3 mapPosition);
                 ~Map();
-                void display();
+                void display() const;
+                Texture2D getCubicmap() const;
+                Vector3 getMapPosition() const;
+                std::vector<Color> getMapPixels() const;
             protected:
             private:
                 Raylib &_Raylib;

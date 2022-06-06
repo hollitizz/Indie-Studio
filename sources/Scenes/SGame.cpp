@@ -12,9 +12,17 @@
 #include "SSettings.hpp"
 #include "SOver.hpp"
 #include "DrawScope.hpp"
+#include <array>
 
 Indie::Scenes::SGame::SGame(Raylib &raylib, Indie::State &state) :
-    AScene(raylib, state), _Map(Indie::Game::Map(raylib, _mapPosition))
+    AScene(raylib, state), _Map(Indie::Game::Map(raylib, _mapPosition)),
+    player1(std::make_shared<Indie::Game::Human>(
+        _Raylib,
+        _Map,
+        Vector2{-6, -7},
+        std::array<KeyboardKey, 5>{KEY_Q, KEY_W, KEY_S, KEY_A, KEY_D},
+        std::string("assets/Game/Player/textures/player1.png")
+    ))
 {
     std::cout << "SGame init" << std::endl;
     _State.setGameScene(Indie::Scenes::Hud);
@@ -22,6 +30,14 @@ Indie::Scenes::SGame::SGame(Raylib &raylib, Indie::State &state) :
     _scenes[Indie::Scenes::Pause] = std::make_shared<Indie::Scenes::SPause>(_Raylib, _State);
     _scenes[Indie::Scenes::Settings] = std::make_shared<Indie::Scenes::SSettings>(_Raylib, _State);
     _scenes[Indie::Scenes::Over] = std::make_shared<Indie::Scenes::SOver>(_Raylib, _State);
+
+    // _Players.push_back(std::make_shared<Indie::Game::Human>(
+    //     _Raylib,
+    //     _Map,
+    //     Vector2{-6, -7},
+    //     std::array<KeyboardKey, 5>{KEY_Q, KEY_W, KEY_S, KEY_A, KEY_D},
+    //     std::string("assets/Game/Player/textures/player1.png")
+    // ));
 }
 
 Indie::Scenes::SGame::~SGame()
@@ -34,6 +50,11 @@ void Indie::Scenes::SGame::event()
         _scenes[_State.getGameScene()]->event();
         return;
     }
+    // for (auto &Player : _Players) {
+    //     if (Player->getIsAlive())
+    //         Player->move();
+    // }
+    player1->move();
     if (_Raylib.isKeyPressed(KEY_M)) {
         _State.setScene(Indie::Scenes::Menu);
         std::cout << "SMenu" << std::endl;
@@ -51,7 +72,9 @@ void Indie::Scenes::SGame::diplay3DScope()
 
     _Map.display();
     // for (auto &Player : _Players)
-    //     Player.display();
+    //     if (Player->getIsAlive())
+    //         Player->display();
+    player1->display();
 }
 
 

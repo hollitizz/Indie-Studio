@@ -28,8 +28,22 @@ Indie::Game::Map::~Map()
     std::cout << "Map destructor" << std::endl;
 }
 
-void Indie::Game::Map:: display()
+void Indie::Game::Map:: display() const
 {
     _Raylib.drawModel(_model, _mapPosition);
 }
 
+Texture2D Indie::Game::Map::getCubicmap() const
+{
+    return _cubicmap;
+}
+
+Vector3 Indie::Game::Map::getMapPosition() const
+{
+    return _mapPosition;
+}
+
+std::vector<Color> Indie::Game::Map::getMapPixels() const
+{
+    return _mapPixels;
+}

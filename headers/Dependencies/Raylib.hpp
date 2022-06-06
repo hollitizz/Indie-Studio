@@ -47,6 +47,7 @@ class Raylib {
         void drawFps(const Vector2 &pos);
         void drawTexture(Texture2D texture, Vector2 position);
         void drawModel(Model model, Vector3 position);
+        void drawCubeTexture(Texture2D texture, Vector3 position);
         void drawRectangleRec(Rectangle &rec, Color color);
         Font getDefaultFont() const;
 

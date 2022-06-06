@@ -15,9 +15,9 @@ namespace Indie {
             public:
                 AI(Raylib &raylib, bool isAi, Vector2 position, std::string texturePath);
                 ~AI();
+                void move() override;
             protected:
             private:
-                Raylib &_Raylib;
         };
     };
 };
