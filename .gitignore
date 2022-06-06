@@ -13,4 +13,6 @@
 !sources/*
 !sources/**/*
 
+test.cpp
+
 !CMakeLists.txt

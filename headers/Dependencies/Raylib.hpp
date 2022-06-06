@@ -28,13 +28,16 @@ class Raylib {
         void closeWindow();
         bool isOpen();
 
-        void beginDrawing();
         void clearBackground();
         void clearBackground(Color color);
+        void beginDrawing();
         void endDrawing();
+        void start3D();
+        void end3D();
 
         void setCamera(Vector3 pos, Vector3 target, Vector3 up, float fovy, int projection);
         Camera getCamera() const;
+        void updateCamera();
 
         void drawText(const std::string &text, Vector2 pos, float scale, Color color);
         void drawTextEx(Font font, const std::string &text, Vector2 pos, float scale, Color color);
@@ -43,6 +46,7 @@ class Raylib {
         Vector2 measureTextEx(Font, std::string text, int scale, int spacing) const;
         void drawFps(const Vector2 &pos);
         void drawTexture(Texture2D texture, Vector2 position);
+        void drawModel(Model model, Vector3 position);
         void drawRectangleRec(Rectangle &rec, Color color);
         Font getDefaultFont() const;
 
@@ -58,10 +62,17 @@ class Raylib {
         bool checkCollisionPointRec(Rectangle &rec, const Vector2 &point) const;
         Vector2 getMousePosition() const;
 
+        Image loadImage(std::string fileName) const;
         Texture2D loadTexture(const std::string path);
+        Texture2D loadTextureFromImage(Image image);
+        Mesh genMeshCubicmap(Image image, Vector3 cubeSize);
+        Model loadModelFromMesh(Mesh mesh, Texture2D mapTexture);
+        std::vector<Color> loadImageColors(Image image);
+        void unloadModel(Model model);
+        void unloadImage(Image image);
         void unloadTexture(Texture2D texture);
     protected:
     private:
-        std::pair<int, int> _screenSize;
         Camera _camera;
+        std::pair<int, int> _screenSize;
 };

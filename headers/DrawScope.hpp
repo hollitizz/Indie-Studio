@@ -27,12 +27,11 @@ class Draw3DScope {
     public:
         Draw3DScope(Raylib &raylib): _Raylib(raylib)
         {
-            _Raylib.beginDrawing();
-            _Raylib.clearBackground();
+            _Raylib.start3D();
         };
         ~Draw3DScope()
         {
-            _Raylib.endDrawing();
+            _Raylib.end3D();
         };
     private:
         Raylib &_Raylib;

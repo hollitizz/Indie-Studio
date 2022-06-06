@@ -106,6 +106,7 @@ void Indie::Scenes::SMenu::displayTexts()
 
 void Indie::Scenes::SMenu::display() {
     DrawScope _(_Raylib);
+
     displayBackground();
     displayButtons();
     displayTexts();

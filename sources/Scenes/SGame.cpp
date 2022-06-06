@@ -13,7 +13,8 @@
 #include "SOver.hpp"
 #include "DrawScope.hpp"
 
-Indie::Scenes::SGame::SGame(Raylib &raylib, Indie::State &state) : AScene(raylib, state)
+Indie::Scenes::SGame::SGame(Raylib &raylib, Indie::State &state) :
+    AScene(raylib, state), _Map(Indie::Game::Map(raylib, _mapPosition))
 {
     std::cout << "SGame init" << std::endl;
     _State.setGameScene(Indie::Scenes::Hud);
@@ -24,7 +25,8 @@ Indie::Scenes::SGame::SGame(Raylib &raylib, Indie::State &state) : AScene(raylib
 }
 
 Indie::Scenes::SGame::~SGame()
-{}
+{
+}
 
 void Indie::Scenes::SGame::event()
 {
@@ -43,10 +45,22 @@ void Indie::Scenes::SGame::event()
     }
 }
 
+void Indie::Scenes::SGame::diplay3DScope()
+{
+    Draw3DScope _(_Raylib);
+
+    _Map.display();
+    // for (auto &Player : _Players)
+    //     Player.display();
+}
+
+
 void Indie::Scenes::SGame::display()
 {
     DrawScope _(_Raylib);
 
     _Raylib.drawText("SGame", {10, 10}, 20, BLACK);
-    _scenes[_State.getGameScene()]->display();
+    diplay3DScope();
+    // _scenes[_State.getGameScene()]->display();
+    _Raylib.drawFps({10, 30});
 }

@@ -46,22 +46,32 @@ bool Raylib::isOpen()
 void Raylib::beginDrawing()
 {
     BeginDrawing();
-};
-
-void Raylib::clearBackground()
-{
-    ClearBackground(WHITE);
-};
-
-void Raylib::clearBackground(Color color)
-{
-    ClearBackground(color);
-};
+}
 
 void Raylib::endDrawing()
 {
     EndDrawing();
-};
+}
+
+void Raylib::start3D()
+{
+    BeginMode3D(_camera);
+}
+
+void Raylib::end3D()
+{
+    EndMode3D();
+}
+
+void Raylib::clearBackground()
+{
+    ClearBackground(WHITE);
+}
+
+void Raylib::clearBackground(Color color)
+{
+    ClearBackground(color);
+}
 
 void Raylib::setCamera(Vector3 pos, Vector3 target, Vector3 up, float fovy, int projection)
 {
@@ -70,11 +80,18 @@ void Raylib::setCamera(Vector3 pos, Vector3 target, Vector3 up, float fovy, int 
     _camera.up = up;
     _camera.fovy = fovy;
     _camera.projection = projection;
+    updateCamera();
+    SetCameraMode(_camera, CAMERA_FREE);
 }
 
 Camera Raylib::getCamera() const
 {
     return _camera;
+}
+
+void Raylib::updateCamera()
+{
+    UpdateCamera(&_camera);
 }
 
 void Raylib::drawText(const std::string &text, Vector2 pos, float scale, Color color)
@@ -110,6 +127,11 @@ void Raylib::drawFps(const Vector2 &pos)
 void Raylib::drawTexture(Texture2D texture, Vector2 position)
 {
     DrawTexture(texture, position.x, position.y, WHITE);
+}
+
+void Raylib::drawModel(Model model, Vector3 position)
+{
+    DrawModel(model, position, 1, WHITE);
 }
 
 void Raylib::drawRectangleRec(Rectangle &rec, Color color)
@@ -167,6 +189,11 @@ Vector2 Raylib::getMousePosition() const
     return GetMousePosition();
 }
 
+Image Raylib::loadImage(std::string fileName) const
+{
+    return LoadImage(fileName.c_str());
+}
+
 Texture2D Raylib::loadTexture(const std::string path)
 {
     Image image = LoadImage(path.c_str());
@@ -177,7 +204,46 @@ Texture2D Raylib::loadTexture(const std::string path)
     return texture;
 }
 
+Texture2D Raylib::loadTextureFromImage(Image image)
+{
+    return LoadTextureFromImage(image);
+}
+
+Mesh Raylib::genMeshCubicmap(Image image, Vector3 cubeSize)
+{
+    return GenMeshCubicmap(image, cubeSize);
+}
+
+Model Raylib::loadModelFromMesh(Mesh mesh, Texture2D mapTexture)
+{
+    Model model = LoadModelFromMesh(mesh);
+    model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = mapTexture;
+    return model;
+}
+
+std::vector<Color> Raylib::loadImageColors(Image image)
+{
+    std::vector<Color> colors;
+    Color *color_array = LoadImageColors(image);
+
+    for (int i = 0; i < image.width * image.height; i++) {
+        colors.push_back(color_array[i]);
+    }
+    UnloadImageColors(color_array);
+    return colors;
+}
+
+void Raylib::unloadImage(Image image)
+{
+    UnloadImage(image);
+}
+
 void Raylib::unloadTexture(Texture2D texture)
 {
     UnloadTexture(texture);
+}
+
+void Raylib::unloadModel(Model model)
+{
+    UnloadModel(model);
 }
