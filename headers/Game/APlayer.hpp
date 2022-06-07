@@ -17,8 +17,8 @@ namespace Indie {
             public:
                 APlayer(Raylib &raylib, Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath);
                 ~APlayer() = default;
-                virtual void display();
-                virtual bool getIsAlive() const;
+                void display() const;
+                bool getIsAlive() const;
                 virtual void move() = 0;
             protected:
                 Raylib &_Raylib;

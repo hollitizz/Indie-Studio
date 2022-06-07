@@ -6,15 +6,18 @@
 */
 
 #include <array>
+#include "Raylib.hpp"
 
-static typedef Vector2_s {
-    x;
-    y;
-} Vector2;
+const std::array<Vector2, 4> PLAYER_STARTS_POSITION = {
+    Vector2{-6, -7},
+    Vector2{6, -7},
+    Vector2{6, 5},
+    Vector2{-6, 5}
+};
 
-const std::Array<Vector2, 4> PLAYER_STARTS_POSITION = {
-    {-6, -7},
-    {0, 0},
-    {0, 0},
-    {0, 0}
+const std::array<std::array<KeyboardKey, 5>, 4> PLAYER_KEY_MAP = {
+    std::array<KeyboardKey, 5> {KEY_Q, KEY_W, KEY_S, KEY_A, KEY_D},
+    std::array<KeyboardKey, 5> {KEY_M, KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT},
+    std::array<KeyboardKey, 5> {KEY_M, KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT},
+    std::array<KeyboardKey, 5> {KEY_M, KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT}
 };

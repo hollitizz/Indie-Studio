@@ -36,7 +36,7 @@ INCLUDE_DIRECTORIES(headers/Scenes/Button)
 INCLUDE_DIRECTORIES(headers/Dependencies/)
 INCLUDE_DIRECTORIES(headers/Menu)
 INCLUDE_DIRECTORIES(headers/Game)
-FILE(GLOB SOURCES sources/Menu/* sources/Game/* sources/Dependencies/*.cpp sources/Scenes/*.cpp sources/Scenes/Button/*.cpp sources/Bomberman.cpp sources/State.cpp sources/main.cpp)
+FILE(GLOB SOURCES sources/Menu/*.cpp sources/Game/*.cpp sources/Dependencies/*.cpp sources/Scenes/*.cpp sources/Scenes/Button/*.cpp sources/Bomberman.cpp sources/State.cpp sources/main.cpp)
 
 ADD_EXECUTABLE(bomberman ${SOURCES})
 TARGET_LINK_LIBRARIES(bomberman raylib)

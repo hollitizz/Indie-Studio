@@ -56,6 +56,7 @@ class Raylib {
         int getKeyPressed() const;
         bool isKeyPressed(int button) const;
         bool isKeyReleased(int button) const;
+        bool isKeyDown(int button) const;
 
         bool isMousePressed() const;
         bool isMouseDown() const;

@@ -169,6 +169,11 @@ bool Raylib::isKeyReleased(int button) const
     return IsKeyReleased(button);
 }
 
+bool Raylib::isKeyDown(int button) const
+{
+    return IsKeyDown(button);
+}
+
 bool Raylib::isMousePressed() const
 {
     return IsMouseButtonPressed(MOUSE_BUTTON_LEFT);

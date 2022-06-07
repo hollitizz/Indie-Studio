@@ -33,8 +33,7 @@ namespace Indie
                 Indie::Game::Map _Map;
                 void diplay3DScope();
                 std::map<Scenes::Type, std::shared_ptr<Scenes::IScene>> _scenes;
-                std::shared_ptr<Indie::Game::APlayer> player1;
-                // std::vector<std::shared_ptr<Indie::Game::APlayer>> _Players;
+                std::vector<std::shared_ptr<Indie::Game::APlayer>> _Players;
         };
     }
 }

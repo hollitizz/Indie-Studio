@@ -14,7 +14,7 @@ Indie::Game::APlayer::APlayer(Raylib &raylib, Map &map, Vector2 position, std::a
     _position = {position.x, _Map.getMapPosition().y + 0.5f, position.y};
 }
 
-void Indie::Game::APlayer::display()
+void Indie::Game::APlayer::display() const
 {
     _Raylib.drawCubeTexture(_texture, _position);
 }

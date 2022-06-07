@@ -18,19 +18,21 @@ Indie::Game::Human::~Human()
 
 void Indie::Game::Human::move()
 {
-    Vector2 playerPos = { _position.x, _position.z };
     Vector3 mapPosition = _Map.getMapPosition();
     Texture2D cubicmap = _Map.getCubicmap();
     std::vector<Color> mapPixels = _Map.getMapPixels();
     float playerRadius = 0.25;
-    int playerCellX = playerPos.x - mapPosition.x + 0.5;
-    int playerCellY = playerPos.y - mapPosition.z + 0.5;
+    Vector3 oldPlayerPosition = _position;
 
     // if (IsKeyDown(_keyMap[0])) putBomb();
-    if (IsKeyDown(_keyMap[1])) playerPos.y -= 0.1;// W
-    if (IsKeyDown(_keyMap[2])) playerPos.y += 0.1;// S
-    if (IsKeyDown(_keyMap[3])) playerPos.x -= 0.1;// A
-    if (IsKeyDown(_keyMap[4])) playerPos.x += 0.1;// D
+    if (_Raylib.isKeyDown(_keyMap[1])) _position.z -= 0.1;// Z
+    if (_Raylib.isKeyDown(_keyMap[2])) _position.z += 0.1;// S
+    if (_Raylib.isKeyDown(_keyMap[3])) _position.x -= 0.1;// A
+    if (_Raylib.isKeyDown(_keyMap[4])) _position.x += 0.1;// D
+
+    Vector2 playerPos = { _position.x, _position.z };
+    int playerCellX = playerPos.x - mapPosition.x + 0.5;
+    int playerCellY = playerPos.y - mapPosition.z + 0.5;
     if (playerCellX < 0)
         playerCellX = 0;
     else if (playerCellX >= cubicmap.width)
@@ -43,11 +45,20 @@ void Indie::Game::Human::move()
     {
         for (int x = 0; x < cubicmap.width; x++)
         {
-            if ((mapPixels[y*cubicmap.width + x].r == 255) &&
-                (CheckCollisionCircleRec(playerPos, playerRadius,
+            if (mapPixels[y*cubicmap.width + x].r == 255 &&
+                CheckCollisionCircleRec({playerPos.x, oldPlayerPosition.z}, playerRadius,
                 Rectangle {
-                    mapPosition.x - 0.5f + x, mapPosition.z - 0.5f + y, 1, 1})))
-                _position = {playerPos.x, _position.y, playerPos.y};
+                    mapPosition.x - 0.5f + x, mapPosition.z - 0.5f + y, 1, 1
+                    }
+                ))
+                _position.x = oldPlayerPosition.x;
+            if (mapPixels[y*cubicmap.width + x].r == 255 &&
+                CheckCollisionCircleRec({oldPlayerPosition.x, playerPos.y}, playerRadius,
+                Rectangle {
+                    mapPosition.x - 0.5f + x, mapPosition.z - 0.5f + y, 1, 1
+                    }
+                ))
+                _position.z = oldPlayerPosition.z;
         }
     }
 }
