@@ -55,14 +55,11 @@ void Indie::Scenes::SMenu::event()
         if (button->getBtnAction())
             break;
     }
-    if (_Raylib.isKeyPressed(KEY_ESCAPE)) {
+    if (_Raylib.isKeyPressed(KEY_ESCAPE))
         _Raylib.closeWindow();
-        std::cout << "Exit Game" << std::endl;
-    }
     if (_Raylib.isKeyPressed(KEY_G)) {
         _State.setScene(Indie::Scenes::Game);
         _State.setGameScene(Indie::Scenes::Hud);
-        std::cout << "SGame" << std::endl;
     }
 }
 

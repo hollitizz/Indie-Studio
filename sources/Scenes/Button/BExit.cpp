@@ -23,5 +23,4 @@ void Indie::Scenes::BExit::run()
 {
     _btnAction = true;
     _Raylib.closeWindow();
-    std::cout << "Exit Game" << std::endl;
 }

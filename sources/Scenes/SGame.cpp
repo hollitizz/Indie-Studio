@@ -24,20 +24,14 @@ Indie::Scenes::SGame::SGame(Raylib &raylib, Indie::State &state) :
     _scenes[Indie::Scenes::Pause] = std::make_shared<Indie::Scenes::SPause>(_Raylib, _State);
     _scenes[Indie::Scenes::Settings] = std::make_shared<Indie::Scenes::SSettings>(_Raylib, _State);
     _scenes[Indie::Scenes::Over] = std::make_shared<Indie::Scenes::SOver>(_Raylib, _State);
-    for (int i = 0; i < PLAYER_STARTS_POSITION.size(); ++i) {
-        _Players.push_back(std::make_shared<Indie::Game::Human>(
-            _Raylib,
-            _Map,
-            PLAYER_STARTS_POSITION[i],
-            PLAYER_KEY_MAP[i],
-            "assets/Game/Player/textures/player1.png"
-        ));
-    }
+    for (int i = 0; i < PLAYER_STARTS_POSITION.size(); ++i)
+        _Players.push_back(std::make_shared<Indie::Game::Human>(_Raylib, _Map,
+            PLAYER_STARTS_POSITION[i], PLAYER_KEY_MAP[i],
+            "assets/Game/Player/textures/player1.png"));
 }
 
 Indie::Scenes::SGame::~SGame()
-{
-}
+{}
 
 void Indie::Scenes::SGame::event()
 {
@@ -49,14 +43,9 @@ void Indie::Scenes::SGame::event()
         if (Player->getIsAlive())
             Player->move();
     }
-    // if (_Raylib.isKeyPressed(KEY_M)) {
-    //     _State.setScene(Indie::Scenes::Menu);
-    //     std::cout << "SMenu" << std::endl;
-    // }
     if (_Raylib.isKeyPressed(KEY_ESCAPE)) {
         _State.setGameScene(Indie::Scenes::Pause);
         _State.setIsGamePaused(true);
-        std::cout << "Pause" << std::endl;
     }
 }
 

@@ -22,16 +22,13 @@ void Indie::Scenes::SPause::event()
     if (_Raylib.isKeyPressed(KEY_ESCAPE)) {
         _State.setGameScene(Indie::Scenes::Hud);
         _State.setIsGamePaused(false);
-        std::cout << "Hud" << std::endl;
     }
-    if (_Raylib.isKeyPressed(KEY_S)) {
+    if (_Raylib.isKeyPressed(KEY_M))
+        _State.setScene(Indie::Scenes::Menu);
+    if (_Raylib.isKeyPressed(KEY_S))
         _State.setGameScene(Indie::Scenes::Settings);
-        std::cout << "Settings" << std::endl;
-    }
-    if (_Raylib.isKeyPressed(KEY_A)) {
+    if (_Raylib.isKeyPressed(KEY_A))
         _Raylib.closeWindow();
-        std::cout << "Exit" << std::endl;
-    }
 }
 
 void Indie::Scenes::SPause::display()
