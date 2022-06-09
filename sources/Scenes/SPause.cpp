@@ -19,10 +19,8 @@ Indie::Scenes::SPause::~SPause()
 
 void Indie::Scenes::SPause::event()
 {
-    if (_Raylib.isKeyPressed(KEY_ESCAPE)) {
+    if (_Raylib.isKeyPressed(KEY_ESCAPE))
         _State.setGameScene(Indie::Scenes::Hud);
-        _State.setIsGamePaused(false);
-    }
     if (_Raylib.isKeyPressed(KEY_M))
         _State.setScene(Indie::Scenes::Menu);
     if (_Raylib.isKeyPressed(KEY_S))

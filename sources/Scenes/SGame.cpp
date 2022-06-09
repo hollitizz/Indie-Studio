@@ -35,7 +35,7 @@ Indie::Scenes::SGame::~SGame()
 
 void Indie::Scenes::SGame::event()
 {
-    if (_State.getIsGamePaused()) {
+    if (_State.IsGamePaused()) {
         _scenes[_State.getGameScene()]->event();
         return;
     }
@@ -43,10 +43,8 @@ void Indie::Scenes::SGame::event()
         if (Player->getIsAlive())
             Player->move();
     }
-    if (_Raylib.isKeyPressed(KEY_ESCAPE)) {
+    if (_Raylib.isKeyPressed(KEY_ESCAPE))
         _State.setGameScene(Indie::Scenes::Pause);
-        _State.setIsGamePaused(true);
-    }
 }
 
 void Indie::Scenes::SGame::diplay3DScope()
