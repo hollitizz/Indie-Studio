@@ -7,16 +7,16 @@
 
 #include "Human.hpp"
 
-Indie::Game::Human::Human(Raylib &raylib, Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath):
+Indie::GameComponent::Human::Human(Raylib &raylib, Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath):
     APlayer(raylib, map, position, keyMap, texturePath)
 {}
 
-Indie::Game::Human::~Human()
+Indie::GameComponent::Human::~Human()
 {
     _Raylib.unloadTexture(_texture);
 }
 
-void Indie::Game::Human::move()
+void Indie::GameComponent::Human::move()
 {
     Vector3 mapPosition = _Map.getMapPosition();
     Texture2D cubicmap = _Map.getCubicmap();

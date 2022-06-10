@@ -6,33 +6,31 @@
 */
 
 #pragma once
-#include "Raylib.hpp"
+#include "Camera.hpp"
 
 class DrawScope {
     public:
-        DrawScope(Raylib &raylib): _Raylib(raylib)
+        DrawScope()
         {
-            _Raylib.beginDrawing();
-            _Raylib.clearBackground();
+            BeginDrawing();
+            ClearBackground(WHITE);
         };
         ~DrawScope()
         {
-            _Raylib.endDrawing();
+            EndDrawing();
         };
-    private:
-        Raylib &_Raylib;
 };
 
 class Draw3DScope {
     public:
-        Draw3DScope(Raylib &raylib): _Raylib(raylib)
+        Draw3DScope(Raylib::Camera camera)
         {
-            _Raylib.start3D();
+            BeginMode3D(camera.getCamera());
         };
+
         ~Draw3DScope()
         {
-            _Raylib.end3D();
+            EndMode3D();
         };
     private:
-        Raylib &_Raylib;
 };

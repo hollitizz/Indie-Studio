@@ -10,7 +10,7 @@
 #include "SMenu.hpp"
 #include "DrawScope.hpp"
 
-Indie::Scenes::SMenu::SMenu(Raylib &raylib, Indie::State &state) : AScene(raylib, state)
+Indie::Scenes::SMenu::SMenu(Indie::State &state) : AScene(state)
 {
     Vector2 windowSize = _Raylib.getScreenSize();
     std::cout << "SMenu init" << std::endl;
@@ -18,7 +18,6 @@ Indie::Scenes::SMenu::SMenu(Raylib &raylib, Indie::State &state) : AScene(raylib
     _backgroundTexture = _Raylib.loadTexture("assets/Menu/menu_background.png");
     _buttons.push_back(
         std::make_shared<Indie::Scenes::BPlay>(
-            raylib,
             state,
             Vector2{300, 70},
             Vector2{windowSize.x / 2 - 150, windowSize.y / 2 - 50},
@@ -80,7 +79,7 @@ void Indie::Scenes::SMenu::displayButtons()
 
 void Indie::Scenes::SMenu::displayTexts()
 {
-    Vector2 windowSize = _Raylib.getScreenSize();
+    Vector2 windowSize = getScreenSize();
     Vector2 textSize;
     std::string text;
     Font font = _Raylib.getDefaultFont();
@@ -105,7 +104,7 @@ void Indie::Scenes::SMenu::displayTexts()
 }
 
 void Indie::Scenes::SMenu::display() {
-    DrawScope _(_Raylib);
+    DrawScope _();
 
     displayBackground();
     displayButtons();

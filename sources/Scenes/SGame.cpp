@@ -16,7 +16,7 @@
 #include <array>
 
 Indie::Scenes::SGame::SGame(Raylib &raylib, Indie::State &state) :
-    AScene(raylib, state), _Map(Indie::Game::Map(raylib, _mapPosition))
+    AScene(raylib, state)
 {
     std::cout << "SGame init" << std::endl;
     _State.setGameScene(Indie::Scenes::Hud);
@@ -24,15 +24,7 @@ Indie::Scenes::SGame::SGame(Raylib &raylib, Indie::State &state) :
     _scenes[Indie::Scenes::Pause] = std::make_shared<Indie::Scenes::SPause>(_Raylib, _State);
     _scenes[Indie::Scenes::Settings] = std::make_shared<Indie::Scenes::SSettings>(_Raylib, _State);
     _scenes[Indie::Scenes::Over] = std::make_shared<Indie::Scenes::SOver>(_Raylib, _State);
-    for (int i = 0; i < PLAYER_STARTS_POSITION.size(); ++i) {
-        _Players.push_back(std::make_shared<Indie::Game::Human>(
-            _Raylib,
-            _Map,
-            PLAYER_STARTS_POSITION[i],
-            PLAYER_KEY_MAP[i],
-            "assets/Game/Player/textures/player1.png"
-        ));
-    }
+
 }
 
 Indie::Scenes::SGame::~SGame()

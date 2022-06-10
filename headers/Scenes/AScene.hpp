@@ -18,13 +18,12 @@ namespace Indie
     {
         class AScene : public IScene {
             public:
-                AScene(Raylib &raylib, State &state);
+                AScene(State &state);
                 ~AScene() = default;
                 virtual void displayAll();
                 virtual void event() = 0;
             protected:
                 virtual void display() = 0;
-                Raylib &_Raylib;
                 State &_State;
         };
     }

@@ -8,42 +8,33 @@
 #include "Map.hpp"
 #include <iostream>
 
-Indie::Game::Map::Map(Raylib &raylib, Vector3 mapPosition) : _Raylib(raylib), _mapPosition(mapPosition)
+Indie::GameComponent::Map::Map(Vector3 mapPosition) : _mapPosition(mapPosition),
+_model(Raylib::Model("assets/Game/Maps/basic_bomberman_map.png", "assets/Game/Maps/exemple_texture.png"))
 {
     std::cout << "Map init" << std::endl;
-    Image imMap = _Raylib.loadImage("assets/Game/Maps/basic_bomberman_map.png");
-    _cubicmap = _Raylib.loadTextureFromImage(imMap);
-    _mesh = _Raylib.genMeshCubicmap(imMap, Vector3{1, 1, 1});
-    _mapTexture = _Raylib.loadTexture("assets/Game/Maps/exemple_texture.png");
-    _model = _Raylib.loadModelFromMesh(_mesh, _mapTexture);
-    _mapPixels = _Raylib.loadImageColors(imMap);
-    _Raylib.unloadImage(imMap);
 }
 
-Indie::Game::Map::~Map()
+Indie::GameComponent::Map::~Map()
 {
-    _Raylib.unloadTexture(_cubicmap);
-    _Raylib.unloadTexture(_mapTexture);
-    _Raylib.unloadModel(_model);
     std::cout << "Map destructor" << std::endl;
 }
 
-void Indie::Game::Map:: display() const
+void Indie::GameComponent::Map::display() const
 {
-    _Raylib.drawModel(_model, _mapPosition);
+    _model.draw(_mapPosition);
 }
 
-Texture2D Indie::Game::Map::getCubicmap() const
+Texture2D Indie::GameComponent::Map::getCubicmap() const
 {
-    return _cubicmap;
+    return _model.getCubicmap().getTexture();
 }
 
-Vector3 Indie::Game::Map::getMapPosition() const
+Vector3 Indie::GameComponent::Map::getMapPosition() const
 {
     return _mapPosition;
 }
 
-std::vector<Color> Indie::Game::Map::getMapPixels() const
+std::vector<Color> Indie::GameComponent::Map::getMapPixels() const
 {
-    return _mapPixels;
+    return _model.getMapPixels().getColors();
 }
