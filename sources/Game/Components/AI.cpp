@@ -7,10 +7,10 @@
 
 // #include "AI.hpp"
 
-// Indie::Game::AI::AI()
+// Indie::GameComponents::AI::AI()
 // {
 // }
 
-// Indie::Game::AI::~AI()
+// Indie::GameComponents::AI::~AI()
 // {
 // }

@@ -8,7 +8,7 @@
 #include "Map.hpp"
 #include <iostream>
 
-Indie::Game::Map::Map(Raylib &raylib, Vector3 mapPosition) : _Raylib(raylib), _mapPosition(mapPosition)
+Indie::GameComponents::Map::Map(Raylib &raylib, Vector3 mapPosition) : _Raylib(raylib), _mapPosition(mapPosition)
 {
     std::cout << "Map init" << std::endl;
     Image imMap = _Raylib.loadImage("assets/Game/Maps/basic_bomberman_map.png");
@@ -20,7 +20,7 @@ Indie::Game::Map::Map(Raylib &raylib, Vector3 mapPosition) : _Raylib(raylib), _m
     _Raylib.unloadImage(imMap);
 }
 
-Indie::Game::Map::~Map()
+Indie::GameComponents::Map::~Map()
 {
     _Raylib.unloadTexture(_cubicmap);
     _Raylib.unloadTexture(_mapTexture);
@@ -28,22 +28,22 @@ Indie::Game::Map::~Map()
     std::cout << "Map destructor" << std::endl;
 }
 
-void Indie::Game::Map:: display() const
+void Indie::GameComponents::Map:: display() const
 {
     _Raylib.drawModel(_model, _mapPosition);
 }
 
-Texture2D Indie::Game::Map::getCubicmap() const
+Texture2D Indie::GameComponents::Map::getCubicmap() const
 {
     return _cubicmap;
 }
 
-Vector3 Indie::Game::Map::getMapPosition() const
+Vector3 Indie::GameComponents::Map::getMapPosition() const
 {
     return _mapPosition;
 }
 
-std::vector<Color> Indie::Game::Map::getMapPixels() const
+std::vector<Color> Indie::GameComponents::Map::getMapPixels() const
 {
     return _mapPixels;
 }

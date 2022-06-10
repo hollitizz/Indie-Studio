@@ -10,7 +10,7 @@
 // #include "APlayer.hpp"
 
 // namespace Indie {
-//     namespace Game {
+//     namespace GameComponents {
 //         class AI: public APlayer {
 //             public:
 //                 AI(Raylib &raylib, bool isAi, Vector2 position, std::string texturePath);

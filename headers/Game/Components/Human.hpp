@@ -9,7 +9,7 @@
 #include "APlayer.hpp"
 
 namespace Indie {
-    namespace Game {
+    namespace GameComponents {
         class Human: public APlayer {
             public:
                 Human(Raylib &raylib, Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath);
