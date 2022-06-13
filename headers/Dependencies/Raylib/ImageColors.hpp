@@ -13,7 +13,8 @@
 namespace Raylib {
     class ImageColors {
         public:
-            ImageColors(Raylib::Image image);
+            ImageColors(const Raylib::Image &image);
+            ImageColors(const ImageColors&) = delete;
             ~ImageColors();
             std::vector<Color> getColors() const;
         private:

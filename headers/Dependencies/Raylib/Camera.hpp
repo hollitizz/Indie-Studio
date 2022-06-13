@@ -12,7 +12,8 @@
 namespace Raylib {
     class Camera {
         public:
-            Camera(Vector3 position, Vector3 target, Vector3 up, float fov, float aspectRatio);
+            Camera(Vector3 position, Vector3 target, Vector3 up, float fov, int aspectRatio);
+            Camera(const Camera&) = delete;
             ~Camera();
             void update();
             ::Camera getCamera() const;

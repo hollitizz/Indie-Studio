@@ -7,6 +7,7 @@
 
 #pragma once
 #include "State.hpp"
+#include "Text.hpp"
 #include <map>
 #include <iostream>
 
@@ -43,7 +44,7 @@ namespace Indie {
                 bool _btnAction;
             private:
                 Rectangle _button;
-                std::string _text;
+                Raylib::Text _text;
                 Font _font;
                 int _fontSize;
                 bool _isTextured;

@@ -14,8 +14,9 @@ namespace Raylib {
     class Image {
         public:
             Image(std::string path);
+            Image(const Image&) = delete;
             ~Image();
-            ::Image getImage() const;
+            const ::Image getImage() const;
         protected:
         private:
             ::Image _image;

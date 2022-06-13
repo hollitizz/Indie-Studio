@@ -11,7 +11,7 @@
 #include <vector>
 
 namespace Indie {
-    namespace GameComponent {
+    namespace GameComponents {
         class Map {
             public:
                 Map(Vector3 mapPosition);

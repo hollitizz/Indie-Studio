@@ -13,6 +13,7 @@
 #include "BExit.hpp"
 #include "BPlay.hpp"
 #include "Texture2D.hpp"
+#include "Text.hpp"
 #include <vector>
 
 namespace Indie
@@ -22,14 +23,17 @@ namespace Indie
     {
         class SMenu : public AScene {
             public:
-                SMenu(Indie::State state);
+                SMenu(Indie::Game &game, Indie::State &state);
                 ~SMenu();
                 void event() override;
                 void display() override;
                 void displayBackground();
                 void displayButtons();
                 void displayTexts();
+            private:
                 Raylib::Texture2D _backgroundTexture;
+                Raylib::Text _indieStudio;
+                Raylib::Text _bomberman;
                 std::vector<std::shared_ptr<Button>> _buttons;
         };
     }

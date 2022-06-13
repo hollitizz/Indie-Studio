@@ -12,7 +12,8 @@
 namespace Raylib {
     class Mesh {
         public:
-            Mesh(Raylib::Image image);
+            Mesh(const Raylib::Image &image);
+            Mesh(const Mesh &) = delete;
             ~Mesh();
             ::Mesh getMesh() const;
         protected:

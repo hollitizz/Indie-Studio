@@ -21,9 +21,9 @@ namespace Indie {
         } ButtonColor;
         class Button {
             public:
-                Button(Raylib &raylib, State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
+                Button(Raylib &raylib, State state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
                     Texture2D texture, Texture2D hoverTexture, Texture2D pressedTexture);
-                Button(Raylib &raylib, State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
+                Button(Raylib &raylib, State state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
                     ButtonColor color);
 
                 ~Button() = default;

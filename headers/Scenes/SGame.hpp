@@ -20,7 +20,7 @@ namespace Indie
     {
         class SGame : public AScene {
             public:
-                SGame(Indie::Game game, State state);
+                SGame(Indie::Game &game, State &state);
                 ~SGame();
                 void event() override;
                 void display() override;

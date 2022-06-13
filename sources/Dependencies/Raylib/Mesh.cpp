@@ -6,14 +6,17 @@
 */
 
 #include "Mesh.hpp"
+#include <iostream>
 
-Raylib::Mesh::Mesh(Raylib::Image image)
+Raylib::Mesh::Mesh(const Raylib::Image &image)
 {
+    std::cerr << "Mesh Init" << std::endl;
     _mesh = GenMeshCubicmap(image.getImage(), Vector3{1, 1, 1});
 }
 
 Raylib::Mesh::~Mesh()
 {
+    std::cerr << "Mesh Destroy" << std::endl;
     UnloadMesh(_mesh);
 }
 

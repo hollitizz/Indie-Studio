@@ -6,18 +6,21 @@
 */
 
 #include "Image.hpp"
+#include <iostream>
 
 Raylib::Image::Image(std::string path)
 {
+    std::cerr << "Image Init" << std::endl;
     _image = LoadImage(path.c_str());
 }
 
 Raylib::Image::~Image()
 {
+    std::cerr << "Image Destroy" << std::endl;
     UnloadImage(_image);
 }
 
-::Image Raylib::Image::getImage() const
+const ::Image Raylib::Image::getImage() const
 {
     return _image;
 }

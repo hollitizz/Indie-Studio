@@ -6,13 +6,14 @@
 */
 
 #include "Model.hpp"
-
+#include <iostream>
 
 Raylib::Model::Model(std::string image, std::string texture):
-    _imMap(Raylib::Image(image)), _cubicmap(Raylib::Texture2D(_imMap)),
-    _mesh(Raylib::Mesh(_imMap)), _texture(Raylib::Texture2D(texture)),
-    _mapPixels(Raylib::ImageColors(_imMap))
+    _imMap(image), _cubicmap(_imMap),
+    _mesh(_imMap), _texture(texture),
+    _mapPixels(_imMap)
 {
+    std::cerr << "Model Init" << std::endl;
     _model = LoadModelFromMesh(_mesh.getMesh());
     _model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = _texture.getTexture();
 }
@@ -20,6 +21,7 @@ Raylib::Model::Model(std::string image, std::string texture):
 
 Raylib::Model::~Model()
 {
+    std::cerr << "Model Destroy" << std::endl;
 }
 
 ::Model Raylib::Model::getModel() const
@@ -27,12 +29,12 @@ Raylib::Model::~Model()
     return _model;
 }
 
-Raylib::Texture2D Raylib::Model::getCubicmap() const
+const Raylib::Texture2D &Raylib::Model::getCubicmap() const
 {
     return _cubicmap;
 }
 
-Raylib::ImageColors Raylib::Model::getMapPixels() const
+const Raylib::ImageColors &Raylib::Model::getMapPixels() const
 {
     return _mapPixels;
 }

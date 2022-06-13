@@ -18,7 +18,7 @@ namespace Indie
     {
         class SOver : public AScene {
             public:
-                SOver(Raylib &raylib, Indie::State &state);
+                SOver(Indie::Game &game, Indie::State &state);
                 ~SOver();
                 void event() override;
                 void display() override;

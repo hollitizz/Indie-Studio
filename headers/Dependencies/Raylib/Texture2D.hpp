@@ -15,7 +15,8 @@ namespace Raylib {
     class Texture2D {
         public:
             Texture2D(std::string path);
-            Texture2D(Raylib::Image image);
+            Texture2D(const Raylib::Image &image);
+            Texture2D(const Texture2D&) = delete;
             ~Texture2D();
             ::Texture2D getTexture() const;
             void draw(Vector2 position) const;

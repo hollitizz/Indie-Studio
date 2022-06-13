@@ -6,18 +6,22 @@
 */
 
 #include "Window.hpp"
+#include <iostream>
 
 Raylib::Window::Window(Vector2 size, std::string title, size_t fps,
-    Vector3 position, Vector3 target, Vector3 up, float fov, float aspectRatio):
-    _camera(Raylib::Camera(position, target, up, fov, aspectRatio))
+    Vector3 position, Vector3 target, Vector3 up, float fov, int aspectRatio):
+    _camera(position, target, up, fov, aspectRatio)
 {
+    std::cerr << "Window Init" << std::endl;
     InitWindow(size.x, size.y, title.c_str());
     SetTargetFPS(fps);
     SetExitKey(KEY_NULL);
 }
 
 Raylib::Window::~Window()
-{}
+{
+    std::cerr << "Window Destroy" << std::endl;
+}
 
 Vector2 Raylib::Window::getSize() const
 {
@@ -27,9 +31,14 @@ Vector2 Raylib::Window::getSize() const
     };
 }
 
-void Raylib::Window::closeWindow()
+const Raylib::Camera &Raylib::Window::getCamera() const
 {
-    CloseWindow()
+    return _camera;
+}
+
+void Raylib::Window::close() const
+{
+    CloseWindow();
 }
 
 bool Raylib::Window::isOpen() const

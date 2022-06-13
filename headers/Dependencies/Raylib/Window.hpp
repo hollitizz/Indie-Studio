@@ -14,12 +14,14 @@ namespace Raylib {
     class Window {
         public:
             Window(Vector2 size, std::string title, size_t fps,
-            Vector3 position, Vector3 target, Vector3 up, float fov, float aspectRatio
+            Vector3 position, Vector3 target, Vector3 up, float fov, int aspectRatio
             );
+            Window(const Window&) = delete;
             ~Window();
             bool isOpen() const;
-            void closeWindow();
+            void close() const;
             Vector2 getSize() const;
+            const Raylib::Camera &getCamera() const;
         private:
             Raylib::Camera _camera;
     };

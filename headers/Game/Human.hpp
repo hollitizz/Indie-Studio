@@ -9,10 +9,10 @@
 #include "APlayer.hpp"
 
 namespace Indie {
-    namespace GameComponent {
+    namespace GameComponents {
         class Human: public APlayer {
             public:
-                Human(Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath);
+                Human(const Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath);
                 virtual ~Human();
                 void move() override;
             protected:

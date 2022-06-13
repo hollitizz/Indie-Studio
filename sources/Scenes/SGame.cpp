@@ -13,17 +13,18 @@
 #include "SOver.hpp"
 #include "DrawScope.hpp"
 #include "gameConst.hpp"
+#include "raylib.h"
 #include <array>
 
-Indie::Scenes::SGame::SGame(Raylib &raylib, Indie::State &state) :
-    AScene(raylib, state)
+Indie::Scenes::SGame::SGame(Indie::Game &game, State &state):
+    AScene(game, state)
 {
-    std::cout << "SGame init" << std::endl;
+    std::cerr << "SGame init" << std::endl;
     _State.setGameScene(Indie::Scenes::Hud);
-    _scenes[Indie::Scenes::Hud] = std::make_shared<Indie::Scenes::SHud>(_Raylib, _State);
-    _scenes[Indie::Scenes::Pause] = std::make_shared<Indie::Scenes::SPause>(_Raylib, _State);
-    _scenes[Indie::Scenes::Settings] = std::make_shared<Indie::Scenes::SSettings>(_Raylib, _State);
-    _scenes[Indie::Scenes::Over] = std::make_shared<Indie::Scenes::SOver>(_Raylib, _State);
+    _scenes[Indie::Scenes::Hud] = std::make_shared<Indie::Scenes::SHud>(game, _State);
+    _scenes[Indie::Scenes::Pause] = std::make_shared<Indie::Scenes::SPause>(game, _State);
+    _scenes[Indie::Scenes::Settings] = std::make_shared<Indie::Scenes::SSettings>(game, _State);
+    _scenes[Indie::Scenes::Over] = std::make_shared<Indie::Scenes::SOver>(game, _State);
 
 }
 
@@ -33,42 +34,37 @@ Indie::Scenes::SGame::~SGame()
 
 void Indie::Scenes::SGame::event()
 {
-    if (_State.getIsGamePaused()) {
+    if (_State.getGameScene() != Indie::Scenes::Hud) {
         _scenes[_State.getGameScene()]->event();
         return;
     }
-    for (auto &Player : _Players) {
+    for (auto &Player : _Game.getPlayers()) {
         if (Player->getIsAlive())
             Player->move();
     }
-    // if (_Raylib.isKeyPressed(KEY_M)) {
-    //     _State.setScene(Indie::Scenes::Menu);
-    //     std::cout << "SMenu" << std::endl;
-    // }
-    if (_Raylib.isKeyPressed(KEY_ESCAPE)) {
+    if (IsKeyPressed(KEY_ESCAPE)) {
         _State.setGameScene(Indie::Scenes::Pause);
         _State.setIsGamePaused(true);
-        std::cout << "Pause" << std::endl;
+        std::cerr << "Pause" << std::endl;
     }
 }
 
 void Indie::Scenes::SGame::diplay3DScope()
 {
-    Draw3DScope _(_Raylib);
+    Raylib::Draw3DScope _(_Game.getWindow().getCamera());
 
-    _Map.display();
-    for (auto &Player : _Players)
+    _Game.getMap().display();
+    for (auto &Player : _Game.getPlayers())
         if (Player->getIsAlive())
             Player->display();
 }
 
-
 void Indie::Scenes::SGame::display()
 {
-    DrawScope _(_Raylib);
+    Raylib::DrawScope _;
 
-    _Raylib.drawText("SGame", {10, 10}, 20, BLACK);
+    DrawText("SGame", 10, 10, 20, BLACK);
     diplay3DScope();
-    // _scenes[_State.getGameScene()]->display();
-    _Raylib.drawFps({10, 30});
+    _scenes[_State.getGameScene()]->display();
+    DrawFPS(10, 50);
 }

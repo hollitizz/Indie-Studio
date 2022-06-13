@@ -8,33 +8,33 @@
 #include "Map.hpp"
 #include <iostream>
 
-Indie::GameComponent::Map::Map(Vector3 mapPosition) : _mapPosition(mapPosition),
-_model(Raylib::Model("assets/Game/Maps/basic_bomberman_map.png", "assets/Game/Maps/exemple_texture.png"))
+Indie::GameComponents::Map::Map(Vector3 mapPosition) : _mapPosition(mapPosition),
+    _model("assets/Game/Maps/basic_bomberman_map.png", "assets/Game/Maps/exemple_texture.png")
 {
-    std::cout << "Map init" << std::endl;
+    std::cerr << "Map init" << std::endl;
 }
 
-Indie::GameComponent::Map::~Map()
+Indie::GameComponents::Map::~Map()
 {
-    std::cout << "Map destructor" << std::endl;
+    std::cerr << "Map destructor" << std::endl;
 }
 
-void Indie::GameComponent::Map::display() const
+void Indie::GameComponents::Map::display() const
 {
     _model.draw(_mapPosition);
 }
 
-Texture2D Indie::GameComponent::Map::getCubicmap() const
+Texture2D Indie::GameComponents::Map::getCubicmap() const
 {
     return _model.getCubicmap().getTexture();
 }
 
-Vector3 Indie::GameComponent::Map::getMapPosition() const
+Vector3 Indie::GameComponents::Map::getMapPosition() const
 {
     return _mapPosition;
 }
 
-std::vector<Color> Indie::GameComponent::Map::getMapPixels() const
+std::vector<Color> Indie::GameComponents::Map::getMapPixels() const
 {
     return _model.getMapPixels().getColors();
 }

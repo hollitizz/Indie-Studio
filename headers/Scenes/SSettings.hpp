@@ -18,7 +18,7 @@ namespace Indie
     {
         class SSettings : public AScene {
             public:
-                SSettings(Raylib &raylib, Indie::State &state);
+                SSettings(Indie::Game &game, Indie::State &state);
                 ~SSettings();
                 void event() override;
                 void display() override;

@@ -6,9 +6,11 @@
 */
 
 #include "ImageColors.hpp"
+#include <iostream>
 
-Raylib::ImageColors::ImageColors(Raylib::Image image)
+Raylib::ImageColors::ImageColors(const Raylib::Image &image)
 {
+    std::cerr << "ImageColor Init" << std::endl;
     Color *color_array = LoadImageColors(image.getImage());
 
     for (int i = 0; i < image.getImage().width * image.getImage().height; i++) {
@@ -19,6 +21,7 @@ Raylib::ImageColors::ImageColors(Raylib::Image image)
 
 Raylib::ImageColors::~ImageColors()
 {
+    std::cerr << "ImageColor Destroy" << std::endl;
 }
 
 std::vector<Color> Raylib::ImageColors::getColors() const

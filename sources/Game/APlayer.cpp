@@ -7,19 +7,20 @@
 
 #include "APlayer.hpp"
 
-Indie::GameComponent::APlayer::APlayer(Raylib &raylib, Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath):
-    _Raylib(raylib), _Map(map), _keyMap(keyMap)
+Indie::GameComponents::APlayer::APlayer(
+    const Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath
+):
+    _Map(map), _keyMap(keyMap), _texture(texturePath)
 {
-    _texture = _Raylib.loadTexture(texturePath);
     _position = {position.x, _Map.getMapPosition().y + 0.5f, position.y};
 }
 
-void Indie::GameComponent::APlayer::display() const
+void Indie::GameComponents::APlayer::display() const
 {
-    _Raylib.drawCubeTexture(_texture, _position);
+    DrawCubeTexture(_texture.getTexture(), _position, 0.5, 1, 0.5, WHITE);
 }
 
-bool Indie::GameComponent::APlayer::getIsAlive() const
+bool Indie::GameComponents::APlayer::getIsAlive() const
 {
     return _isAlive;
 }

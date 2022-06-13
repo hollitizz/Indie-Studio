@@ -6,14 +6,17 @@
 */
 
 #include "Texture2D.hpp"
+#include <iostream>
 
 Raylib::Texture2D::Texture2D(std::string path)
 {
+    std::cerr << "TextureFromString Init" << std::endl;
     _texture = LoadTexture(path.c_str());
 }
 
-Raylib::Texture2D::Texture2D(Raylib::Image image)
+Raylib::Texture2D::Texture2D(const Raylib::Image &image)
 {
+    std::cerr << "TextureFromImage Init" << std::endl;
     _texture = LoadTextureFromImage(image.getImage());
 }
 

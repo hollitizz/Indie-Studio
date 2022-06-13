@@ -8,7 +8,7 @@
 #include <iostream>
 #include "Button.hpp"
 
-Indie::Scenes::Button::Button(Raylib &raylib, State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
+Indie::Scenes::Button::Button(Raylib &raylib, State state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
     Texture2D texture, Texture2D hoverTexture, Texture2D pressedTexture):
     _Raylib(raylib), _State(state), _text(text), _isTextured(true), _fontSize(fontSize), _font(font),
     _button({position.x, position.y, size.x, size.y})
@@ -18,7 +18,7 @@ Indie::Scenes::Button::Button(Raylib &raylib, State &state, Vector2 size, Vector
     _textures[Click] = pressedTexture;
 }
 
-Indie::Scenes::Button::Button(Raylib &raylib, State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
+Indie::Scenes::Button::Button(Raylib &raylib, State state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
     ButtonColor color = {BLUE, ORANGE, RED}):
     _Raylib(raylib), _State(state), _text(text), _isTextured(false), _fontSize(fontSize), _font(font),
     _button({position.x, position.y, size.x, size.y})

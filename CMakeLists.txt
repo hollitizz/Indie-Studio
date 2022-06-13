@@ -38,7 +38,7 @@ INCLUDE_DIRECTORIES(headers/Dependencies/)
 INCLUDE_DIRECTORIES(headers/Menu)
 INCLUDE_DIRECTORIES(headers/Game)
 
-FILE(GLOB SOURCES sources/Dependencies/Raylib/*.cpp sources/Menu/*.cpp sources/Game/*.cpp sources/Dependencies/*.cpp sources/Scenes/*.cpp sources/Dependencies/Raylib/Button/*.cpp sources/Bomberman.cpp sources/State.cpp sources/main.cpp)
-
+FILE(GLOB SOURCES sources/Dependencies/Raylib/*.cpp sources/Menu/*.cpp sources/Game/*.cpp sources/Dependencies/*.cpp sources/Scenes/*.cpp sources/Dependencies/Raylib/Button/*.cpp sources/Bomberman.cpp sources/State.cpp sources/*.cpp)
+SET(GCC_COVERAGE_DEBUG_FLAGS "-g3")
 ADD_EXECUTABLE(bomberman ${SOURCES})
 TARGET_LINK_LIBRARIES(bomberman raylib)

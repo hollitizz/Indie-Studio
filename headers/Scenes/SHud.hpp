@@ -18,7 +18,7 @@ namespace Indie
     {
         class SHud : public AScene {
             public:
-                SHud(Raylib &raylib, Indie::State &state);
+                SHud(Indie::Game &game, Indie::State state);
                 ~SHud();
                 void event() {};
                 void display() override;

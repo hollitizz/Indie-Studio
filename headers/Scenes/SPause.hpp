@@ -18,7 +18,7 @@ namespace Indie
     {
         class SPause : public AScene {
             public:
-                SPause(Raylib &raylib, Indie::State &state);
+                SPause(Indie::Game &game, Indie::State &state);
                 ~SPause();
                 void event() override;
                 void display() override;

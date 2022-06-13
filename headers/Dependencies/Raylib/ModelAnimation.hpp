@@ -16,6 +16,7 @@ namespace Raylib {
             ModelAnimation(
                 std::string modelPath, std::string modelTexturePath, std::string modelRunAnimationPath
             );
+            ModelAnimation(const ModelAnimation&) = delete;
             ~ModelAnimation();
             void update();
         protected:
