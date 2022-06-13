@@ -12,7 +12,7 @@
 #include "SSettings.hpp"
 #include "SOver.hpp"
 #include "DrawScope.hpp"
-#include "gameConst.hpp"
+#include "Const.hpp"
 #include "raylib.h"
 #include <array>
 
@@ -33,13 +33,14 @@ Indie::Scenes::SGame::~SGame()
 
 void Indie::Scenes::SGame::event()
 {
-    }
+    _scenes[_State.getGameScene()]->event();
+    if (_State.getGameScene() != Hud)
+        return;
+    for (auto &Player : _Game.getPlayers())
         if (Player->getIsAlive())
             Player->move();
-    }
     if (IsKeyPressed(KEY_ESCAPE)) {
         _State.setGameScene(Indie::Scenes::Pause);
-        _State.setIsGamePaused(true);
         std::cerr << "Pause" << std::endl;
     }
 }

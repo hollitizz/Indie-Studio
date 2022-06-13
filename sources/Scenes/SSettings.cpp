@@ -21,7 +21,6 @@ void Indie::Scenes::SSettings::event()
 {
     if (IsKeyPressed(KEY_ESCAPE)) {
         _State.setGameScene(Indie::Scenes::Hud);
-        _State.setIsGamePaused(false);
         std::cerr << "Hud" << std::endl;
     }
     if (IsKeyPressed(KEY_B)) {
