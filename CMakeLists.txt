@@ -32,14 +32,13 @@ ENDIF(UNIX)
 
 INCLUDE_DIRECTORIES(headers/)
 INCLUDE_DIRECTORIES(headers/Scenes/)
-INCLUDE_DIRECTORIES(headers/Scenes/Button)
+INCLUDE_DIRECTORIES(headers/Dependencies/Raylib/Button)
+INCLUDE_DIRECTORIES(headers/Dependencies/Raylib/)
 INCLUDE_DIRECTORIES(headers/Dependencies/)
 INCLUDE_DIRECTORIES(headers/Menu)
 INCLUDE_DIRECTORIES(headers/Game)
-INCLUDE_DIRECTORIES(headers/Game/Components)
-FILE(GLOB SOURCES sources/Menu/*.cpp sources/Game/*.cpp sources/Game/Components/*.cpp sources/Dependencies/*.cpp sources/Scenes/*.cpp sources/Scenes/Button/*.cpp sources/Bomberman.cpp sources/State.cpp sources/main.cpp)
 
-# SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -g3")
-
+FILE(GLOB SOURCES sources/Dependencies/Raylib/*.cpp sources/Menu/*.cpp sources/Game/*.cpp sources/Dependencies/*.cpp sources/Scenes/*.cpp sources/Dependencies/Raylib/Button/*.cpp sources/Bomberman.cpp sources/State.cpp sources/*.cpp)
+SET(GCC_COVERAGE_DEBUG_FLAGS "-g3")
 ADD_EXECUTABLE(bomberman ${SOURCES})
 TARGET_LINK_LIBRARIES(bomberman raylib)

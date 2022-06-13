@@ -6,12 +6,13 @@
 */
 
 #include "AScene.hpp"
+#include "raylib.h"
 
-Indie::Scenes::AScene::AScene(Raylib &raylib, Indie::State &state):
-    _Raylib(raylib), _State(state)
+Indie::Scenes::AScene::AScene(Indie::Game &game, Indie::State &state):
+    _State(state), _Game(game)
 {}
 
 void Indie::Scenes::AScene::displayAll()
 {
-    _Raylib.drawFps({10, 10});
+    DrawFPS(10, 10);
 }

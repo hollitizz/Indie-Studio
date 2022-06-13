@@ -9,9 +9,9 @@
 #include "SOver.hpp"
 #include "DrawScope.hpp"
 
-Indie::Scenes::SOver::SOver(Raylib &raylib, Indie::State &state) : AScene(raylib, state)
+Indie::Scenes::SOver::SOver(Indie::Game &game, Indie::State &state) : AScene(game, state)
 {
-    std::cout << "SOver init" << std::endl;
+    std::cerr << "SOver init" << std::endl;
 }
 
 Indie::Scenes::SOver::~SOver()
@@ -19,10 +19,10 @@ Indie::Scenes::SOver::~SOver()
 
 void Indie::Scenes::SOver::event()
 {
-    if (_Raylib.isKeyPressed(KEY_ESCAPE)) {}
+    if (IsKeyPressed(KEY_ESCAPE)) {}
 }
 
 void Indie::Scenes::SOver::display()
 {
-    _Raylib.drawText("SOver", {10, 25}, 20, BLACK);
+    DrawText("SOver", 10, 25, 20, BLACK);
 }

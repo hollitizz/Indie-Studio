@@ -9,9 +9,9 @@
 #include "SSettings.hpp"
 #include "DrawScope.hpp"
 
-Indie::Scenes::SSettings::SSettings(Raylib &raylib, Indie::State &state) : AScene(raylib, state)
+Indie::Scenes::SSettings::SSettings(Indie::Game &game, Indie::State &state) : AScene(game, state)
 {
-    std::cout << "SSettings init" << std::endl;
+    std::cerr << "SSettings init" << std::endl;
 }
 
 Indie::Scenes::SSettings::~SSettings()
@@ -19,15 +19,22 @@ Indie::Scenes::SSettings::~SSettings()
 
 void Indie::Scenes::SSettings::event()
 {
-    if (_Raylib.isKeyPressed(KEY_ESCAPE))
+    if (IsKeyPressed(KEY_ESCAPE)) {
         _State.setGameScene(Indie::Scenes::Hud);
-    if (_Raylib.isKeyPressed(KEY_B))
+        _State.setIsGamePaused(false);
+        std::cerr << "Hud" << std::endl;
+    }
+    if (IsKeyPressed(KEY_B)) {
         _State.setGameScene(Indie::Scenes::Pause);
-    if (_Raylib.isKeyPressed(KEY_Q))
-        _Raylib.closeWindow();
+        std::cerr << "Pause" << std::endl;
+    }
+    if (IsKeyPressed(KEY_Q)) {
+        _Game.getWindow().close();
+        std::cerr << "Exit" << std::endl;
+    }
 }
 
 void Indie::Scenes::SSettings::display()
 {
-    _Raylib.drawText("SSettings", {10, 25}, 20, BLACK);
+    DrawText("SSettings", 10, 25, 20, BLACK);
 }

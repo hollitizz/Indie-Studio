@@ -10,8 +10,9 @@
 #include <map>
 #include <memory>
 #include "IScene.hpp"
-#include "Raylib.hpp"
+#include "Window.hpp"
 #include "State.hpp"
+#include "Game.hpp"
 
 namespace Indie
 {
@@ -22,7 +23,7 @@ namespace Indie
             void loop();
         private:
             std::map<Scenes::Type, std::shared_ptr<Scenes::IScene>> _scenes;
-            Raylib _Raylib;
+            Indie::Game _Game;
             State _State;
     };
 };

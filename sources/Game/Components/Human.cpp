@@ -7,14 +7,14 @@
 
 #include "Human.hpp"
 
-Indie::GameComponents::Human::Human(Raylib &raylib, Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath):
-    APlayer(raylib, map, position, keyMap, texturePath)
+Indie::GameComponents::Human::Human(
+    const Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath
+):
+    APlayer(map, position, keyMap, texturePath)
 {}
 
 Indie::GameComponents::Human::~Human()
-{
-    _Raylib.unloadTexture(_texture);
-}
+{}
 
 void Indie::GameComponents::Human::move()
 {
@@ -25,10 +25,10 @@ void Indie::GameComponents::Human::move()
     Vector3 oldPlayerPosition = _position;
 
     // if (IsKeyDown(_keyMap[0])) putBomb();
-    if (_Raylib.isKeyDown(_keyMap[1])) _position.z -= 0.1;// Z
-    if (_Raylib.isKeyDown(_keyMap[2])) _position.z += 0.1;// S
-    if (_Raylib.isKeyDown(_keyMap[3])) _position.x -= 0.1;// A
-    if (_Raylib.isKeyDown(_keyMap[4])) _position.x += 0.1;// D
+    if (IsKeyDown(_keyMap[1])) _position.z -= 0.1;// Z
+    if (IsKeyDown(_keyMap[2])) _position.z += 0.1;// S
+    if (IsKeyDown(_keyMap[3])) _position.x -= 0.1;// A
+    if (IsKeyDown(_keyMap[4])) _position.x += 0.1;// D
 
     Vector2 playerPos = { _position.x, _position.z };
     int playerCellX = playerPos.x - mapPosition.x + 0.5;

@@ -10,6 +10,7 @@
 #include "IScene.hpp"
 #include "Raylib.hpp"
 #include "State.hpp"
+#include "Game.hpp"
 
 namespace Indie
 {
@@ -18,14 +19,14 @@ namespace Indie
     {
         class AScene : public IScene {
             public:
-                AScene(Raylib &raylib, State &state);
+                AScene(Indie::Game &game, Indie::State &state);
                 ~AScene() = default;
                 virtual void displayAll();
                 virtual void event() = 0;
             protected:
                 virtual void display() = 0;
-                Raylib &_Raylib;
                 State &_State;
+                Indie::Game &_Game;
         };
     }
 }
