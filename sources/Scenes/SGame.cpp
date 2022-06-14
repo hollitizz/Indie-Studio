@@ -50,8 +50,8 @@ void Indie::Scenes::SGame::event()
                 bombsToPop++;
                 continue;
             }
-            // if (bomb->getIsExploded())
-                // exploseWall(bomb);
+            if (bomb->getIsExploded())
+                _Game.killPlayers(bomb->getExplosionsPos());
         }
         for (int j = 0; j < bombsToPop; ++j)
             Player->popBomb();
@@ -60,6 +60,8 @@ void Indie::Scenes::SGame::event()
     }
     if (IsKeyPressed(KEY_ESCAPE)) {
         _State.setGameScene(Indie::Scenes::Pause);
+        for (auto &Player : _Game.getPlayers())
+            Player->pauseBombs();
         std::cerr << "Pause" << std::endl;
     }
 }
@@ -70,8 +72,7 @@ void Indie::Scenes::SGame::diplay3DScope()
 
     _Game.getMap().display();
     for (auto &Player : _Game.getPlayers())
-        if (Player->getIsAlive())
-            Player->display();
+        Player->display();
 }
 
 void Indie::Scenes::SGame::display()

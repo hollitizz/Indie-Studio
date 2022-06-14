@@ -41,3 +41,23 @@ std::vector<Color> Indie::GameComponents::Map::getMapPixels() const
 {
     return _mapPixels.getColors();
 }
+
+bool Indie::GameComponents::Map::isCollisionAt(Vector2 position, float radius) const
+{
+    auto cubicmap = getCubicmap();
+    auto mapPixels = getMapPixels();
+
+    for (int y = 0; y < cubicmap.height; y++) {
+        for (int x = 0; x < cubicmap.width; x++)
+        {
+            if (mapPixels[y*cubicmap.width + x].r == 255 &&
+                CheckCollisionCircleRec({position.x, position.y}, radius,
+                Rectangle {
+                    _mapPosition.x - 0.5f + x, _mapPosition.z - 0.5f + y, 1, 1
+                    }
+                ))
+                return true;
+        }
+    }
+    return false;
+}

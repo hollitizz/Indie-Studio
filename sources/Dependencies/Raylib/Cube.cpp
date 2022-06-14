@@ -17,3 +17,8 @@ void Raylib::Cube::draw(Color color) const
 {
     DrawCube(_position, _size.x, _size.y, _size.z, color);
 }
+
+void Raylib::Cube::drawAt(Vector3 position, Vector3 size, Color color) const
+{
+    DrawCube(position, size.x, size.y, size.z, color);
+}

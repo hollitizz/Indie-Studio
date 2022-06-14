@@ -8,7 +8,7 @@
 #include "APlayer.hpp"
 
 Indie::GameComponents::APlayer::APlayer(
-    const Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath
+    Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath
 ):
     _Map(map), _keyMap(keyMap), _texture(texturePath)
 {
@@ -19,9 +19,14 @@ void Indie::GameComponents::APlayer::putBomb()
 {
     if (_bombs.size() < _maximumBomb) {
         _bombs.push_back(
-            std::make_shared<Indie::GameComponents::Bomb>(_position, Vector3{1, 1, 1}, size_t{1})
+            std::make_shared<Indie::GameComponents::Bomb>(_Map, _position, Vector3{1, 1, 1}, size_t{1})
         );
     }
+}
+
+Vector3 Indie::GameComponents::APlayer::getPosition() const
+{
+    return _position;
 }
 
 size_t Indie::GameComponents::APlayer::getBombsLen() const
@@ -32,6 +37,20 @@ size_t Indie::GameComponents::APlayer::getBombsLen() const
 std::shared_ptr<Indie::GameComponents::Bomb> Indie::GameComponents::APlayer::getBomb(size_t index) const
 {
     return _bombs[index];
+}
+
+void Indie::GameComponents::APlayer::pauseBombs()
+{
+    for (auto &bomb : _bombs) {
+        bomb->pause();
+    }
+}
+
+void Indie::GameComponents::APlayer::resumeBombs()
+{
+    for (auto &bomb : _bombs) {
+        bomb->resume();
+    }
 }
 
 std::shared_ptr<Indie::GameComponents::Bomb> Indie::GameComponents::APlayer::popBomb()
@@ -46,7 +65,8 @@ void Indie::GameComponents::APlayer::display() const
     for (auto &Bomb : _bombs) {
         Bomb->display();
     }
-    DrawCubeTexture(_texture.getTexture(), _position, 0.5, 1, 0.5, WHITE);
+    if (_isAlive)
+        DrawCubeTexture(_texture.getTexture(), _position, 0.5, 1, 0.5, WHITE);
 }
 
 bool Indie::GameComponents::APlayer::getIsAlive() const

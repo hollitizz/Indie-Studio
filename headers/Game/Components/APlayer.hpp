@@ -18,18 +18,21 @@ namespace Indie {
     namespace GameComponents {
         class APlayer {
             public:
-                APlayer(const Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath);
+                APlayer(Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath);
                 ~APlayer() = default;
                 void display() const;
                 bool getIsAlive() const;
                 void setIsAlive(bool alive);
+                void pauseBombs();
+                void resumeBombs();
                 void putBomb();
+                Vector3 getPosition() const;
                 size_t getBombsLen() const;
                 std::shared_ptr<Indie::GameComponents::Bomb> getBomb(size_t index) const;
                 std::shared_ptr<Indie::GameComponents::Bomb> popBomb();
                 virtual void move() = 0;
             protected:
-                const Map &_Map;
+                Map &_Map;
                 bool _isAlive = true;
                 Vector3 _position;
                 const Raylib::Texture2D &_texture;

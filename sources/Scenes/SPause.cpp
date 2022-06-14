@@ -22,6 +22,8 @@ void Indie::Scenes::SPause::event()
     if (IsKeyPressed(KEY_ESCAPE)) {
         _State.setGameScene(Indie::Scenes::Hud);
         std::cerr << "Hud" << std::endl;
+        for (auto &Player : _Game.getPlayers())
+            Player->resumeBombs();
     }
     if (IsKeyPressed(KEY_S)) {
         _State.setGameScene(Indie::Scenes::Settings);

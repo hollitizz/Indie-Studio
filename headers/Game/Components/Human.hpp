@@ -12,7 +12,7 @@ namespace Indie {
     namespace GameComponents {
         class Human: public APlayer {
             public:
-                Human(const Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath);
+                Human(Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath);
                 virtual ~Human();
                 void move() override;
             protected:

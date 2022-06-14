@@ -11,15 +11,30 @@
 
 Raylib::Clock::Clock(float timeInSeconds)
 {
-    _framesAtCreation = GetTime();
+    _timeAtCreation = GetTime();
     _timeInSeconds = timeInSeconds;
 }
 
 Raylib::Clock::~Clock()
 {
+
+}
+
+void Raylib::Clock::pause()
+{
+    isPaused = true;
+    _timePaused = GetTime();
+}
+
+void Raylib::Clock::resume()
+{
+    isPaused = false;
+    _timeAtCreation = _timeAtCreation + (GetTime() - _timePaused);
 }
 
 bool Raylib::Clock::isClockFinished() const
 {
-    return GetTime() - _framesAtCreation >= _timeInSeconds + (60 / GetFPS()) - 1;
+    if (isPaused)
+        return false;
+    return GetTime() - _timeAtCreation >= _timeInSeconds + (60 / GetFPS()) - 1;
 }

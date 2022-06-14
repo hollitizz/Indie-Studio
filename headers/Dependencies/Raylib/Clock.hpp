@@ -14,9 +14,13 @@ namespace Raylib {
         public:
             Clock(float timeInSeconds);
             ~Clock();
+            void pause();
+            void resume();
             bool isClockFinished() const;
         private:
+            bool isPaused = false;
             float _timeInSeconds;
-            float _framesAtCreation;
+            float _timePaused;
+            float _timeAtCreation;
     };
 };

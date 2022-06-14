@@ -8,7 +8,7 @@
 #include "Human.hpp"
 
 Indie::GameComponents::Human::Human(
-    const Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath
+    Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath
 ):
     APlayer(map, position, keyMap, texturePath)
 {}
@@ -41,24 +41,8 @@ void Indie::GameComponents::Human::move()
         playerCellY = 0;
     else if (playerCellY >= cubicmap.height)
         playerCellY = cubicmap.height - 1;
-    for (int y = 0; y < cubicmap.height; y++)
-    {
-        for (int x = 0; x < cubicmap.width; x++)
-        {
-            if (mapPixels[y*cubicmap.width + x].r == 255 &&
-                CheckCollisionCircleRec({playerPos.x, oldPlayerPosition.z}, playerRadius,
-                Rectangle {
-                    mapPosition.x - 0.5f + x, mapPosition.z - 0.5f + y, 1, 1
-                    }
-                ))
-                _position.x = oldPlayerPosition.x;
-            if (mapPixels[y*cubicmap.width + x].r == 255 &&
-                CheckCollisionCircleRec({oldPlayerPosition.x, playerPos.y}, playerRadius,
-                Rectangle {
-                    mapPosition.x - 0.5f + x, mapPosition.z - 0.5f + y, 1, 1
-                    }
-                ))
-                _position.z = oldPlayerPosition.z;
-        }
-    }
+    if (_Map.isCollisionAt({playerPos.x, oldPlayerPosition.z}, playerRadius))
+        _position.x = oldPlayerPosition.x;
+    if (_Map.isCollisionAt({oldPlayerPosition.x, playerPos.y}, playerRadius))
+        _position.z = oldPlayerPosition.z;
 }

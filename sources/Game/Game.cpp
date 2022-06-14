@@ -7,6 +7,7 @@
 
 #include "Game.hpp"
 #include "Const.hpp"
+#include <cmath>
 
 Indie::Game::Game():
     _window({1920, 1080}, "Bomberman", 60,
@@ -27,6 +28,24 @@ Indie::Game::Game():
 Indie::Game::~Game()
 {
     std::cerr << "Game Destroy" << std::endl;
+}
+
+void Indie::Game::killPlayers(std::vector<Vector3> explodedPoints)
+{
+    Vector3 playerPosition;
+
+    for (auto &player : _players) {
+        for (auto &explodedPoint : explodedPoints) {
+            playerPosition = player->getPosition();
+            if ((std::ceil(playerPosition.x) == explodedPoint.x && std::ceil(playerPosition.z) == explodedPoint.z) ||
+                (std::floor(playerPosition.x) == explodedPoint.x && std::floor(playerPosition.z) == explodedPoint.z) ||
+                (std::floor(playerPosition.x) == explodedPoint.x && std::ceil(playerPosition.z) == explodedPoint.z) ||
+                (std::ceil(playerPosition.x) == explodedPoint.x && std::floor(playerPosition.z) == explodedPoint.z)) {
+                std::cout << "Player killed" << std::endl;
+                player->setIsAlive(false);
+            }
+        }
+    }
 }
 
 const Raylib::Window &Indie::Game::getWindow() const

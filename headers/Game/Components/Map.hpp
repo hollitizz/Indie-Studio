@@ -20,6 +20,7 @@ namespace Indie {
                 Texture2D getCubicmap() const;
                 Vector3 getMapPosition() const;
                 std::vector<Color> getMapPixels() const;
+                bool isCollisionAt(Vector2 position, float radius) const;
             protected:
             private:
                 Vector3 _mapPosition;
