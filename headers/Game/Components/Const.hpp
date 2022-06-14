@@ -8,6 +8,9 @@
 #include <array>
 #include "Raylib.hpp"
 
+#define TIME_BEFORE_EXPLOSION 3
+#define TIME_BEFORE_VANISH 4
+
 const std::array<Vector2, 4> PLAYER_STARTS_POSITION = {
     Vector2{-6, -7},
     Vector2{6, -7},

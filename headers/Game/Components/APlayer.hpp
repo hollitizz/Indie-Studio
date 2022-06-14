@@ -8,8 +8,11 @@
 #pragma once
 #include "Map.hpp"
 #include "Texture2D.hpp"
+#include "Bomb.hpp"
 #include <iostream>
+#include <vector>
 #include <array>
+#include <memory>
 
 namespace Indie {
     namespace GameComponents {
@@ -19,6 +22,10 @@ namespace Indie {
                 ~APlayer() = default;
                 void display() const;
                 bool getIsAlive() const;
+                void putBomb();
+                size_t getBombsLen() const;
+                std::shared_ptr<Indie::GameComponents::Bomb> getBomb(size_t index) const;
+                std::shared_ptr<Indie::GameComponents::Bomb> popBomb();
                 virtual void move() = 0;
             protected:
                 const Map &_Map;
@@ -26,6 +33,9 @@ namespace Indie {
                 Vector3 _position;
                 const Raylib::Texture2D &_texture;
                 std::array<KeyboardKey, 5> _keyMap;
+            private:
+                size_t _maximumBomb = 2;
+                std::vector<std::shared_ptr<Indie::GameComponents::Bomb>> _bombs;
         };
     };
 };

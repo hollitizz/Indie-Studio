@@ -11,7 +11,7 @@
 Indie::Game::Game():
     _window({1920, 1080}, "Bomberman", 60,
         { 0, 30, 8 }, { 0, 4, 0 }, { 0, 1, 0 }, 35, 0),
-    _map(_mapPosition)
+    _map(_mapPosition), _explosion({0, 0, 0}, {0, 0, 0})
 {
     std::cerr << "Game Init" << std::endl;
     for (int i = 0; i < PLAYER_STARTS_POSITION.size(); ++i) {

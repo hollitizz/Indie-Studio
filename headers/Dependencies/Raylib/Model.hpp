@@ -15,20 +15,14 @@
 namespace Raylib {
    class Model {
         public:
-            Model(std::string image, std::string texturePath);
+            Model(Raylib::Mesh &mesh, Raylib::Texture2D &texture);
+            Model(std::string model);
             Model(const Image&) = delete;
             ~Model();
             ::Model getModel() const;
-            const Raylib::Texture2D &getCubicmap() const;
-            const Raylib::ImageColors &getMapPixels() const;
             void draw(Vector3 position)const;
         protected:
         private:
             ::Model _model;
-            Raylib::Image _imMap;
-            Raylib::Texture2D _cubicmap;
-            Raylib::Texture2D _texture;
-            Raylib::Mesh _mesh;
-            Raylib::ImageColors _mapPixels;
     };
 };

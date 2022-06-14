@@ -8,16 +8,17 @@
 #include "Model.hpp"
 #include <iostream>
 
-Raylib::Model::Model(std::string image, std::string texture):
-    _imMap(image), _cubicmap(_imMap),
-    _mesh(_imMap), _texture(texture),
-    _mapPixels(_imMap)
+Raylib::Model::Model(Raylib::Mesh &mesh, Raylib::Texture2D &texture)
 {
-    std::cerr << "Model Init" << std::endl;
-    _model = LoadModelFromMesh(_mesh.getMesh());
-    _model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = _texture.getTexture();
+    std::cerr << "Model Init from image" << std::endl;
+    _model = LoadModelFromMesh(mesh.getMesh());
+    _model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture.getTexture();
 }
 
+Raylib::Model::Model(std::string model)
+{
+    std::cerr << "Model Init from string" << std::endl;
+}
 
 Raylib::Model::~Model()
 {
@@ -27,16 +28,6 @@ Raylib::Model::~Model()
 ::Model Raylib::Model::getModel() const
 {
     return _model;
-}
-
-const Raylib::Texture2D &Raylib::Model::getCubicmap() const
-{
-    return _cubicmap;
-}
-
-const Raylib::ImageColors &Raylib::Model::getMapPixels() const
-{
-    return _mapPixels;
 }
 
 void Raylib::Model::draw(Vector3 position) const

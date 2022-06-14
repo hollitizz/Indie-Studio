@@ -22,6 +22,7 @@ namespace Indie {
             Vector2 getWindowSize() const;
             const Indie::GameComponents::Map &getMap() const;
             std::vector<std::shared_ptr<Indie::GameComponents::APlayer>> getPlayers() const;
+            Raylib::Cube _explosion;
         private:
             Vector2 _mapDeplacement = {9, 0};
             Vector3 _mapPosition = { -16 + _mapDeplacement.x, 0, -8 + _mapDeplacement.y };

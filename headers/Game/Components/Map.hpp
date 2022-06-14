@@ -23,6 +23,11 @@ namespace Indie {
             protected:
             private:
                 Vector3 _mapPosition;
+                Raylib::Image _imMap;
+                Raylib::Texture2D _cubicmap;
+                Raylib::Texture2D _texture;
+                Raylib::Mesh _mesh;
+                Raylib::ImageColors _mapPixels;
                 Raylib::Model _model;
         };
     };

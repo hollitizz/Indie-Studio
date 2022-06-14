@@ -10,7 +10,7 @@
 
 Raylib::ModelAnimation::ModelAnimation(
     std::string modelPath, std::string modelTexturePath, std::string modelRunAnimationPath
-): _model(modelPath, modelTexturePath)
+): _model(modelPath)
 {
     std::cerr << "ModelAnimation Init" << std::endl;
     _animationCount = 0;

@@ -24,7 +24,7 @@ void Indie::GameComponents::Human::move()
     float playerRadius = 0.25;
     Vector3 oldPlayerPosition = _position;
 
-    // if (IsKeyDown(_keyMap[0])) putBomb();
+    if (IsKeyPressed(_keyMap[0])) putBomb();
     if (IsKeyDown(_keyMap[1])) _position.z -= 0.1;// Z
     if (IsKeyDown(_keyMap[2])) _position.z += 0.1;// S
     if (IsKeyDown(_keyMap[3])) _position.x -= 0.1;// A

@@ -33,12 +33,28 @@ Indie::Scenes::SGame::~SGame()
 
 void Indie::Scenes::SGame::event()
 {
-    _scenes[_State.getGameScene()]->event();
-    if (_State.getGameScene() != Hud)
+    if (_State.getGameScene() != Hud) {
+        _scenes[_State.getGameScene()]->event();
         return;
-    for (auto &Player : _Game.getPlayers())
+    }
+    size_t i;
+    int bombsToPop;
+    for (auto &Player : _Game.getPlayers()) {
+        bombsToPop = 0;
+        for (i = 0; i < Player->getBombsLen(); i++) {
+            auto bomb = Player->getBomb(i);
+            if (bomb->getShouldVanished()) {
+                bombsToPop++;
+                continue;
+            }
+            // if (bomb->getIsExploded())
+                // exploseWall(bomb);
+        }
+        for (int j = 0; j < bombsToPop; ++j)
+            Player->popBomb();
         if (Player->getIsAlive())
             Player->move();
+    }
     if (IsKeyPressed(KEY_ESCAPE)) {
         _State.setGameScene(Indie::Scenes::Pause);
         std::cerr << "Pause" << std::endl;

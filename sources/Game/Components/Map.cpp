@@ -9,7 +9,10 @@
 #include <iostream>
 
 Indie::GameComponents::Map::Map(Vector3 mapPosition) : _mapPosition(mapPosition),
-    _model("assets/Game/Maps/basic_bomberman_map.png", "assets/Game/Maps/exemple_texture.png")
+    _imMap("assets/Game/Maps/basic_bomberman_map.png"), _cubicmap(_imMap),
+    _mesh(_imMap), _texture("assets/Game/Maps/exemple_texture.png"),
+    _mapPixels(_imMap),
+    _model(_mesh, _texture)
 {
     std::cerr << "Map init" << std::endl;
 }
@@ -26,7 +29,7 @@ void Indie::GameComponents::Map::display() const
 
 Texture2D Indie::GameComponents::Map::getCubicmap() const
 {
-    return _model.getCubicmap().getTexture();
+    return _cubicmap.getTexture();
 }
 
 Vector3 Indie::GameComponents::Map::getMapPosition() const
@@ -36,5 +39,5 @@ Vector3 Indie::GameComponents::Map::getMapPosition() const
 
 std::vector<Color> Indie::GameComponents::Map::getMapPixels() const
 {
-    return _model.getMapPixels().getColors();
+    return _mapPixels.getColors();
 }
