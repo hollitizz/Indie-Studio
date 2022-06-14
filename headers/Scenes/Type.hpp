@@ -14,6 +14,7 @@ namespace Indie
         enum Type {
             Menu,
             Game,
+            Init,
             Hud,
             Pause,
             Settings,

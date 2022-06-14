@@ -6,7 +6,6 @@
 */
 
 #include <array>
-#include "Raylib.hpp"
 
 #define TIME_BEFORE_EXPLOSION 3
 #define TIME_BEFORE_VANISH 4

@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** Untitled (Workspace)
 ** File description:
-** SPause
+** SInit
 */
 
 #pragma once
@@ -15,10 +15,10 @@ namespace Indie
     class State;
     namespace Scenes
     {
-        class SPause : public AScene {
+        class SInit : public AScene {
             public:
-                SPause(Indie::Game &game, Indie::State &state);
-                ~SPause();
+                SInit(Indie::Game &game, Indie::State &state);
+                ~SInit();
                 void event() override;
                 void display() override;
             private:

@@ -20,7 +20,7 @@ Indie::Scenes::SMenu::SMenu(Indie::Game &game, Indie::State &state) : AScene(gam
     std::cerr << "SMenu init" << std::endl;
 
     _buttons.push_back(
-        std::make_shared<Indie::Scenes::BPlay>(
+        std::make_shared<Indie::Scenes::BInit>(
             state,
             Vector2{300, 70},
             Vector2{windowSize.x / 2 - 150, windowSize.y / 2 - 50},

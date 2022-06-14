@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "SGame.hpp"
+#include "SInit.hpp"
 #include "SHud.hpp"
 #include "SPause.hpp"
 #include "SSettings.hpp"
@@ -20,12 +21,12 @@ Indie::Scenes::SGame::SGame(Indie::Game &game, State &state):
     AScene(game, state)
 {
     std::cerr << "SGame init" << std::endl;
-    _State.setGameScene(Indie::Scenes::Hud);
+    _State.setGameScene(Indie::Scenes::Init);
+    _scenes[Indie::Scenes::Init] = std::make_shared<Indie::Scenes::SInit>(game, _State);
     _scenes[Indie::Scenes::Hud] = std::make_shared<Indie::Scenes::SHud>(game, _State);
     _scenes[Indie::Scenes::Pause] = std::make_shared<Indie::Scenes::SPause>(game, _State);
     _scenes[Indie::Scenes::Settings] = std::make_shared<Indie::Scenes::SSettings>(game, _State);
     _scenes[Indie::Scenes::Over] = std::make_shared<Indie::Scenes::SOver>(game, _State);
-
 }
 
 Indie::Scenes::SGame::~SGame()

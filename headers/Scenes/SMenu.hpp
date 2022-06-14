@@ -8,9 +8,9 @@
 #pragma once
 
 #include "AScene.hpp"
-#include "Raylib.hpp"
 #include "State.hpp"
 #include "BExit.hpp"
+#include "BInit.hpp"
 #include "BPlay.hpp"
 #include "Texture2D.hpp"
 #include "Text.hpp"

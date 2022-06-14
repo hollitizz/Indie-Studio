@@ -8,7 +8,6 @@
 #pragma once
 
 #include "IScene.hpp"
-#include "Raylib.hpp"
 #include "State.hpp"
 #include "Game.hpp"
 
