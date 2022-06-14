@@ -48,3 +48,21 @@ std::vector<std::shared_ptr<Indie::GameComponents::APlayer>> Indie::Game::getPla
 {
     return _players;
 }
+
+void Indie::Game::rmPlayer()
+{
+    for (size_t i = _players.size() - 1; i > 1; --i)
+        if (_players[i]->getIsAlive()) {
+            _players[i]->setIsAlive(false);
+            break;
+        }
+}
+
+void Indie::Game::addPlayer()
+{
+    for (size_t i = _players.size() - 1; i > 1; --i)
+        if (!_players[i]->getIsAlive()) {
+            _players[i]->setIsAlive(true);
+            break;
+        }
+}

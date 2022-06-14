@@ -41,6 +41,8 @@ void Indie::Scenes::SGame::event()
     size_t i;
     int bombsToPop;
     for (auto &Player : _Game.getPlayers()) {
+        if (!Player->getIsAlive())
+            continue;
         bombsToPop = 0;
         for (i = 0; i < Player->getBombsLen(); i++) {
             auto bomb = Player->getBomb(i);

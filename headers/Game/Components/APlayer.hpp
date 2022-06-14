@@ -22,6 +22,7 @@ namespace Indie {
                 ~APlayer() = default;
                 void display() const;
                 bool getIsAlive() const;
+                void setIsAlive(bool alive);
                 void putBomb();
                 size_t getBombsLen() const;
                 std::shared_ptr<Indie::GameComponents::Bomb> getBomb(size_t index) const;

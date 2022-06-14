@@ -9,9 +9,7 @@
 
 #include "AScene.hpp"
 #include "State.hpp"
-#include "BExit.hpp"
-#include "BInit.hpp"
-#include "BPlay.hpp"
+#include "Button.hpp"
 #include "Texture2D.hpp"
 #include "Text.hpp"
 #include <vector>

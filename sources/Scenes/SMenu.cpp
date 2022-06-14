@@ -8,6 +8,8 @@
 #include <iostream>
 #include <memory>
 #include "raylib.h"
+#include "BInit.hpp"
+#include "BExit.hpp"
 #include "SMenu.hpp"
 #include "DrawScope.hpp"
 

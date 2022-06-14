@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include "Button.hpp"
 #include "AScene.hpp"
 #include "State.hpp"
 
@@ -21,7 +22,9 @@ namespace Indie
                 ~SInit();
                 void event() override;
                 void display() override;
+                void displayButtons();
             private:
+                std::vector<std::shared_ptr<Button>> _buttons;
         };
     }
 }

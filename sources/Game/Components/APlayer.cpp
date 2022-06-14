@@ -53,3 +53,8 @@ bool Indie::GameComponents::APlayer::getIsAlive() const
 {
     return _isAlive;
 }
+
+void Indie::GameComponents::APlayer::setIsAlive(bool alive)
+{
+    _isAlive = alive;
+}
