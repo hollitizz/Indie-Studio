@@ -10,7 +10,7 @@
 #include <cmath>
 
 Indie::Game::Game():
-    _window({1920, 1080}, "Bomberman", 60,
+    _window({1600, 900}, "Bomberman", 60,
         { 0, 30, 8 }, { 0, 4, 0 }, { 0, 1, 0 }, 35, 0),
     _map(_mapPosition), _explosion({0, 0, 0}, {0, 0, 0})
 {
@@ -35,6 +35,8 @@ void Indie::Game::killPlayers(std::vector<Vector3> explodedPoints)
     Vector3 playerPosition;
 
     for (auto &player : _players) {
+        if (!player->getIsAlive())
+            continue;
         for (auto &explodedPoint : explodedPoints) {
             playerPosition = player->getPosition();
             if ((std::ceil(playerPosition.x) == explodedPoint.x && std::ceil(playerPosition.z) == explodedPoint.z) ||
@@ -73,6 +75,7 @@ void Indie::Game::rmPlayer()
     for (size_t i = _players.size() - 1; i > 1; --i)
         if (_players[i]->getIsAlive()) {
             _players[i]->setIsAlive(false);
+            _nbPlayers--;
             break;
         }
 }
@@ -82,6 +85,12 @@ void Indie::Game::addPlayer()
     for (size_t i = _players.size() - 1; i > 1; --i)
         if (!_players[i]->getIsAlive()) {
             _players[i]->setIsAlive(true);
+            _nbPlayers++;
             break;
         }
+}
+
+const size_t Indie::Game::getNbPlayers() const
+{
+    return _nbPlayers;
 }

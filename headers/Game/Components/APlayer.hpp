@@ -38,7 +38,7 @@ namespace Indie {
                 const Raylib::Texture2D &_texture;
                 std::array<KeyboardKey, 5> _keyMap;
             private:
-                size_t _maximumBomb = 2;
+                size_t _maximumBomb = 1;
                 std::vector<std::shared_ptr<Indie::GameComponents::Bomb>> _bombs;
         };
     };
