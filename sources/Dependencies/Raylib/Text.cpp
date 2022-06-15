@@ -44,6 +44,16 @@ Vector2 Raylib::Text::getSize() const
     return MeasureTextEx(_font, _text.c_str(), _size, 10);
 }
 
+std::string Raylib::Text::getText()
+{
+    return _text;
+}
+
+size_t Raylib::Text::getTextSize() const
+{
+    return _text.size();
+}
+
 void Raylib::Text::draw() const
 {
     DrawTextEx(_font, _text.c_str(), _pos, _size, 10, _color);

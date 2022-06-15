@@ -19,6 +19,8 @@ namespace Raylib {
             ~Text();
             void setPosition(Vector2 pos);
             void setText(std::string text);
+            std::string getText();
+            size_t getTextSize() const;
             Vector2 getSize() const;
             void draw() const;
         protected:
