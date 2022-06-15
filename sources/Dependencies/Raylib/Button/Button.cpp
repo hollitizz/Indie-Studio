@@ -11,7 +11,7 @@
 
 Indie::Scenes::Button::Button(State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
     Texture2D texture, Texture2D hoverTexture, Texture2D pressedTexture):
-    _State(state), _text(text, BLACK), _isTextured(true), _fontSize(fontSize), _font(font),
+    _State(state), _text(text, BLACK, fontSize), _isTextured(true),
     _button({position.x, position.y, size.x, size.y})
 {
     _textures[Normal] = texture;
@@ -21,7 +21,7 @@ Indie::Scenes::Button::Button(State &state, Vector2 size, Vector2 position, std:
 
 Indie::Scenes::Button::Button(State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
     ButtonColor color = {BLUE, ORANGE, RED}):
-    _State(state), _text(text, BLACK), _isTextured(false), _fontSize(fontSize), _font(font),
+    _State(state), _text(text, BLACK, fontSize), _isTextured(false),
     _button({position.x, position.y, size.x, size.y})
 {
     _colors[Normal] = color.color;

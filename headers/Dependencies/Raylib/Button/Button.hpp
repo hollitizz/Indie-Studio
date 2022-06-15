@@ -46,8 +46,6 @@ namespace Indie {
             private:
                 Rectangle _button;
                 Raylib::Text _text;
-                Font _font;
-                int _fontSize;
                 bool _isTextured;
                 ButtonType _btnState;
                 std::map<ButtonType, Texture2D> _textures;
