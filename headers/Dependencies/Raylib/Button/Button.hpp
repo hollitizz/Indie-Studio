@@ -32,6 +32,7 @@ namespace Indie {
                 virtual void display();
 
                 virtual bool getBtnAction() const;
+                virtual void setPosition(Vector2 pos);
 
                 enum ButtonType {
                     Normal,

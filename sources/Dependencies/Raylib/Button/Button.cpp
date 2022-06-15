@@ -47,8 +47,7 @@ void Indie::Scenes::Button::display()
     else
         DrawRectangleRec(_button, _colors[_btnState]);
     _text.setPosition({_button.x + _button.width / 2 - _text.getSize().x / 2,
-            _button.y + _button.height / 2 - _text.getSize().y / 2},
-        _fontSize
+            _button.y + _button.height / 2 - _text.getSize().y / 2}
     );
     _text.draw();
 }
@@ -56,4 +55,10 @@ void Indie::Scenes::Button::display()
 bool Indie::Scenes::Button::getBtnAction() const
 {
     return _btnAction;
+}
+
+void Indie::Scenes::Button::setPosition(Vector2 pos)
+{
+    _button.x = pos.x;
+    _button.y = pos.y;
 }
