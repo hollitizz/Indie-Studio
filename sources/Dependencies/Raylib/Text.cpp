@@ -29,10 +29,14 @@ Raylib::Text::~Text()
 {
 }
 
-void Raylib::Text::setPosition(Vector2 pos, int size)
+void Raylib::Text::setPosition(Vector2 pos)
 {
     _pos = pos;
-    _size = size;
+}
+
+void Raylib::Text::setText(std::string text)
+{
+    _text = text;
 }
 
 Vector2 Raylib::Text::getSize() const
