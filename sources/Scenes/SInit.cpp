@@ -13,7 +13,7 @@
 #include "DrawScope.hpp"
 
 Indie::Scenes::SInit::SInit(Indie::Game &game, Indie::State &state) : AScene(game, state),
-    _nbPlayers("", BLACK)
+    _nbPlayers("", BLACK), _Input(Vector2{300, 70}, Vector2{_Game.getWindowSize().x / 2 - 150, _Game.getWindowSize().y / 2})
 {
     Vector2 windowSize = _Game.getWindowSize();
 
@@ -65,6 +65,7 @@ void Indie::Scenes::SInit::event()
         if (button->getBtnAction())
             break;
     }
+    _Input.event();
     if (IsKeyPressed(KEY_Q)) {
         _Game.getWindow().close();
         std::cerr << "Exit" << std::endl;
@@ -79,6 +80,9 @@ void Indie::Scenes::SInit::displayButtons()
         _buttons[i]->setPosition({windowSize.x / 2 - 150, windowSize.y / 2 + i * 100});
         _buttons[i]->display();
     }
+
+    _Input.setPosition({windowSize.x / 2 - 150, windowSize.y / 2 - 100});
+    _Input.display();
 }
 
 void Indie::Scenes::SInit::displayTexts()

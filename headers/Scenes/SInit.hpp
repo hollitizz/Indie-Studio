@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include "Input.hpp"
 #include "Button.hpp"
 #include "AScene.hpp"
 #include "State.hpp"
@@ -27,6 +28,7 @@ namespace Indie
             private:
                 std::vector<std::shared_ptr<Button>> _buttons;
                 Raylib::Text _nbPlayers;
+                Input _Input;
         };
     }
 }
