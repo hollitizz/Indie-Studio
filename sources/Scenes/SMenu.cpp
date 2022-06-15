@@ -15,8 +15,8 @@
 
 Indie::Scenes::SMenu::SMenu(Indie::Game &game, Indie::State &state) : AScene(game, state),
     _backgroundTexture("assets/Menu/menu_background.png"),
-    _indieStudio("Indie Studio", BLACK),
-    _bomberman("Bomberman", BLACK)
+    _indieStudio("Indie Studio", BLACK, 50),
+    _bomberman("Bomberman", BLACK, 30)
 {
     Vector2 windowSize = _Game.getWindowSize();
     std::cerr << "SMenu init" << std::endl;

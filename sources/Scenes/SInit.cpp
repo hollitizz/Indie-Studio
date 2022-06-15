@@ -13,7 +13,7 @@
 #include "DrawScope.hpp"
 
 Indie::Scenes::SInit::SInit(Indie::Game &game, Indie::State &state) : AScene(game, state),
-    _nbPlayers("", BLACK), _Input(Vector2{300, 70}, Vector2{_Game.getWindowSize().x / 2 - 150, _Game.getWindowSize().y / 2})
+    _nbPlayers("", BLACK, 30), _Input(Vector2{300, 60}, Vector2{_Game.getWindowSize().x / 2 - 150, _Game.getWindowSize().y / 2})
 {
     Vector2 windowSize = _Game.getWindowSize();
 
@@ -21,10 +21,10 @@ Indie::Scenes::SInit::SInit(Indie::Game &game, Indie::State &state) : AScene(gam
         std::make_shared<Indie::Scenes::BRemove>(
             game,
             state,
-            Vector2{300, 70},
-            Vector2{windowSize.x / 2 - 150, windowSize.y / 2 - 50},
+            Vector2{225, 60},
+            Vector2{windowSize.x - windowSize.x / 4 + (windowSize.x / 8 - 225 / 2), windowSize.y / 2 - 50},
             "Remove",
-            50,
+            30,
             GetFontDefault(),
             ButtonColor{BLUE, ORANGE, RED}
         )
@@ -33,10 +33,10 @@ Indie::Scenes::SInit::SInit(Indie::Game &game, Indie::State &state) : AScene(gam
         std::make_shared<Indie::Scenes::BAdd>(
             game,
             state,
-            Vector2{300, 70},
-            Vector2{windowSize.x / 2 - 150, windowSize.y / 2 + 30},
+            Vector2{225, 60},
+            Vector2{windowSize.x - windowSize.x / 4 + (windowSize.x / 8 - 225 / 2), windowSize.y / 2 + 30},
             "Add",
-            50,
+            30,
             GetFontDefault(),
             ButtonColor{BLUE, ORANGE, RED}
         )
@@ -44,10 +44,10 @@ Indie::Scenes::SInit::SInit(Indie::Game &game, Indie::State &state) : AScene(gam
     _buttons.push_back(
         std::make_shared<Indie::Scenes::BPlay>(
             state,
-            Vector2{300, 70},
-            Vector2{windowSize.x / 2 - 150, windowSize.y / 2 + 110},
+            Vector2{225, 60},
+            Vector2{windowSize.x - windowSize.x / 4 + (windowSize.x / 8 - 225 / 2), windowSize.y / 2 + 110},
             "Play",
-            50,
+            30,
             GetFontDefault(),
             ButtonColor{BLUE, ORANGE, RED}
         )
@@ -77,7 +77,7 @@ void Indie::Scenes::SInit::displayButtons()
     Vector2 windowSize = _Game.getWindowSize();
 
     for (size_t i = 0 ; i < _buttons.size() ; i++) {
-        _buttons[i]->setPosition({windowSize.x / 2 - 150, windowSize.y / 2 + i * 100});
+        _buttons[i]->setPosition({windowSize.x - windowSize.x / 4 + (windowSize.x / 8 - 225 / 2), windowSize.y / 2 + i * 110});
         _buttons[i]->display();
     }
 
@@ -89,10 +89,8 @@ void Indie::Scenes::SInit::displayTexts()
 {
     Vector2 windowSize = _Game.getWindowSize();
 
-    _nbPlayers.setText("Nb Players : " + std::to_string(_Game.getNbPlayers()));
-    _nbPlayers.setPosition({windowSize.x / 2 - _nbPlayers.getSize().x / 2,
-            windowSize.y / 4 - _nbPlayers.getSize().y / 2}
-    );
+    _nbPlayers.setText("Players: " + std::to_string(_Game.getNbPlayers()));
+    _nbPlayers.setPosition({windowSize.x - windowSize.x / 4 + (windowSize.x / 8 - _nbPlayers.getSize().x / 2), windowSize.y / 2 - 220});
     _nbPlayers.draw();
 }
 
