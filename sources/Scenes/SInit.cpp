@@ -12,7 +12,8 @@
 #include "SInit.hpp"
 #include "DrawScope.hpp"
 
-Indie::Scenes::SInit::SInit(Indie::Game &game, Indie::State &state) : AScene(game, state)
+Indie::Scenes::SInit::SInit(Indie::Game &game, Indie::State &state) : AScene(game, state),
+    _nbPlayers("", BLACK)
 {
     Vector2 windowSize = _Game.getWindowSize();
 
@@ -72,13 +73,28 @@ void Indie::Scenes::SInit::event()
 
 void Indie::Scenes::SInit::displayButtons()
 {
-    for (auto &button : _buttons) {
-        button->display();
+    Vector2 windowSize = _Game.getWindowSize();
+
+    for (size_t i = 0 ; i < _buttons.size() ; i++) {
+        _buttons[i]->setPosition({windowSize.x / 2 - 150, windowSize.y / 2 + i * 100});
+        _buttons[i]->display();
     }
+}
+
+void Indie::Scenes::SInit::displayTexts()
+{
+    Vector2 windowSize = _Game.getWindowSize();
+
+    _nbPlayers.setText("Nb Players : " + std::to_string(_Game.getNbPlayers()));
+    _nbPlayers.setPosition({windowSize.x / 2 - _nbPlayers.getSize().x / 2,
+            windowSize.y / 4 - _nbPlayers.getSize().y / 2}
+    );
+    _nbPlayers.draw();
 }
 
 void Indie::Scenes::SInit::display()
 {
     DrawText("SInit", 10, 25, 20, BLACK);
     displayButtons();
+    displayTexts();
 }

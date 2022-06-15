@@ -23,8 +23,10 @@ namespace Indie
                 void event() override;
                 void display() override;
                 void displayButtons();
+                void displayTexts();
             private:
                 std::vector<std::shared_ptr<Button>> _buttons;
+                Raylib::Text _nbPlayers;
         };
     }
 }

@@ -74,8 +74,11 @@ void Indie::Scenes::SMenu::displayBackground()
 
 void Indie::Scenes::SMenu::displayButtons()
 {
-    for (auto &button : _buttons) {
-        button->display();
+    Vector2 windowSize = _Game.getWindowSize();
+
+    for (size_t i = 0 ; i < _buttons.size() ; i++) {
+        _buttons[i]->setPosition({windowSize.x / 2 - 150, windowSize.y / 2 + i * 100});
+        _buttons[i]->display();
     }
 }
 
@@ -83,12 +86,10 @@ void Indie::Scenes::SMenu::displayTexts()
 {
     Vector2 windowSize = _Game.getWindowSize();
     _indieStudio.setPosition({windowSize.x / 2 - _indieStudio.getSize().x / 2,
-            windowSize.y / 4 - _indieStudio.getSize().y / 2},
-        windowSize.x / 27.5
+            windowSize.y / 4 - _indieStudio.getSize().y / 2}
     );
     _bomberman.setPosition({windowSize.x / 2 - _bomberman.getSize().x / 2,
-            windowSize.y / 4 + _bomberman.getSize().y / 2},
-        windowSize.x / 38.4
+            windowSize.y / 4 + _bomberman.getSize().y / 2}
     );
     _indieStudio.draw();
     _bomberman.draw();
