@@ -11,7 +11,7 @@
 
 Indie::Scenes::Input::Input(Vector2 size, Vector2 position):
     _box({position.x, position.y, size.x, size.y}),
-    _input("", BLACK)
+    _input("", BLACK, 30)
 {
     _framesCounter = 0;
 }
@@ -45,18 +45,17 @@ void Indie::Scenes::Input::event()
 void Indie::Scenes::Input::display()
 {
     DrawRectangleRec(_box, LIGHTGRAY);
-    if (_mouseOnText) DrawRectangleLines((int)_box.x, (int)_box.y, (int)_box.width, (int)_box.height, RED);
-    else DrawRectangleLines((int)_box.x, (int)_box.y, (int)_box.width, (int)_box.height, DARKGRAY);
+    if (_mouseOnText)
+        DrawRectangleLines((int)_box.x, (int)_box.y, (int)_box.width, (int)_box.height, RED);
+    else
+        DrawRectangleLines((int)_box.x, (int)_box.y, (int)_box.width, (int)_box.height, DARKGRAY);
 
     DrawText(_input.getText().c_str(), (int)_box.x + 5, (int)_box.y + 8, 40, MAROON);
 
-    if (_mouseOnText) {
-        if (_input.getTextSize() < 12) {
+    if (_mouseOnText)
+        if (_input.getTextSize() < 12)
             if (((_framesCounter/20)%2) == 0)
                 DrawText("_", (int)_box.x + 8 + MeasureText(_input.getText().c_str(), 40), (int)_box.y + 12, 40, MAROON);
-        } else
-            DrawText("Press BACKSPACE to delete chars...", 230, 300, 20, GRAY);
-    }
 }
 
 void Indie::Scenes::Input::setPosition(Vector2 pos)
