@@ -13,8 +13,8 @@
 namespace Raylib {
     class Text {
         public:
-            Text(std::string text, Color color);
-            Text(std::string text, ::Font font, Color color);
+            Text(std::string text, Color color, int fontSize);
+            Text(std::string text, ::Font font, Color color, int fontSize);
             Text(const Text&) = delete;
             ~Text();
             void setPosition(Vector2 pos);

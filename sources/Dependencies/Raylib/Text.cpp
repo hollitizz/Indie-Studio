@@ -7,19 +7,19 @@
 
 #include "Text.hpp"
 
-Raylib::Text::Text(std::string text, Color color)
+Raylib::Text::Text(std::string text, Color color, int fontSize)
 {
     _font = GetFontDefault();
-    _size = 50;
+    _size = fontSize;
     _pos = {0, 0};
     _color = color;
     _text = text;
 }
 
-Raylib::Text::Text(std::string text, ::Font font, Color color)
+Raylib::Text::Text(std::string text, ::Font font, Color color, int fontSize)
 {
     _font = font;
-    _size = 50;
+    _size = fontSize;
     _pos = {0, 0};
     _color = color;
     _text = text;
