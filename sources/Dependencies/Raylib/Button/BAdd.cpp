@@ -25,7 +25,4 @@ void Indie::Scenes::BAdd::run()
 {
     _btnAction = true;
     _game.addPlayer();
-    // _State.setScene(Indie::Scenes::Game);
-    // _State.setGameScene(Indie::Scenes::Hud);
-    std::cerr << "Add Player" << std::endl;
 }

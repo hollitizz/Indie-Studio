@@ -43,7 +43,7 @@ void Indie::Game::killPlayers(std::vector<Vector3> explodedPoints)
                 (std::floor(playerPosition.x) == explodedPoint.x && std::floor(playerPosition.z) == explodedPoint.z) ||
                 (std::floor(playerPosition.x) == explodedPoint.x && std::ceil(playerPosition.z) == explodedPoint.z) ||
                 (std::ceil(playerPosition.x) == explodedPoint.x && std::floor(playerPosition.z) == explodedPoint.z)) {
-                std::cout << "Player killed" << std::endl;
+                std::cerr << "Player killed" << std::endl;
                 player->setIsAlive(false);
             }
         }
@@ -76,6 +76,7 @@ void Indie::Game::rmPlayer()
         if (_players[i]->getIsAlive()) {
             _players[i]->setIsAlive(false);
             _nbPlayers--;
+            std::cerr << "Remove Player" << std::endl;
             break;
         }
 }
@@ -86,6 +87,7 @@ void Indie::Game::addPlayer()
         if (!_players[i]->getIsAlive()) {
             _players[i]->setIsAlive(true);
             _nbPlayers++;
+            std::cerr << "Add Player" << std::endl;
             break;
         }
 }
