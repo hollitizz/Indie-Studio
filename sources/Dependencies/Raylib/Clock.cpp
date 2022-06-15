@@ -32,9 +32,15 @@ void Raylib::Clock::resume()
     _timeAtCreation = _timeAtCreation + (GetTime() - _timePaused);
 }
 
-bool Raylib::Clock::isClockFinished() const
+bool Raylib::Clock::isCPaused() const
+{
+    return isPaused;
+}
+
+bool Raylib::Clock::isClockFinished()
 {
     if (isPaused)
-        return false;
-    return GetTime() - _timeAtCreation >= _timeInSeconds + (60 / GetFPS()) - 1;
+        return _isFinished;
+    _isFinished = GetTime() - _timeAtCreation >= _timeInSeconds + (60 / GetFPS()) - 1;
+    return _isFinished;
 }

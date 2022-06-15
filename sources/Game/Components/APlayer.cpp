@@ -63,7 +63,8 @@ std::shared_ptr<Indie::GameComponents::Bomb> Indie::GameComponents::APlayer::pop
 void Indie::GameComponents::APlayer::display() const
 {
     for (auto &Bomb : _bombs) {
-        Bomb->display();
+        if (!Bomb->getShouldVanished())
+            Bomb->display();
     }
     if (_isAlive)
         DrawCubeTexture(_texture.getTexture(), _position, 0.5, 1, 0.5, WHITE);

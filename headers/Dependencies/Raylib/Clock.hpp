@@ -16,9 +16,11 @@ namespace Raylib {
             ~Clock();
             void pause();
             void resume();
-            bool isClockFinished() const;
+            bool isCPaused() const;
+            bool isClockFinished();
         private:
             bool isPaused = false;
+            bool _isFinished = false;
             float _timeInSeconds;
             float _timePaused;
             float _timeAtCreation;
