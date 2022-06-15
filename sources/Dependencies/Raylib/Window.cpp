@@ -15,6 +15,7 @@ Raylib::Window::Window(Vector2 size, std::string title, size_t fps,
     std::cerr << "Window Init" << std::endl;
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(size.x, size.y, title.c_str());
+    SetWindowMinSize(1300, 800);
     SetTargetFPS(fps);
     SetExitKey(KEY_NULL);
 }
