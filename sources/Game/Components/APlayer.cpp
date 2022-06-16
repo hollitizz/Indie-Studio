@@ -6,15 +6,18 @@
 */
 
 #include "APlayer.hpp"
+#include "Const.hpp"
 
 Indie::GameComponents::APlayer::APlayer(
-    Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath, std::string modelPath, Color color, std::string modelAnimationPath
-):
-    _Map(map), _keyMap(keyMap), _texture(texturePath), _model(modelPath, _texture), _color(color), _modelAnimation(modelPath, texturePath, modelAnimationPath)
+    Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath, std::string modelPath, Color color
+): _Map(map), _keyMap(keyMap), _texture(texturePath), _model(modelPath, _texture), _color(color)
 {
     _position = {position.x, _Map.getMapPosition().y + 0.5f, position.y};
     _rotationAngle = -90;
     _rotationAxis = {1.0, 0.0, 0.0};
+    _animations.push_back(std::make_shared<Raylib::ModelAnimation>(ANIMATIONS[RUN]));
+    _animations.push_back(std::make_shared<Raylib::ModelAnimation>(ANIMATIONS[IDLE]));
+    _modelAnimation = _animations[1];
 }
 
 void Indie::GameComponents::APlayer::putBomb()
@@ -68,9 +71,9 @@ void Indie::GameComponents::APlayer::display()
         if (!Bomb->getShouldVanished())
             Bomb->display();
     }
-    _modelAnimation.setFrameCounter(_modelAnimation.getFrameCounter() + 1);
-    UpdateModelAnimation(_model.getModel(), _modelAnimation.getAnimation()[0], _modelAnimation.getFrameCounter());
-    if (_modelAnimation.getFrameCounter() >= _modelAnimation.getAnimation()[0].frameCount) _modelAnimation.setFrameCounter(0);
+    _modelAnimation->setFrameCounter(_modelAnimation->getFrameCounter() + 1);
+    UpdateModelAnimation(_model.getModel(), _modelAnimation->getAnimation()[0], _modelAnimation->getFrameCounter());
+    if (_modelAnimation->getFrameCounter() >= _modelAnimation->getAnimation()[0].frameCount) _modelAnimation->setFrameCounter(0);
     if (_isAlive)
         DrawModelEx(_model.getModel(), _position, _rotationAxis, _rotationAngle, (Vector3){ 0.3f, 0.3f, 0.3f }, _color);
 }

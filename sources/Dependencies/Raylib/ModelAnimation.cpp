@@ -9,8 +9,8 @@
 #include <iostream>
 
 Raylib::ModelAnimation::ModelAnimation(
-    std::string modelPath, std::string modelTexturePath, std::string modelRunAnimationPath
-): _texture(modelTexturePath), _model(modelPath, _texture)
+    std::string modelRunAnimationPath
+)
 {
     std::cerr << "ModelAnimation Init" << std::endl;
     _animationFrameCounter = 0;
@@ -37,9 +37,6 @@ int Raylib::ModelAnimation::getFrameCounter() const
 
 void Raylib::ModelAnimation::setAnimation(std::string animationPath)
 {
-    for (int i = 0; i < _animCount; i += 1) {
-        UnloadModelAnimations(_modelAnimation, 0);
-    }
     _modelAnimation = LoadModelAnimations(animationPath.c_str(), &_animCount);
 }
 

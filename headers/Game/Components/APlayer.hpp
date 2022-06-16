@@ -19,7 +19,7 @@ namespace Indie {
     namespace GameComponents {
         class APlayer {
             public:
-                APlayer(Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath, std::string modelPath, Color color, std::string modelAnimationPath);
+                APlayer(Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath, std::string modelPath, Color color);
                 ~APlayer() = default;
                 void display();
                 bool getIsAlive() const;
@@ -40,9 +40,10 @@ namespace Indie {
                 std::array<KeyboardKey, 5> _keyMap;
                 Raylib::Model _model;
                 Color _color;
-                Raylib::ModelAnimation _modelAnimation;
                 Vector3 _rotationAxis;
                 float _rotationAngle;
+                std::shared_ptr<Raylib::ModelAnimation> _modelAnimation;
+                std::vector<std::shared_ptr<Raylib::ModelAnimation>> _animations;
             private:
                 size_t _maximumBomb = 1;
                 std::vector<std::shared_ptr<Indie::GameComponents::Bomb>> _bombs;

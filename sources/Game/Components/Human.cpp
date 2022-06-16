@@ -12,7 +12,7 @@
 Indie::GameComponents::Human::Human(
     Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath, std::string modelPath, Color color, std::string modelAnimationPath
 ):
-    APlayer(map, position, keyMap, texturePath, modelPath, color, modelAnimationPath)
+    APlayer(map, position, keyMap, texturePath, modelPath, color)
 {}
 
 Indie::GameComponents::Human::~Human()
@@ -50,7 +50,7 @@ void Indie::GameComponents::Human::move()
     }// D
     if (_position.x != oldPlayerPosition.x || _position.z != oldPlayerPosition.z) hasMoved = true;
 
-    hasMoved == true ? _modelAnimation.setAnimation(ANIMATIONS[RUN]) : _modelAnimation.setAnimation(ANIMATIONS[IDLE]);
+    hasMoved == true ? _modelAnimation = _animations[0] : _modelAnimation = _animations[1];
     Vector2 playerPos = { _position.x, _position.z };
     int playerCellX = playerPos.x - mapPosition.x + 0.5;
     int playerCellY = playerPos.y - mapPosition.z + 0.5;
