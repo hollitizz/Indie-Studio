@@ -21,7 +21,9 @@ namespace Indie
                 ~SOver();
                 void event() override;
                 void display() override;
+                void displayTexts();
             private:
+                Raylib::Text _over;
         };
     }
 }
