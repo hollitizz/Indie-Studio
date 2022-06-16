@@ -16,6 +16,13 @@ Indie::Scenes::Input::Input(Vector2 size, Vector2 position):
     _framesCounter = 0;
 }
 
+Indie::Scenes::Input::Input(std::string name, Vector2 size, Vector2 position):
+    _box({position.x, position.y, size.x, size.y}),
+    _input(name, BLACK, 30)
+{
+    _framesCounter = 0;
+}
+
 void Indie::Scenes::Input::event()
 {
     _mouseOnText = CheckCollisionPointRec(GetMousePosition(), _box);

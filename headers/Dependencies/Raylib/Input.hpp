@@ -22,6 +22,7 @@ namespace Indie {
         class Input {
             public:
                 Input(Vector2 size, Vector2 position);
+                Input(std::string name, Vector2 size, Vector2 position);
 
                 ~Input() = default;
 
