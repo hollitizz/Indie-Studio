@@ -38,13 +38,21 @@ void Indie::Scenes::SGame::event()
         _scenes[_State.getGameScene()]->event();
         return;
     }
-    size_t i;
+    if (_State.getGameScene() != Over && _Game.getNbAlivePlayers() <= 1) {
+        if (_Game.getNbAlivePlayers() == 0)
+            _State.setWinner("aucun");
+        else
+            _State.setWinner(_Game.getNames()[_Game.getLastPlayer()]->getText());
+        _State.setGameScene(Over);
+        return;
+    }
+
     int bombsToPop;
     for (auto &Player : _Game.getPlayers()) {
         if (!Player->getIsAlive())
             continue;
         bombsToPop = 0;
-        for (i = 0; i < Player->getBombsLen(); i++) {
+        for (size_t i = 0; i < Player->getBombsLen(); i++) {
             auto bomb = Player->getBomb(i);
             if (bomb->getShouldVanished()) {
                 bombsToPop++;
