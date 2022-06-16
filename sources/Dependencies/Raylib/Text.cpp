@@ -39,6 +39,9 @@ void Raylib::Text::setText(std::string text)
     _text = text;
 }
 
+void Raylib::Text::setColor(Color color)
+{}
+
 Vector2 Raylib::Text::getSize() const
 {
     return MeasureTextEx(_font, _text.c_str(), _size, 10);
