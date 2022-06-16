@@ -4,6 +4,10 @@ project(bomberman)
 # Generate compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+if (POLICY CMP0072)
+  set(OpenGL_GL_PREFERENCE LEGACY)
+endif()
+
 # Dependencies
 find_package(raylib 4.0.0 QUIET) # QUIET or REQUIRED
 if (NOT raylib_FOUND) # If there's none, fetch and build raylib
@@ -28,6 +32,14 @@ ENDIF(UNIX)
 
 INCLUDE_DIRECTORIES(headers/)
 FILE(GLOB SOURCES sources/Raylib.cpp sources/main.cpp sources/Indie.cpp)
+INCLUDE_DIRECTORIES(headers/Scenes/)
+INCLUDE_DIRECTORIES(headers/Dependencies/Raylib/Button)
+INCLUDE_DIRECTORIES(headers/Dependencies/Raylib/)
+INCLUDE_DIRECTORIES(headers/Dependencies/)
+INCLUDE_DIRECTORIES(headers/Menu/)
+INCLUDE_DIRECTORIES(headers/Game/)
+INCLUDE_DIRECTORIES(headers/Game/Components/)
 
+FILE(GLOB SOURCES sources/Game/Components/*.cpp sources/Dependencies/Raylib/*.cpp sources/Menu/*.cpp sources/Game/*.cpp sources/Dependencies/*.cpp sources/Scenes/*.cpp sources/Dependencies/Raylib/Button/*.cpp sources/Bomberman.cpp sources/State.cpp sources/*.cpp)
 ADD_EXECUTABLE(bomberman ${SOURCES})
 TARGET_LINK_LIBRARIES(bomberman raylib)
