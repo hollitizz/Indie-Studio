@@ -28,9 +28,9 @@ void Indie::Scenes::SOver::displayTexts()
     Vector2 windowSize = _Game.getWindowSize();
 
     if (_State.getWinner() == "aucun")
-        _over.setText("Aucun gagant, égalité");
+        _over.setText("Aucun gagnant, égalité");
     else
-        _over.setText("Gagant " + _State.getWinner());
+        _over.setText("Gagnant " + _State.getWinner());
     _over.setPosition({windowSize.x / 2 - _over.getSize().x / 2,
             windowSize.y / 4 - _over.getSize().y / 2}
     );
