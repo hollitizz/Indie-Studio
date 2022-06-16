@@ -20,7 +20,10 @@ Indie::Scenes::SOver::~SOver()
 
 void Indie::Scenes::SOver::event()
 {
-    if (IsKeyPressed(KEY_ESCAPE)) {}
+    if (IsKeyPressed(KEY_ESCAPE)) {
+        CloseWindow();
+        std::cerr << "Exit Game" << std::endl;
+    }
 }
 
 void Indie::Scenes::SOver::displayTexts()
