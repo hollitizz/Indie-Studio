@@ -18,11 +18,17 @@ namespace Raylib {
             );
             ModelAnimation(const ModelAnimation&) = delete;
             ~ModelAnimation();
+            ::ModelAnimation *getAnimation() const;
+            int getFrameCounter() const;
+            void setAnimation(std::string);
+            void setFrameCounter(int value);
             void update();
         protected:
         private:
-            int _animationCount = 0;
+            int _animationFrameCounter = 0;
+            unsigned int _animCount = 0;
             Raylib::Model _model;
-            ::ModelAnimation _modelAnimation;
+            ::ModelAnimation *_modelAnimation;
+            Raylib::Texture2D _texture;
     };
 };

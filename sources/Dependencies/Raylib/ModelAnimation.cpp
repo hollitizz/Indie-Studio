@@ -10,15 +10,40 @@
 
 Raylib::ModelAnimation::ModelAnimation(
     std::string modelPath, std::string modelTexturePath, std::string modelRunAnimationPath
-): _model(modelPath)
+): _texture(modelTexturePath), _model(modelPath, _texture)
 {
     std::cerr << "ModelAnimation Init" << std::endl;
-    _animationCount = 0;
-    _modelAnimation = LoadModelAnimations(modelRunAnimationPath.c_str(), 0)[0];
+    _animationFrameCounter = 0;
+    _modelAnimation = LoadModelAnimations(modelRunAnimationPath.c_str(), &_animCount);
 }
 
 Raylib::ModelAnimation::~ModelAnimation()
 {
     std::cerr << "ModelAnimation Destroy" << std::endl;
-    UnloadModelAnimations(&_modelAnimation, 0);
+    for (int i = 0; i < _animCount; i += 1) {
+        UnloadModelAnimations(_modelAnimation, 0);
+    }
+}
+
+::ModelAnimation *Raylib::ModelAnimation::getAnimation() const
+{
+    return (_modelAnimation);
+}
+
+int Raylib::ModelAnimation::getFrameCounter() const
+{
+    return (_animationFrameCounter);
+}
+
+void Raylib::ModelAnimation::setAnimation(std::string animationPath)
+{
+    for (int i = 0; i < _animCount; i += 1) {
+        UnloadModelAnimations(_modelAnimation, 0);
+    }
+    _modelAnimation = LoadModelAnimations(animationPath.c_str(), &_animCount);
+}
+
+void Raylib::ModelAnimation::setFrameCounter(int value)
+{
+    _animationFrameCounter = value;
 }

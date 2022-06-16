@@ -8,7 +8,7 @@
 #pragma once
 
 #include "AScene.hpp"
-#include "Raylib.hpp"
+
 #include "State.hpp"
 
 namespace Indie

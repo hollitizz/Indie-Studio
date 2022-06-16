@@ -19,7 +19,10 @@ Indie::Game::Game():
             _map,
             PLAYER_STARTS_POSITION[i],
             PLAYER_KEY_MAP[i],
-            "assets/Game/Player/textures/player1.png"
+            "assets/Game/Player/textures/player1.png",
+            "assets/Game/Player/models/playerModel.iqm",
+            COLORS[i],
+            ANIMATIONS[IDLE]
         ));
     }
 }
