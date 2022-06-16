@@ -26,8 +26,8 @@ Indie::Game::Game():
             ANIMATIONS[IDLE]
         ));
         _names.push_back(std::make_shared<Raylib::Text>(
-            "Player " + std::to_string(i + 1),
-            BLACK,
+            "",
+            COLORS[i],
             20
         ));
     }
@@ -54,6 +54,7 @@ void Indie::Game::killPlayers(std::vector<Vector3> explodedPoints)
                 std::cerr << "Player killed" << std::endl;
                 player->setIsAlive(false);
                 _nbAlivePlayers--;
+                break;
             }
         }
     }
@@ -114,6 +115,14 @@ const int Indie::Game::getNbPlayers() const
 void Indie::Game::setNbAlivePlayers(int nb)
 {
     _nbAlivePlayers = nb;
+}
+
+const size_t Indie::Game::getLastPlayer() const
+{
+    for (size_t i = 0; i < _nbPlayers; ++i)
+        if (_players[i]->getIsAlive())
+            return i;
+    return 0;
 }
 
 const int Indie::Game::getNbAlivePlayers() const

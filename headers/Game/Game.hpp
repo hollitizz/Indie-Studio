@@ -28,6 +28,7 @@ namespace Indie {
             void rmPlayer();
             void addPlayer();
             void setNbAlivePlayers(int nb);
+            const size_t getLastPlayer() const;
             const int getNbAlivePlayers() const;
             const int getNbPlayers() const;
             Raylib::Cube _explosion;
