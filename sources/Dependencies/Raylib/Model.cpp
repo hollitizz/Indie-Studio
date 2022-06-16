@@ -15,9 +15,11 @@ Raylib::Model::Model(Raylib::Mesh &mesh, Raylib::Texture2D &texture)
     _model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture.getTexture();
 }
 
-Raylib::Model::Model(std::string model)
+Raylib::Model::Model(std::string model, Raylib::Texture2D &texture)
 {
     std::cerr << "Model Init from string" << std::endl;
+    _model = LoadModel(model.c_str());
+    SetMaterialTexture(&_model.materials[0], MATERIAL_MAP_DIFFUSE, texture.getTexture());
 }
 
 Raylib::Model::~Model()

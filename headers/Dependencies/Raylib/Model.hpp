@@ -16,7 +16,7 @@ namespace Raylib {
    class Model {
         public:
             Model(Raylib::Mesh &mesh, Raylib::Texture2D &texture);
-            Model(std::string model);
+            Model(std::string model, Raylib::Texture2D &texture);
             Model(const Image&) = delete;
             ~Model();
             ::Model getModel() const;

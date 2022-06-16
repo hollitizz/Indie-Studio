@@ -8,6 +8,7 @@
 #pragma once
 #include "Map.hpp"
 #include "Texture2D.hpp"
+#include "ModelAnimation.hpp"
 #include "Bomb.hpp"
 #include <iostream>
 #include <vector>
@@ -18,9 +19,9 @@ namespace Indie {
     namespace GameComponents {
         class APlayer {
             public:
-                APlayer(Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath);
+                APlayer(Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath, std::string modelPath, Color color, std::string modelAnimationPath);
                 ~APlayer() = default;
-                void display() const;
+                void display();
                 bool getIsAlive() const;
                 void setIsAlive(bool alive);
                 void pauseBombs();
@@ -35,8 +36,13 @@ namespace Indie {
                 Map &_Map;
                 bool _isAlive = true;
                 Vector3 _position;
-                const Raylib::Texture2D &_texture;
+                Raylib::Texture2D _texture;
                 std::array<KeyboardKey, 5> _keyMap;
+                Raylib::Model _model;
+                Color _color;
+                Raylib::ModelAnimation _modelAnimation;
+                Vector3 _rotationAxis;
+                float _rotationAngle;
             private:
                 size_t _maximumBomb = 1;
                 std::vector<std::shared_ptr<Indie::GameComponents::Bomb>> _bombs;
