@@ -23,6 +23,7 @@ Indie::Scenes::SMenu::SMenu(Indie::Game &game, Indie::State &state) : AScene(gam
 
     _buttons.push_back(
         std::make_shared<Indie::Scenes::BInit>(
+            game,
             state,
             Vector2{300, 70},
             Vector2{windowSize.x / 2 - 150, windowSize.y / 2 - 50},
@@ -34,6 +35,7 @@ Indie::Scenes::SMenu::SMenu(Indie::Game &game, Indie::State &state) : AScene(gam
     );
     _buttons.push_back(
         std::make_shared<Indie::Scenes::BExit>(
+            game,
             state,
             Vector2{300, 70},
             Vector2{windowSize.x / 2 - 150, windowSize.y / 2 + 30},

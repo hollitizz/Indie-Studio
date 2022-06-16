@@ -9,6 +9,7 @@
 #include "Window.hpp"
 #include "Map.hpp"
 #include "Human.hpp"
+#include "Text.hpp"
 #include <vector>
 #include <memory>
 
@@ -23,9 +24,12 @@ namespace Indie {
             Vector2 getWindowSize() const;
             const Indie::GameComponents::Map &getMap() const;
             std::vector<std::shared_ptr<Indie::GameComponents::APlayer>> getPlayers() const;
+            std::vector<std::shared_ptr<Raylib::Text>> getNames() const;
             void rmPlayer();
             void addPlayer();
-            const size_t getNbPlayers() const;
+            void setNbAlivePlayers(int nb);
+            const int getNbAlivePlayers() const;
+            const int getNbPlayers() const;
             Raylib::Cube _explosion;
         private:
             Vector2 _mapDeplacement = {9, 0};
@@ -33,6 +37,8 @@ namespace Indie {
             Raylib::Window _window;
             Indie::GameComponents::Map _map;
             std::vector<std::shared_ptr<Indie::GameComponents::APlayer>> _players;
-            size_t _nbPlayers = 4;
+            std::vector<std::shared_ptr<Raylib::Text>> _names;
+            int _nbPlayers = 4;
+            int _nbAlivePlayers;
     };
 };

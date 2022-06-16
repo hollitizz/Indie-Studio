@@ -7,10 +7,10 @@
 
 #pragma once
 #include "State.hpp"
+#include "Game.hpp"
 #include "Text.hpp"
 #include <map>
 #include <iostream>
-
 
 namespace Indie {
     namespace Scenes {
@@ -21,9 +21,9 @@ namespace Indie {
         } ButtonColor;
         class Button {
             public:
-                Button(State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
+                Button(Indie::Game &game, State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
                     Texture2D texture, Texture2D hoverTexture, Texture2D pressedTexture);
-                Button(State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
+                Button(Indie::Game &game, State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
                     ButtonColor color);
 
                 ~Button() = default;
@@ -42,6 +42,7 @@ namespace Indie {
             protected:
                 virtual void run() = 0;
                 State &_State;
+                Indie::Game &_Game;
                 bool _btnAction;
             private:
                 Rectangle _button;

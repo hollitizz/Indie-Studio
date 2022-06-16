@@ -5,15 +5,23 @@
 ** SInit
 */
 
-#include <iostream>
 #include "BRemove.hpp"
 #include "BAdd.hpp"
 #include "BPlay.hpp"
 #include "SInit.hpp"
 #include "DrawScope.hpp"
+#include <iostream>
 
 Indie::Scenes::SInit::SInit(Indie::Game &game, Indie::State &state) : AScene(game, state),
-    _nbPlayers("", BLACK, 30), _Input(Vector2{300, 60}, Vector2{_Game.getWindowSize().x / 2 - 150, _Game.getWindowSize().y / 2})
+    _nbPlayers("", BLACK, 30),
+    _choice({"Player 1", " Player 2", "Player 3", "Player 4"},
+            game,
+            state,
+            Vector2{225, 60},
+            Vector2{0, 0},
+            30,
+            GetFontDefault(),
+            ChoiceColor{BLUE, ORANGE, RED})
 {
     Vector2 windowSize = _Game.getWindowSize();
 
@@ -43,6 +51,9 @@ Indie::Scenes::SInit::SInit(Indie::Game &game, Indie::State &state) : AScene(gam
     );
     _buttons.push_back(
         std::make_shared<Indie::Scenes::BPlay>(
+            _input,
+            _choice,
+            game,
             state,
             Vector2{225, 60},
             Vector2{windowSize.x - windowSize.x / 4 + (windowSize.x / 8 - 225 / 2), windowSize.y / 2 + 110},
@@ -52,6 +63,9 @@ Indie::Scenes::SInit::SInit(Indie::Game &game, Indie::State &state) : AScene(gam
             ButtonColor{BLUE, ORANGE, RED}
         )
     );
+
+    for (size_t i = 0; i < 4; ++i)
+        _input.push_back(std::make_shared<Indie::Scenes::Input>(Vector2{300, 60}, Vector2{windowSize.x / 4 + (windowSize.x / 8 - 225 / 2), windowSize.y / 2 + i * 110}));
     std::cerr << "SInit init" << std::endl;
 }
 
@@ -65,24 +79,22 @@ void Indie::Scenes::SInit::event()
         if (button->getBtnAction())
             break;
     }
-    _Input.event();
-    if (IsKeyPressed(KEY_Q)) {
-        _Game.getWindow().close();
-        std::cerr << "Exit" << std::endl;
-    }
+    _choice.event();
+    _input[_choice.getChoice()]->event();
 }
 
 void Indie::Scenes::SInit::displayButtons()
 {
     Vector2 windowSize = _Game.getWindowSize();
 
-    for (size_t i = 0 ; i < _buttons.size() ; i++) {
-        _buttons[i]->setPosition({windowSize.x - windowSize.x / 4 + (windowSize.x / 8 - 225 / 2), windowSize.y / 2 + i * 110});
+    for (int i = 0 ; i < _buttons.size() ; i++) {
+        _buttons[i]->setPosition({windowSize.x - windowSize.x / 4 + (windowSize.x / 8 - 225 / 2), windowSize.y / 2 + (i - 1) * 110});
         _buttons[i]->display();
     }
-
-    _Input.setPosition({windowSize.x / 2 - 150, windowSize.y / 2 - 100});
-    _Input.display();
+    _choice.setPosition({(windowSize.x / 8 - 225 / 2), windowSize.y / 2 - 220});
+    _choice.display();
+    _input[_choice.getChoice()]->setPosition({(windowSize.x / 8 - 225 / 2), windowSize.y / 2 - 110});
+    _input[_choice.getChoice()]->display();
 }
 
 void Indie::Scenes::SInit::displayTexts()
@@ -90,7 +102,7 @@ void Indie::Scenes::SInit::displayTexts()
     Vector2 windowSize = _Game.getWindowSize();
 
     _nbPlayers.setText("Players: " + std::to_string(_Game.getNbPlayers()));
-    _nbPlayers.setPosition({windowSize.x - windowSize.x / 4 + (windowSize.x / 8 - _nbPlayers.getSize().x / 2), windowSize.y / 2 - 220});
+    _nbPlayers.setPosition({windowSize.x - windowSize.x / 4 + (windowSize.x / 8 - _nbPlayers.getSize().x / 2), windowSize.y / 2 - 200});
     _nbPlayers.draw();
 }
 

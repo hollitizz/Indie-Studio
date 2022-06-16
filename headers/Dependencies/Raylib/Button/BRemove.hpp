@@ -21,7 +21,6 @@ namespace Indie {
                 ~BRemove() = default;
                 void run() override;
             private:
-                Indie::Game &_game;
         };
     };
 };

@@ -9,20 +9,18 @@
 
 Indie::Scenes::BRemove::BRemove(Indie::Game &game, State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
     Texture2D texture, Texture2D hoverTexture, Texture2D pressedTexture):
-    Button(state, size, position, text, fontSize, font, texture, hoverTexture, pressedTexture),
-    _game(game)
+    Button(game, state, size, position, text, fontSize, font, texture, hoverTexture, pressedTexture)
 {
 }
 
 Indie::Scenes::BRemove::BRemove(Indie::Game &game, State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
     ButtonColor color = {BLUE, ORANGE, RED}):
-    Button(state, size, position, text, fontSize, font, color),
-    _game(game)
+    Button(game, state, size, position, text, fontSize, font, color)
 {
 }
 
 void Indie::Scenes::BRemove::run()
 {
     _btnAction = true;
-    _game.rmPlayer();
+    _Game.rmPlayer();
 }

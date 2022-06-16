@@ -63,3 +63,8 @@ void Indie::Scenes::Input::setPosition(Vector2 pos)
     _box.x = pos.x;
     _box.y = pos.y;
 }
+
+std::string Indie::Scenes::Input::getText()
+{
+    return _input.getText();
+}

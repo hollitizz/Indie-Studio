@@ -12,9 +12,9 @@ namespace Indie {
     namespace Scenes {
         class BInit: public Button {
             public:
-                BInit(State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
+                BInit(Indie::Game &game, State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
                     Texture2D texture, Texture2D hoverTexture, Texture2D pressedTexture);
-                BInit(State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
+                BInit(Indie::Game &game, State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
                     ButtonColor color);
 
                 ~BInit() = default;

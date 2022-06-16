@@ -9,9 +9,9 @@
 #include "Button.hpp"
 #include "raylib.h"
 
-Indie::Scenes::Button::Button(State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
+Indie::Scenes::Button::Button(Indie::Game &game, State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
     Texture2D texture, Texture2D hoverTexture, Texture2D pressedTexture):
-    _State(state), _text(text, BLACK, fontSize), _isTextured(true),
+    _Game(game), _State(state), _text(text, BLACK, fontSize), _isTextured(true),
     _button({position.x, position.y, size.x, size.y})
 {
     _textures[Normal] = texture;
@@ -19,9 +19,9 @@ Indie::Scenes::Button::Button(State &state, Vector2 size, Vector2 position, std:
     _textures[Click] = pressedTexture;
 }
 
-Indie::Scenes::Button::Button(State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
+Indie::Scenes::Button::Button(Indie::Game &game, State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
     ButtonColor color = {BLUE, ORANGE, RED}):
-    _State(state), _text(text, BLACK, fontSize), _isTextured(false),
+    _Game(game), _State(state), _text(text, BLACK, fontSize), _isTextured(false),
     _button({position.x, position.y, size.x, size.y})
 {
     _colors[Normal] = color.color;

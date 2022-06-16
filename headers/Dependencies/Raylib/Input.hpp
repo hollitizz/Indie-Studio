@@ -29,6 +29,7 @@ namespace Indie {
                 void display();
 
                 void setPosition(Vector2 pos);
+                std::string getText();
 
                 enum InputType {
                     Normal,
@@ -40,8 +41,6 @@ namespace Indie {
                 Rectangle _box;
                 bool _mouseOnText;
                 Raylib::Text _input;
-                // Font _font;
-                // int _fontSize;
                 int _framesCounter;
         };
     };

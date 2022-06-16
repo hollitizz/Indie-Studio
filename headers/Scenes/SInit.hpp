@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include "Choice.hpp"
 #include "Input.hpp"
 #include "Button.hpp"
 #include "AScene.hpp"
@@ -27,8 +28,9 @@ namespace Indie
                 void displayTexts();
             private:
                 std::vector<std::shared_ptr<Button>> _buttons;
+                std::vector<std::shared_ptr<Input>> _input;
+                Choice _choice;
                 Raylib::Text _nbPlayers;
-                Input _Input;
         };
     }
 }

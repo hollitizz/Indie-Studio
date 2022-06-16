@@ -22,6 +22,11 @@ Indie::Game::Game():
             PLAYER_KEY_MAP[i],
             "assets/Game/Player/textures/player1.png"
         ));
+        _names.push_back(std::make_shared<Raylib::Text>(
+            "Player " + std::to_string(i + 1),
+            BLACK,
+            20
+        ));
     }
 }
 
@@ -45,6 +50,7 @@ void Indie::Game::killPlayers(std::vector<Vector3> explodedPoints)
                 (std::ceil(playerPosition.x) == explodedPoint.x && std::floor(playerPosition.z) == explodedPoint.z)) {
                 std::cerr << "Player killed" << std::endl;
                 player->setIsAlive(false);
+                _nbAlivePlayers--;
             }
         }
     }
@@ -70,6 +76,11 @@ std::vector<std::shared_ptr<Indie::GameComponents::APlayer>> Indie::Game::getPla
     return _players;
 }
 
+std::vector<std::shared_ptr<Raylib::Text>> Indie::Game::getNames() const
+{
+    return _names;
+}
+
 void Indie::Game::rmPlayer()
 {
     for (size_t i = _players.size() - 1; i > 1; --i)
@@ -92,7 +103,17 @@ void Indie::Game::addPlayer()
         }
 }
 
-const size_t Indie::Game::getNbPlayers() const
+const int Indie::Game::getNbPlayers() const
 {
     return _nbPlayers;
+}
+
+void Indie::Game::setNbAlivePlayers(int nb)
+{
+    _nbAlivePlayers = nb;
+}
+
+const int Indie::Game::getNbAlivePlayers() const
+{
+    return _nbAlivePlayers;
 }
