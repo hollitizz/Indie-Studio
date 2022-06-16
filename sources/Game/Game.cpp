@@ -60,7 +60,7 @@ void Indie::Game::killPlayers(std::vector<Vector3> explodedPoints)
     }
 }
 
-const Raylib::Window &Indie::Game::getWindow() const
+Raylib::Window &Indie::Game::getWindow()
 {
     return _window;
 }
@@ -70,7 +70,7 @@ Vector2 Indie::Game::getWindowSize() const
     return _window.getSize();
 }
 
-const Indie::GameComponents::Map &Indie::Game::getMap() const
+Indie::GameComponents::Map &Indie::Game::getMap()
 {
     return _map;
 }

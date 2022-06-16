@@ -6,7 +6,22 @@
 */
 
 #include "Map.hpp"
+#include "Const.hpp"
 #include <iostream>
+#include <cstdlib>
+
+bool isValidPosition(Vector3 position)
+{
+    for (auto pos : PLAYER_STARTS_POSITION) {
+        if (pos.x == position.x && pos.y == position.z ||
+            pos.x + 1 == position.x && pos.y == position.z ||
+            pos.x - 1 == position.x && pos.y == position.z ||
+            pos.x == position.x && pos.y + 1 == position.z ||
+            pos.x == position.x && pos.y - 1 == position.z)
+            return false;
+    }
+    return true;
+}
 
 Indie::GameComponents::Map::Map(Vector3 mapPosition) : _mapPosition(mapPosition),
     _imMap("assets/Game/Maps/basic_bomberman_map.png"), _cubicmap(_imMap),
@@ -15,6 +30,21 @@ Indie::GameComponents::Map::Map(Vector3 mapPosition) : _mapPosition(mapPosition)
     _model(_mesh, _texture)
 {
     std::cerr << "Map init" << std::endl;
+    Vector3 boxPosition = {0, _mapPosition.y + 0.5f, 0};
+    int randomNumber = 0;
+
+    for (float z = -7; z < 6; ++z) {
+        boxPosition.z = z;
+        for (float x = -6; x < 7; ++x) {
+            boxPosition.x = x;
+            randomNumber = std::rand() % 100;
+            if (!isCollisionAt({boxPosition.x, boxPosition.z}, 0.25) &&
+                isValidPosition(boxPosition) && randomNumber <= 80) // 80% of chance to create a box
+                _boxes.push_back(
+                    std::make_shared<Indie::GameComponents::Box>(boxPosition)
+                );
+        }
+    }
 }
 
 Indie::GameComponents::Map::~Map()
@@ -25,6 +55,9 @@ Indie::GameComponents::Map::~Map()
 void Indie::GameComponents::Map::display() const
 {
     _model.draw(_mapPosition);
+    for (auto &box : _boxes) {
+        box->draw();
+    }
 }
 
 Texture2D Indie::GameComponents::Map::getCubicmap() const

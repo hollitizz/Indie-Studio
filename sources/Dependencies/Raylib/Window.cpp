@@ -33,7 +33,7 @@ Vector2 Raylib::Window::getSize() const
     };
 }
 
-const Raylib::Camera &Raylib::Window::getCamera() const
+Raylib::Camera &Raylib::Window::getCamera()
 {
     return _camera;
 }

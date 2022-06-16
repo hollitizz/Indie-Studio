@@ -8,7 +8,9 @@
 #pragma once
 
 #include "Model.hpp"
+#include "Box.hpp"
 #include <vector>
+#include <memory>
 
 namespace Indie {
     namespace GameComponents {
@@ -30,6 +32,7 @@ namespace Indie {
                 Raylib::Mesh _mesh;
                 Raylib::ImageColors _mapPixels;
                 Raylib::Model _model;
+                std::vector<std::shared_ptr<Indie::GameComponents::Box>> _boxes;
         };
     };
 };

@@ -22,3 +22,8 @@ void Raylib::Cube::drawAt(Vector3 position, Vector3 size, Color color) const
 {
     DrawCube(position, size.x, size.y, size.z, color);
 }
+
+Vector3 Raylib::Cube::getPosition() const
+{
+    return _position;
+}

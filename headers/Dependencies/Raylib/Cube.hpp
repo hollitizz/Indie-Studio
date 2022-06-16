@@ -16,6 +16,7 @@ namespace Raylib {
             Cube(const Cube&) = delete;
             ~Cube() = default;
             void draw(Color) const;
+            Vector3 getPosition() const;
             void drawAt(Vector3 position, Vector3 size, Color color) const;
         private:
             Vector3 _position;

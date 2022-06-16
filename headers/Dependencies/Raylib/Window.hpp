@@ -21,7 +21,7 @@ namespace Raylib {
             bool isOpen() const;
             void close() const;
             Vector2 getSize() const;
-            const Raylib::Camera &getCamera() const;
+            Raylib::Camera &getCamera();
         private:
             Raylib::Camera _camera;
     };

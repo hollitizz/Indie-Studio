@@ -20,9 +20,9 @@ namespace Indie {
             Game(const Game&) = delete;
             ~Game();
             void killPlayers(std::vector<Vector3> explodedPoints);
-            const Raylib::Window &getWindow() const;
+            Raylib::Window &getWindow();
             Vector2 getWindowSize() const;
-            const Indie::GameComponents::Map &getMap() const;
+            Indie::GameComponents::Map &getMap();
             std::vector<std::shared_ptr<Indie::GameComponents::APlayer>> getPlayers() const;
             std::vector<std::shared_ptr<Raylib::Text>> getNames() const;
             void rmPlayer();
