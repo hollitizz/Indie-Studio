@@ -11,6 +11,7 @@
 #include <memory>
 #include "AScene.hpp"
 #include "State.hpp"
+#include "Blur.hpp"
 #include "Game.hpp"
 
 namespace Indie
@@ -28,6 +29,7 @@ namespace Indie
             private:
                 void diplay3DScope();
                 std::map<Scenes::Type, std::shared_ptr<Scenes::IScene>> _scenes;
+                Scenes::Blur _Blur;
         };
     }
 }

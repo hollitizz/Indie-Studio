@@ -18,7 +18,7 @@
 #include <array>
 
 Indie::Scenes::SGame::SGame(Indie::Game &game, State &state):
-    AScene(game, state)
+    AScene(game, state), _Blur(game, {0, 0}, {0, 0}, {151, 154, 154, 70})
 {
     std::cerr << "SGame init" << std::endl;
     _State.setGameScene(Indie::Scenes::Init);
@@ -81,6 +81,8 @@ void Indie::Scenes::SGame::display()
 
     DrawText("SGame", 10, 10, 20, BLACK);
     diplay3DScope();
+    if (_State.getGameScene() != Indie::Scenes::Init && _State.getGameScene() != Indie::Scenes::Hud)
+        _Blur.display();
     _scenes[_State.getGameScene()]->display();
     DrawFPS(10, 50);
 }
