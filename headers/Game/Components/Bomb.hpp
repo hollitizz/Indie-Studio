@@ -7,6 +7,14 @@
 
 #pragma once
 
+#ifdef __linux__
+    #include <unistd.h>
+#elif _WIN32
+    #include <stdlib.h>
+#else
+    #error "OS not supported!"
+#endif 
+
 #include "Cube.hpp"
 #include "Clock.hpp"
 #include "Map.hpp"

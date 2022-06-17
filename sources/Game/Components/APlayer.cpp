@@ -136,7 +136,7 @@ void Indie::GameComponents::APlayer::display()
         DrawModelEx(
             _model.getModel(),
             {_position.x + 0.25f, _position.y - 0.5f, _position.z + 0.25f},
-            _rotationAxis, _rotationAngle, (Vector3){ 0.3f, 0.3f, 0.3f },
+            _rotationAxis, _rotationAngle, Vector3{ 0.3f, 0.3f, 0.3f },
             _color
         );
 }

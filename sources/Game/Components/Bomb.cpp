@@ -8,7 +8,6 @@
 #include "Bomb.hpp"
 #include "Const.hpp"
 #include <cmath>
-#include <unistd.h>
 #include <iostream>
 
 Indie::GameComponents::Bomb::Bomb(Indie::GameComponents::Map &map, Vector3 position,
