@@ -13,7 +13,6 @@
 #include "SSettings.hpp"
 #include "SOver.hpp"
 #include "DrawScope.hpp"
-#include "Const.hpp"
 #include "raylib.h"
 #include <array>
 

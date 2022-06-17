@@ -10,6 +10,8 @@
 #include "Texture2D.hpp"
 #include "ModelAnimation.hpp"
 #include "Bomb.hpp"
+#include "Const.hpp"
+#include "Bonus.hpp"
 #include <iostream>
 #include <vector>
 #include <array>
@@ -28,6 +30,7 @@ namespace Indie {
                 void resumeBombs();
                 void putBomb();
                 void setAnimation(std::string animation);
+                void computeMove();
                 Vector3 getPosition() const;
                 void setPosition(Vector2 position);
                 size_t getBombsLen() const;
@@ -35,6 +38,7 @@ namespace Indie {
                 std::shared_ptr<Indie::GameComponents::Bomb> popBomb();
                 virtual void move() = 0;
             protected:
+                void computeBonus();
                 Map &_Map;
                 bool _isAlive = true;
                 Vector3 _position;
@@ -42,12 +46,18 @@ namespace Indie {
                 std::array<KeyboardKey, 5> _keyMap;
                 Raylib::Model _model;
                 Color _color;
+                Vector2 _movement;
                 Vector3 _rotationAxis;
+                ROTATION_SIDE _rotationSide = DOWN;
                 float _rotationAngle;
                 std::shared_ptr<Raylib::ModelAnimation> _modelAnimation;
                 std::vector<std::shared_ptr<Raylib::ModelAnimation>> _animations;
+                std::vector<std::shared_ptr<Indie::GameComponents::Bonus>> _bonuses;
             private:
+                float _speed = 0.1;
+                bool _wallPass = false;
                 size_t _maximumBomb = 1;
+                size_t _explosionRange = 1;
                 std::vector<std::shared_ptr<Indie::GameComponents::Bomb>> _bombs;
         };
     };

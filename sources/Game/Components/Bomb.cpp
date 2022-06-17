@@ -29,22 +29,22 @@ std::vector<Vector3> Indie::GameComponents::Bomb::getExplosionsPos() const
 
     explosion.push_back(_position);
     for (size_t i = 1; i <= _explosionRange; ++i) {
-        if (_map.isCollisionAt({_position.x + i, _position.z}, 0.25))
+        if (_map.isCollisionAt({_position.x + i, _position.z}))
             break;
         explosion.push_back({_position.x + i, _position.y, _position.z});
     }
     for (size_t i = 1; i <= _explosionRange; ++i) {
-        if (_map.isCollisionAt({_position.x - i, _position.z}, 0.25))
+        if (_map.isCollisionAt({_position.x - i, _position.z}))
             break;
         explosion.push_back({_position.x - i, _position.y, _position.z});
     }
     for (size_t i = 1; i <= _explosionRange; ++i) {
-        if (_map.isCollisionAt({_position.x, _position.z + i}, 0.25))
+        if (_map.isCollisionAt({_position.x, _position.z + i}))
             break;
         explosion.push_back({_position.x, _position.y, _position.z + i});
     }
     for (size_t i = 1; i <= _explosionRange; ++i) {
-        if (_map.isCollisionAt({_position.x, _position.z - i}, 0.25))
+        if (_map.isCollisionAt({_position.x, _position.z - i}))
             break;
         explosion.push_back({_position.x, _position.y, _position.z - i});
     }

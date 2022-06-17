@@ -6,7 +6,6 @@
 */
 
 #include "APlayer.hpp"
-#include "Const.hpp"
 
 Indie::GameComponents::APlayer::APlayer(
     Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath, std::string modelPath, Color color
@@ -34,7 +33,7 @@ void Indie::GameComponents::APlayer::putBomb()
 {
     if (_bombs.size() < _maximumBomb) {
         _bombs.push_back(
-            std::make_shared<Indie::GameComponents::Bomb>(_Map, _position, Vector3{1, 1, 1}, size_t{1})
+            std::make_shared<Indie::GameComponents::Bomb>(_Map, _position, Vector3{1, 1, 1}, _explosionRange)
         );
     }
 }
@@ -42,6 +41,49 @@ void Indie::GameComponents::APlayer::putBomb()
 void Indie::GameComponents::APlayer::setPosition(Vector2 position)
 {
     _position = {position.x, _Map.getMapPosition().y + 0.5f, position.y};
+}
+
+void Indie::GameComponents::APlayer::computeBonus()
+{
+    switch (_bonuses.back()->getId()) {
+        case BOMB_UP:
+            _maximumBomb++;
+            break;
+        case FIRE_UP:
+            _explosionRange++;
+            break;
+        case SPEED_UP:
+            _speed += 0.1;
+            break;
+        case WALL_PASS:
+            _wallPass = true;
+            break;
+        default:
+            break;
+    }
+}
+
+void Indie::GameComponents::APlayer::computeMove()
+{
+    int bonusIndex = -1;
+
+    _movement.x *= _speed;
+    _movement.y *= _speed;
+    if ((!_Map.isCollisionWithBoxAt({_position.x + _movement.x, _position.z}) || _wallPass) &&
+        !_Map.isCollisionAt({_position.x + _movement.x, _position.z})) _position.x += _movement.x;
+    else _movement.x = 0;
+    if ((!_Map.isCollisionWithBoxAt({_position.x, _position.z + _movement.y}) || _wallPass) &&
+        !_Map.isCollisionAt({_position.x, _position.z + _movement.y})) _position.z += _movement.y;
+    else _movement.y = 0;
+    bonusIndex = _Map.getBonusIfExistAt({_position.x, _position.z});
+    if (bonusIndex != -1) {
+        _bonuses.push_back(_Map.pickBonus(bonusIndex));
+        computeBonus();
+    }
+    _rotationAngle = ROTATION_ANGLE[_rotationSide];
+    _rotationAxis = ROTATION[_rotationSide];
+    (_movement.x != 0 || _movement.y != 0) ?
+        _modelAnimation = _animations[0] : _modelAnimation = _animations[1];
 }
 
 Vector3 Indie::GameComponents::APlayer::getPosition() const
@@ -86,11 +128,17 @@ void Indie::GameComponents::APlayer::display()
         if (!Bomb->getShouldVanished())
             Bomb->display();
     }
+    // DrawCube({_position.x + 0.25f, _position.y, _position.z + 0.25f}, 0.5, 1, 0.5, _color);
     _modelAnimation->setFrameCounter(_modelAnimation->getFrameCounter() + 1);
     UpdateModelAnimation(_model.getModel(), _modelAnimation->getAnimation()[0], _modelAnimation->getFrameCounter());
     if (_modelAnimation->getFrameCounter() >= _modelAnimation->getAnimation()[0].frameCount) _modelAnimation->setFrameCounter(0);
     if (_isAlive)
-        DrawModelEx(_model.getModel(), _position, _rotationAxis, _rotationAngle, (Vector3){ 0.3f, 0.3f, 0.3f }, _color);
+        DrawModelEx(
+            _model.getModel(),
+            {_position.x + 0.25f, _position.y - 0.5f, _position.z + 0.25f},
+            _rotationAxis, _rotationAngle, (Vector3){ 0.3f, 0.3f, 0.3f },
+            _color
+        );
 }
 
 bool Indie::GameComponents::APlayer::getIsAlive() const
