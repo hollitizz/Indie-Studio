@@ -29,12 +29,9 @@ void Indie::Scenes::Input::event()
     if (_mouseOnText) {
         SetMouseCursor(MOUSE_CURSOR_IBEAM);
 
-        int key = GetCharPressed();
-        while (key > 0) {
-            if ((key >= 32) && (key <= 125) && (_input.getTextSize() < 12))
+        for (int key = GetCharPressed(); key > 0; key = GetCharPressed())
+            if (std::isalpha(key) && _input.getTextSize() < 12)
                 _input.setText(_input.getText() + (char)key);
-            key = GetCharPressed();
-        }
 
         if (IsKeyPressed(KEY_BACKSPACE))
             if (_input.getTextSize() > 0)

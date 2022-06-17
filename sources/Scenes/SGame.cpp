@@ -65,8 +65,10 @@ void Indie::Scenes::SGame::event()
     if (_State.getGameScene() != Over && _Game.getNbAlivePlayers() <= 1) {
         if (_Game.getNbAlivePlayers() == 0)
             _State.setWinner("aucun");
-        else
+        else {
             _State.setWinner(_Game.getNames()[_Game.getLastPlayer()]->getText());
+            _Game.getPlayers()[_Game.getLastPlayer()]->setAnimation(ANIMATIONS[IDLE]);
+        }
         _State.setGameScene(Over);
         return;
     }
