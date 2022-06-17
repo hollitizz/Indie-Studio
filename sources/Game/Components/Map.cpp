@@ -68,13 +68,15 @@ void Indie::GameComponents::Map::genMapBlocks()
     Vector3 boxPosition = {0, _mapPosition.y + 0.5f, 0};
     int randomNumber = 0;
 
+    if (_density == 0)
+        return;
     for (float z = -7; z < 6; ++z) {
         boxPosition.z = z;
         for (float x = -6; x < 7; ++x) {
             boxPosition.x = x;
             randomNumber = std::rand() % 100;
             if (!isCollisionAt({boxPosition.x, boxPosition.z}, 0.25) &&
-                isValidPosition(boxPosition) && randomNumber <= 80) // 80% of chance to create a box
+                isValidPosition(boxPosition) && randomNumber <= _density)
                 _boxes.push_back(
                         std::make_shared<Indie::GameComponents::Box>(
                             boxPosition, _boxTexture

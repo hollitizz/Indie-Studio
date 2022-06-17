@@ -7,27 +7,25 @@
 
 #include "BPlay.hpp"
 
-Indie::Scenes::BPlay::BPlay(std::vector<std::shared_ptr<Input>> &input, Choice &choice, Indie::Game &game, State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
+Indie::Scenes::BPlay::BPlay(std::vector<std::shared_ptr<Input>> &input, Slider &slider, Choice &choice, Indie::Game &game, State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
     Texture2D texture, Texture2D hoverTexture, Texture2D pressedTexture):
     Button(game, state, size, position, text, fontSize, font, texture, hoverTexture, pressedTexture),
-    _input(input), _choice(choice)
+    _input(input), _choice(choice), _slider(slider)
 {
 }
 
-Indie::Scenes::BPlay::BPlay(std::vector<std::shared_ptr<Input>> &input, Choice &choice, Indie::Game &game, State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
+Indie::Scenes::BPlay::BPlay(std::vector<std::shared_ptr<Input>> &input, Slider &slider, Choice &choice, Indie::Game &game, State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
     ButtonColor color = {BLUE, ORANGE, RED}):
     Button(game, state, size, position, text, fontSize, font, color),
-    _input(input), _choice(choice)
+    _input(input), _choice(choice), _slider(slider)
 {
 }
 
 void Indie::Scenes::BPlay::run()
 {
-    auto &map = _Game.getMap();
-
-    map.genMapBlocks();
     _btnAction = true;
-    // _Game.setNbAlivePlayers(_Game.getNbPlayers());
+    _Game.getMap().setDensity(_slider.getValue());
+    _Game.getMap().genMapBlocks();
     for (size_t i = 0; i < _Game.getNbPlayers(); i++)
         _Game.getNames()[i]->setText(_input[i]->getText());
     _Game.loadGame();

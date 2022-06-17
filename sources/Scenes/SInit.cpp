@@ -21,7 +21,8 @@ Indie::Scenes::SInit::SInit(Indie::Game &game, Indie::State &state) : AScene(gam
             Vector2{0, 0},
             30,
             GetFontDefault(),
-            ChoiceColor{BLUE, ORANGE, RED})
+            ChoiceColor{BLUE, ORANGE, RED}),
+    _slider(Vector2{225, 60}, Vector2{0, 0}, 0, 100)
 {
     Vector2 windowSize = _Game.getWindowSize();
 
@@ -52,6 +53,7 @@ Indie::Scenes::SInit::SInit(Indie::Game &game, Indie::State &state) : AScene(gam
     _buttons.push_back(
         std::make_shared<Indie::Scenes::BPlay>(
             _input,
+            _slider,
             _choice,
             game,
             state,
@@ -67,7 +69,7 @@ Indie::Scenes::SInit::SInit(Indie::Game &game, Indie::State &state) : AScene(gam
     for (size_t i = 0; i < 4; ++i)
         _input.push_back(std::make_shared<Indie::Scenes::Input>(
                 "player" + std::to_string(i + 1),
-                Vector2{300, 60},
+                Vector2{225, 60},
                 Vector2{windowSize.x / 4 + (windowSize.x / 8 - 225 / 2), windowSize.y / 2 + i * 110}
             )
         );
@@ -84,6 +86,7 @@ void Indie::Scenes::SInit::event()
         if (button->getBtnAction())
             break;
     }
+    _slider.event();
     _choice.event();
     _input[_choice.getChoice()]->event();
 }
@@ -96,6 +99,8 @@ void Indie::Scenes::SInit::displayButtons()
         _buttons[i]->setPosition({windowSize.x - windowSize.x / 4 + (windowSize.x / 8 - 225 / 2), windowSize.y / 2 + (i - 1) * 110});
         _buttons[i]->display();
     }
+    _slider.setPosition({windowSize.x - windowSize.x / 4 + (windowSize.x / 8 - 225 / 2), windowSize.y / 2 + (int(_buttons.size()) - 1) * 110});
+    _slider.display();
     _choice.setPosition({(windowSize.x / 8 - 225 / 2), windowSize.y / 2 - 220});
     _choice.display();
     _input[_choice.getChoice()]->setPosition({(windowSize.x / 8 - 225 / 2), windowSize.y / 2 - 110});

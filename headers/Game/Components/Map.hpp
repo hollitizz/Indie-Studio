@@ -39,7 +39,7 @@ namespace Indie {
                 Raylib::Mesh _mesh;
                 Raylib::ImageColors _mapPixels;
                 Raylib::Model _model;
-                size_t _density = 80;
+                size_t _density;
                 std::vector<std::shared_ptr<Indie::GameComponents::Box>> _boxes;
         };
     };
