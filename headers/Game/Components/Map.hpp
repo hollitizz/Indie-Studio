@@ -22,9 +22,12 @@ namespace Indie {
                 Texture2D getCubicmap() const;
                 Vector3 getMapPosition() const;
                 std::vector<Color> getMapPixels() const;
+                void genMapBlocks();
+                void setDensity(size_t density);
                 bool isCollisionAt(Vector2 position, float radius) const;
             protected:
             private:
+                bool isValidPosition(Vector3 position) const;
                 Vector3 _mapPosition;
                 Raylib::Image _imMap;
                 Raylib::Texture2D _cubicmap;
@@ -32,6 +35,7 @@ namespace Indie {
                 Raylib::Mesh _mesh;
                 Raylib::ImageColors _mapPixels;
                 Raylib::Model _model;
+                size_t _density = 80;
                 std::vector<std::shared_ptr<Indie::GameComponents::Box>> _boxes;
         };
     };
