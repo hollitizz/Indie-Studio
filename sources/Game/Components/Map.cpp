@@ -11,6 +11,7 @@
 #include <cstdlib>
 
 Indie::GameComponents::Map::Map(Vector3 mapPosition) : _mapPosition(mapPosition),
+    _boxTexture("assets/Game/Maps/box_texture.png"),
     _imMap("assets/Game/Maps/basic_bomberman_map.png"), _cubicmap(_imMap),
     _mesh(_imMap), _texture("assets/Game/Maps/exemple_texture.png"),
     _mapPixels(_imMap),
@@ -29,6 +30,20 @@ void Indie::GameComponents::Map::display() const
     _model.draw(_mapPosition);
     for (auto &box : _boxes) {
         box->draw();
+    }
+}
+
+void Indie::GameComponents::Map::cleanExplodedBoxes(std::vector<Vector3> explodedPoints)
+{
+    Vector3 position;
+
+    for (int i = 0; i < _boxes.size(); ++i) {
+        position = _boxes[i]->getPosition();
+        for (auto &explodedPoint : explodedPoints) {
+            if (position.x == explodedPoint.x && position.z == explodedPoint.z) {
+                _boxes.erase(_boxes.begin() + i);
+            }
+        }
     }
 }
 
@@ -61,7 +76,9 @@ void Indie::GameComponents::Map::genMapBlocks()
             if (!isCollisionAt({boxPosition.x, boxPosition.z}, 0.25) &&
                 isValidPosition(boxPosition) && randomNumber <= 80) // 80% of chance to create a box
                 _boxes.push_back(
-                    std::make_shared<Indie::GameComponents::Box>(boxPosition)
+                        std::make_shared<Indie::GameComponents::Box>(
+                            boxPosition, _boxTexture
+                    )
                 );
         }
     }
@@ -76,6 +93,21 @@ void Indie::GameComponents::Map::remMapBlocks()
 void Indie::GameComponents::Map::setDensity(size_t density)
 {
     _density = density;
+}
+
+bool Indie::GameComponents::Map::isCollisionWithBoxAt(Vector2 position, float radius) const
+{
+    auto cubicmap = getCubicmap();
+    auto mapPixels = getMapPixels();
+    Vector3 boxPosition;
+
+    for (auto &box : _boxes) {
+        boxPosition = box->getPosition();
+        if (CheckCollisionCircleRec({position.x, position.y}, radius * 3,
+            Rectangle{boxPosition.x, boxPosition.z}))
+            return true;
+    }
+    return false;
 }
 
 bool Indie::GameComponents::Map::isCollisionAt(Vector2 position, float radius) const

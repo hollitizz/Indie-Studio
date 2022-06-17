@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "raylib.h"
+#include "Texture2D.hpp"
 
 namespace Raylib {
     class Cube {
@@ -15,9 +15,11 @@ namespace Raylib {
             Cube(Vector3 position, Vector3 size);
             Cube(const Cube&) = delete;
             ~Cube() = default;
-            void draw(Color) const;
+            void draw(Color color) const;
+            void draw(Raylib::Texture2D &texture) const;
             Vector3 getPosition() const;
             void drawAt(Vector3 position, Vector3 size, Color color) const;
+            void drawAt(Vector3 position, Vector3 size, Raylib::Texture2D texture) const;
         private:
             Vector3 _position;
             Vector3 _size;

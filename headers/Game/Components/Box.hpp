@@ -13,13 +13,14 @@ namespace Indie {
     namespace GameComponents {
         class Box {
             public:
-                Box(Vector3 position);
+                Box(Vector3 position, Raylib::Texture2D &texture);
                 Box(const Box&) = delete;
                 ~Box() = default;
                 void draw() const;
                 Vector3 getPosition() const;
             private:
                 Raylib::Cube _box;
+                Raylib::Texture2D &_texture;
         };
     };
 };

@@ -59,19 +59,20 @@ void Indie::Game::loadGame()
     // }
 }
 
-void Indie::Game::killPlayers(std::vector<Vector3> explodedPoints)
+void Indie::Game::killEntities(std::vector<Vector3> explodedPoints)
 {
-    Vector3 playerPosition;
+    Vector3 position;
 
+    _map.cleanExplodedBoxes(explodedPoints);
     for (auto &player : _players) {
         if (!player->getIsAlive())
             continue;
+        position = player->getPosition();
         for (auto &explodedPoint : explodedPoints) {
-            playerPosition = player->getPosition();
-            if ((std::ceil(playerPosition.x) == explodedPoint.x && std::ceil(playerPosition.z) == explodedPoint.z) ||
-                (std::floor(playerPosition.x) == explodedPoint.x && std::floor(playerPosition.z) == explodedPoint.z) ||
-                (std::floor(playerPosition.x) == explodedPoint.x && std::ceil(playerPosition.z) == explodedPoint.z) ||
-                (std::ceil(playerPosition.x) == explodedPoint.x && std::floor(playerPosition.z) == explodedPoint.z)) {
+            if ((std::ceil(position.x) == explodedPoint.x && std::ceil(position.z) == explodedPoint.z) ||
+                (std::floor(position.x) == explodedPoint.x && std::floor(position.z) == explodedPoint.z) ||
+                (std::floor(position.x) == explodedPoint.x && std::ceil(position.z) == explodedPoint.z) ||
+                (std::ceil(position.x) == explodedPoint.x && std::floor(position.z) == explodedPoint.z)) {
                 std::cerr << "Player killed" << std::endl;
                 player->setIsAlive(false);
                 _nbAlivePlayers--;

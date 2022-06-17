@@ -31,6 +31,7 @@ ELSE(UNIX)
 ENDIF(UNIX)
 
 INCLUDE_DIRECTORIES(headers/)
+FILE(GLOB SOURCES sources/Raylib.cpp sources/main.cpp sources/Indie.cpp)
 INCLUDE_DIRECTORIES(headers/Scenes/)
 INCLUDE_DIRECTORIES(headers/Dependencies/Raylib/Button)
 INCLUDE_DIRECTORIES(headers/Dependencies/Raylib/)

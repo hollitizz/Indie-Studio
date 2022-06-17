@@ -21,7 +21,7 @@ namespace Indie {
             ~Game();
             void preLoadGame();
             void loadGame();
-            void killPlayers(std::vector<Vector3> explodedPoints);
+            void killEntities(std::vector<Vector3> explodedPoints);
             Raylib::Window &getWindow();
             Vector2 getWindowSize() const;
             Indie::GameComponents::Map &getMap();

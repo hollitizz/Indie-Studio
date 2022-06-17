@@ -27,6 +27,7 @@ namespace Indie
                 void display() override;
                 // TODO: reset() fct when the game is over
             private:
+                void playerEvents();
                 void diplay3DScope();
                 std::map<Scenes::Type, std::shared_ptr<Scenes::IScene>> _scenes;
                 Scenes::Blur _Blur;
