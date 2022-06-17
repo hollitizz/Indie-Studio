@@ -6,7 +6,6 @@
 */
 
 #include "Game.hpp"
-#include "Const.hpp"
 #include <cmath>
 
 Indie::Game::Game():
@@ -18,7 +17,7 @@ Indie::Game::Game():
     for (int i = 0; i < PLAYER_STARTS_POSITION.size(); ++i) {
         _players.push_back(std::make_shared<Indie::GameComponents::Human>(
             _map,
-            PLAYER_STARTS_POSITION[i],
+            Vector2{PLAYER_STARTS_POSITION[i].x - 0.25f, PLAYER_STARTS_POSITION[i].y - 0.25f},
             PLAYER_KEY_MAP[i],
             "assets/Game/Player/textures/player1.png",
             "assets/Game/Player/models/playerModel.iqm",
@@ -48,10 +47,10 @@ void Indie::Game::killEntities(std::vector<Vector3> explodedPoints)
             continue;
         position = player->getPosition();
         for (auto &explodedPoint : explodedPoints) {
-            if ((std::ceil(position.x) == explodedPoint.x && std::ceil(position.z) == explodedPoint.z) ||
-                (std::floor(position.x) == explodedPoint.x && std::floor(position.z) == explodedPoint.z) ||
-                (std::floor(position.x) == explodedPoint.x && std::ceil(position.z) == explodedPoint.z) ||
-                (std::ceil(position.x) == explodedPoint.x && std::floor(position.z) == explodedPoint.z)) {
+                if (CheckCollisionRecs(
+                    {position.x, position.z, 0.5, 0.5},
+                    {explodedPoint.x - 0.5f, explodedPoint.z - 0.5f, 1, 1}
+                )) {
                 std::cerr << "Player killed" << std::endl;
                 player->setIsAlive(false);
                 _nbAlivePlayers--;

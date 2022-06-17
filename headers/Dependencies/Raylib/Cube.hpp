@@ -13,7 +13,6 @@ namespace Raylib {
     class Cube {
         public:
             Cube(Vector3 position, Vector3 size);
-            Cube(const Cube&) = delete;
             ~Cube() = default;
             void draw(Color color) const;
             void draw(Raylib::Texture2D &texture) const;

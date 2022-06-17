@@ -9,6 +9,7 @@
 #include "Const.hpp"
 #include <iostream>
 #include <cstdlib>
+#include <cmath>
 
 Indie::GameComponents::Map::Map(Vector3 mapPosition) : _mapPosition(mapPosition),
     _boxTexture("assets/Game/Maps/box_texture.png"),
@@ -31,6 +32,39 @@ void Indie::GameComponents::Map::display() const
     for (auto &box : _boxes) {
         box->draw();
     }
+    for (auto &bonus : _bonuses) {
+        bonus->draw();
+    }
+}
+
+std::shared_ptr<Indie::GameComponents::Bonus> Indie::GameComponents::Map::pickBonus(int index)
+{
+    auto bonus = std::make_shared<Indie::GameComponents::Bonus>(*_bonuses[index]);
+    _bonuses.erase(_bonuses.begin() + index);
+    return bonus;
+}
+
+void Indie::GameComponents::Map::tryCreateBonus(Vector3 position)
+{
+    float randnumb = std::ceil(std::rand() % 4);
+
+    if (randnumb == 1) {
+        _bonuses.push_back(std::make_shared<Indie::GameComponents::Bonus>(position, BLUE));
+    }
+}
+
+int Indie::GameComponents::Map::getBonusIfExistAt(Vector2 position)
+{
+    Vector3 bonusPosition;
+
+    for (int i = 0; i < _bonuses.size(); ++i) {
+        std::cout << _bonuses.size() << std::endl;
+        bonusPosition = _bonuses[i]->getPosition();
+        if (CheckCollisionRecs({position.x, position.y, 0.5, 0.5},
+            {bonusPosition.x - 0.5f, bonusPosition.z - 0.5f, 1, 1}))
+            return i;
+    }
+    return -1;
 }
 
 void Indie::GameComponents::Map::cleanExplodedBoxes(std::vector<Vector3> explodedPoints)
@@ -42,6 +76,7 @@ void Indie::GameComponents::Map::cleanExplodedBoxes(std::vector<Vector3> explode
         for (auto &explodedPoint : explodedPoints) {
             if (position.x == explodedPoint.x && position.z == explodedPoint.z) {
                 _boxes.erase(_boxes.begin() + i);
+                tryCreateBonus(position);
             }
         }
     }
@@ -73,8 +108,8 @@ void Indie::GameComponents::Map::genMapBlocks()
         for (float x = -6; x < 7; ++x) {
             boxPosition.x = x;
             randomNumber = std::rand() % 100;
-            if (!isCollisionAt({boxPosition.x, boxPosition.z}, 0.25) &&
-                isValidPosition(boxPosition) && randomNumber <= 80) // 80% of chance to create a box
+            if (!isCollisionAt({boxPosition.x, boxPosition.z}) &&
+                isValidPosition(boxPosition) && randomNumber <= _density) // 80% of chance to create a box
                 _boxes.push_back(
                         std::make_shared<Indie::GameComponents::Box>(
                             boxPosition, _boxTexture
@@ -89,7 +124,7 @@ void Indie::GameComponents::Map::setDensity(size_t density)
     _density = density;
 }
 
-bool Indie::GameComponents::Map::isCollisionWithBoxAt(Vector2 position, float radius) const
+bool Indie::GameComponents::Map::isCollisionWithBoxAt(Vector2 position) const
 {
     auto cubicmap = getCubicmap();
     auto mapPixels = getMapPixels();
@@ -97,14 +132,14 @@ bool Indie::GameComponents::Map::isCollisionWithBoxAt(Vector2 position, float ra
 
     for (auto &box : _boxes) {
         boxPosition = box->getPosition();
-        if (CheckCollisionCircleRec({position.x, position.y}, radius * 3,
-            Rectangle{boxPosition.x, boxPosition.z}))
+        if (CheckCollisionRecs({position.x, position.y, 0.5, 0.5},
+            {boxPosition.x - 0.5f, boxPosition.z - 0.5f, 1, 1}))
             return true;
     }
     return false;
 }
 
-bool Indie::GameComponents::Map::isCollisionAt(Vector2 position, float radius) const
+bool Indie::GameComponents::Map::isCollisionAt(Vector2 position) const
 {
     auto cubicmap = getCubicmap();
     auto mapPixels = getMapPixels();
@@ -113,10 +148,8 @@ bool Indie::GameComponents::Map::isCollisionAt(Vector2 position, float radius) c
         for (int x = 0; x < cubicmap.width; x++)
         {
             if (mapPixels[y*cubicmap.width + x].r == 255 &&
-                CheckCollisionCircleRec({position.x, position.y}, radius,
-                Rectangle {
-                    _mapPosition.x - 0.5f + x, _mapPosition.z - 0.5f + y, 1, 1
-                    }
+                CheckCollisionRecs({position.x, position.y, 0.5, 0.5},
+                {_mapPosition.x - 0.5f + x, _mapPosition.z - 0.5f + y, 1, 1}
                 ))
                 return true;
         }
