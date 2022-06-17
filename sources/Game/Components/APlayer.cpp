@@ -8,8 +8,8 @@
 #include "APlayer.hpp"
 
 Indie::GameComponents::APlayer::APlayer(
-    Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath, std::string modelPath, Color color
-): _Map(map), _keyMap(keyMap), _texture(texturePath), _model(modelPath, _texture), _color(color)
+    Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath, std::string modelPath, Color color, std::string modelBombPath, std::string modelBombAnimationPath
+): _Map(map), _keyMap(keyMap), _texture(texturePath), _model(modelPath, _texture), _color(color), _modelBomb(modelBombPath, _texture), _modelBombAnimationPath(modelBombAnimationPath)
 {
     _position = {position.x, _Map.getMapPosition().y + 0.5f, position.y};
     _rotationAngle = -90;
@@ -33,7 +33,7 @@ void Indie::GameComponents::APlayer::putBomb()
 {
     if (_bombs.size() < _maximumBomb) {
         _bombs.push_back(
-            std::make_shared<Indie::GameComponents::Bomb>(_Map, _position, Vector3{1, 1, 1}, _explosionRange)
+            std::make_shared<Indie::GameComponents::Bomb>(_Map, _position, Vector3{1, 1, 1}, _explosionRange, _modelBomb, _modelBombAnimationPath)
         );
     }
 }

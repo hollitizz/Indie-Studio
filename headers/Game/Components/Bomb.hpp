@@ -17,6 +17,7 @@
 
 #include "Cube.hpp"
 #include "Clock.hpp"
+#include "ModelAnimation.hpp"
 #include "Map.hpp"
 #include <vector>
 #include <cstddef>
@@ -27,7 +28,7 @@ namespace Indie {
         class Bomb {
             public:
                 Bomb(Indie::GameComponents::Map &map,
-                    Vector3 position, Vector3 bombSize, size_t _explosionRange);
+                    Vector3 position, Vector3 bombSize, size_t _explosionRange, Raylib::Model &modelBomb, std::string modelBombAnimationPath);
                 Bomb(const Bomb&) = delete;
                 ~Bomb();
                 void display();
@@ -51,6 +52,8 @@ namespace Indie {
                 size_t _explosionRange;
                 Raylib::Clock _clockExplosion;
                 Raylib::Clock _clockVanish;
+                Raylib::Model _model;
+                Raylib::ModelAnimation _modelAnimation;
         };
     };
 };

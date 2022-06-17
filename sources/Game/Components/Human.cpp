@@ -9,9 +9,9 @@
 #include <tuple>
 
 Indie::GameComponents::Human::Human(
-    Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath, std::string modelPath, Color color, std::string modelAnimationPath
+    Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath, std::string modelPath, Color color, std::string modelAnimationPath, std::string modelBombPath, std::string modelBombAnimationPath
 ):
-    APlayer(map, position, keyMap, texturePath, modelPath, color)
+    APlayer(map, position, keyMap, texturePath, modelPath, color, modelBombPath, modelBombAnimationPath)
 {}
 
 Indie::GameComponents::Human::~Human()
