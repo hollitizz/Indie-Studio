@@ -24,11 +24,14 @@ namespace Indie {
                 std::vector<Color> getMapPixels() const;
                 void genMapBlocks();
                 void setDensity(size_t density);
+                void cleanExplodedBoxes(std::vector<Vector3> explodedPoints);
                 bool isCollisionAt(Vector2 position, float radius) const;
+                bool isCollisionWithBoxAt(Vector2 position, float radius) const;
             protected:
             private:
                 bool isValidPosition(Vector3 position) const;
                 Vector3 _mapPosition;
+                Raylib::Texture2D _boxTexture;
                 Raylib::Image _imMap;
                 Raylib::Texture2D _cubicmap;
                 Raylib::Texture2D _texture;

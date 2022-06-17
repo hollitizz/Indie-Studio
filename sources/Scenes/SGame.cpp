@@ -32,6 +32,30 @@ Indie::Scenes::SGame::SGame(Indie::Game &game, State &state):
 Indie::Scenes::SGame::~SGame()
 {}
 
+void Indie::Scenes::SGame::playerEvents()
+{
+    int bombsToPop;
+    for (auto &Player : _Game.getPlayers()) {
+        if (!Player->getIsAlive())
+            continue;
+        bombsToPop = 0;
+        for (size_t i = 0; i < Player->getBombsLen(); i++) {
+            auto bomb = Player->getBomb(i);
+            if (bomb->getShouldVanished()) {
+                bombsToPop++;
+                continue;
+            }
+            if (bomb->getIsExploded()) {
+                _Game.killEntities(bomb->getExplosionsPos());
+            }
+        }
+        for (int j = 0; j < bombsToPop; ++j)
+            Player->popBomb();
+        if (Player->getIsAlive())
+            Player->move();
+    }
+}
+
 void Indie::Scenes::SGame::event()
 {
     if (_State.getGameScene() != Hud) {
@@ -46,26 +70,7 @@ void Indie::Scenes::SGame::event()
         _State.setGameScene(Over);
         return;
     }
-
-    int bombsToPop;
-    for (auto &Player : _Game.getPlayers()) {
-        if (!Player->getIsAlive())
-            continue;
-        bombsToPop = 0;
-        for (size_t i = 0; i < Player->getBombsLen(); i++) {
-            auto bomb = Player->getBomb(i);
-            if (bomb->getShouldVanished()) {
-                bombsToPop++;
-                continue;
-            }
-            if (bomb->getIsExploded())
-                _Game.killPlayers(bomb->getExplosionsPos());
-        }
-        for (int j = 0; j < bombsToPop; ++j)
-            Player->popBomb();
-        if (Player->getIsAlive())
-            Player->move();
-    }
+    playerEvents();
     if (IsKeyPressed(KEY_ESCAPE)) {
         _State.setGameScene(Indie::Scenes::Pause);
         for (auto &Player : _Game.getPlayers())

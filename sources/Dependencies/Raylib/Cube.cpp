@@ -23,6 +23,16 @@ void Raylib::Cube::drawAt(Vector3 position, Vector3 size, Color color) const
     DrawCube(position, size.x, size.y, size.z, color);
 }
 
+void Raylib::Cube::draw(Raylib::Texture2D &texture) const
+{
+    DrawCubeTexture(texture.getTexture(), _position, _size.x, _size.y, _size.z, WHITE);
+}
+
+void Raylib::Cube::drawAt(Vector3 position, Vector3 size, Raylib::Texture2D texture) const
+{
+    DrawCubeTexture(texture.getTexture(), position, size.x, size.y, size.z, WHITE);
+}
+
 Vector3 Raylib::Cube::getPosition() const
 {
     return _position;

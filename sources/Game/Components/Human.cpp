@@ -62,6 +62,10 @@ void Indie::GameComponents::Human::move()
         playerCellY = 0;
     else if (playerCellY >= cubicmap.height)
         playerCellY = cubicmap.height - 1;
+    if (_Map.isCollisionWithBoxAt({playerPos.x, oldPlayerPosition.z}, playerRadius))
+        _position.x = oldPlayerPosition.x;
+    if (_Map.isCollisionWithBoxAt({oldPlayerPosition.x, playerPos.y}, playerRadius))
+        _position.z = oldPlayerPosition.z;
     if (_Map.isCollisionAt({playerPos.x, oldPlayerPosition.z}, playerRadius))
         _position.x = oldPlayerPosition.x;
     if (_Map.isCollisionAt({oldPlayerPosition.x, playerPos.y}, playerRadius))
