@@ -22,7 +22,9 @@ Indie::Game::Game():
             "assets/Game/Player/textures/player1.png",
             "assets/Game/Player/models/playerModel.iqm",
             COLORS[i],
-            ANIMATIONS[IDLE]
+            ANIMATIONS[IDLE],
+            "assets/Game/Player/models/bomb.iqm",
+            "assets/Game/Player/models/bombAnimation.iqm"
         ));
         _names.push_back(std::make_shared<Raylib::Text>(
             "",

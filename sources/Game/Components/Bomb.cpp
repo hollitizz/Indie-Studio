@@ -12,10 +12,10 @@
 #include <iostream>
 
 Indie::GameComponents::Bomb::Bomb(Indie::GameComponents::Map &map, Vector3 position,
-    Vector3 bombSize, size_t explosionRange):
+    Vector3 bombSize, size_t explosionRange, Raylib::Model &modelBomb, std::string modelBombAnimationPath):
     _map(map), _position({std::round(position.x), position.y, std::round(position.z)}),
     _bomb(_position, bombSize), _explosionRange(explosionRange), _clockExplosion(TIME_BEFORE_EXPLOSION),
-    _clockVanish(TIME_BEFORE_VANISH), _size(bombSize)
+    _clockVanish(TIME_BEFORE_VANISH), _size(bombSize), _model(modelBomb), _modelAnimation(modelBombAnimationPath)
 {
 }
 
@@ -69,7 +69,11 @@ void Indie::GameComponents::Bomb::display()
         displayExplosions(getExplosionsPos());
         return;
     }
-    _bomb.draw(RED);
+//    _bomb.draw(RED);
+    _modelAnimation.setFrameCounter(_modelAnimation.getFrameCounter() + 1);
+    UpdateModelAnimation(_model.getModel(), _modelAnimation.getAnimation()[0], _modelAnimation.getFrameCounter());
+    if (_modelAnimation.getFrameCounter() >= _modelAnimation.getAnimation()[0].frameCount) _modelAnimation.setFrameCounter(0);
+    DrawModelEx(_model.getModel(), {_position.x + 0.2f, -0.5f, _position.z + 0.2f}, {1, 0, 0}, -90.0f, {0.3f, 0.3f, 0.3f}, WHITE);
 }
 
 void Indie::GameComponents::Bomb::pause()
