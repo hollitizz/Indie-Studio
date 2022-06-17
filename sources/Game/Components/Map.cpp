@@ -67,6 +67,12 @@ void Indie::GameComponents::Map::genMapBlocks()
     }
 }
 
+void Indie::GameComponents::Map::remMapBlocks()
+{
+    std::cerr << "Map remMapBlocks" << std::endl;
+    _boxes.clear();
+}
+
 void Indie::GameComponents::Map::setDensity(size_t density)
 {
     _density = density;

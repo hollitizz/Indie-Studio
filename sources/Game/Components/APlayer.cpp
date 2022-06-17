@@ -20,6 +20,16 @@ Indie::GameComponents::APlayer::APlayer(
     _modelAnimation = _animations[1];
 }
 
+void Indie::GameComponents::APlayer::setAnimation(std::string animation)
+{
+    if (animation == ANIMATIONS[RUN])
+        _modelAnimation = _animations[0];
+    else if (animation == ANIMATIONS[IDLE]) {
+        _modelAnimation = _animations[1];
+        _rotationAxis = {1.0, 0.0, 0.0};
+    }
+}
+
 void Indie::GameComponents::APlayer::putBomb()
 {
     if (_bombs.size() < _maximumBomb) {
@@ -27,6 +37,11 @@ void Indie::GameComponents::APlayer::putBomb()
             std::make_shared<Indie::GameComponents::Bomb>(_Map, _position, Vector3{1, 1, 1}, size_t{1})
         );
     }
+}
+
+void Indie::GameComponents::APlayer::setPosition(Vector2 position)
+{
+    _position = {position.x, _Map.getMapPosition().y + 0.5f, position.y};
 }
 
 Vector3 Indie::GameComponents::APlayer::getPosition() const

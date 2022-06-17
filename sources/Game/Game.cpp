@@ -38,6 +38,27 @@ Indie::Game::~Game()
     std::cerr << "Game Destroy" << std::endl;
 }
 
+void Indie::Game::preLoadGame()
+{
+    // _nbAlivePlayers = _nbPlayers;
+    for (size_t i = 0; i < _nbPlayers; ++i) {
+        _players[i]->setPosition(PLAYER_STARTS_POSITION[i]);
+        _players[i]->setIsAlive(true);
+        _players[i]->setAnimation(ANIMATIONS[IDLE]);
+    }
+    _map.remMapBlocks();
+}
+
+void Indie::Game::loadGame()
+{
+    _nbAlivePlayers = _nbPlayers;
+    _map.genMapBlocks();
+    // for (size_t i = 0; i < _nbPlayers; ++i) {
+    //     _players[i]->setPosition(PLAYER_STARTS_POSITION[i]);
+    //     _players[i]->setIsAlive(true);
+    // }
+}
+
 void Indie::Game::killPlayers(std::vector<Vector3> explodedPoints)
 {
     Vector3 playerPosition;

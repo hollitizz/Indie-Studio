@@ -23,6 +23,7 @@ namespace Indie {
                 Vector3 getMapPosition() const;
                 std::vector<Color> getMapPixels() const;
                 void genMapBlocks();
+                void remMapBlocks();
                 void setDensity(size_t density);
                 bool isCollisionAt(Vector2 position, float radius) const;
             protected:

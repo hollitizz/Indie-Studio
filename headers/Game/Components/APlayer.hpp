@@ -27,7 +27,9 @@ namespace Indie {
                 void pauseBombs();
                 void resumeBombs();
                 void putBomb();
+                void setAnimation(std::string animation);
                 Vector3 getPosition() const;
+                void setPosition(Vector2 position);
                 size_t getBombsLen() const;
                 std::shared_ptr<Indie::GameComponents::Bomb> getBomb(size_t index) const;
                 std::shared_ptr<Indie::GameComponents::Bomb> popBomb();

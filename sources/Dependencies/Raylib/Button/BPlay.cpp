@@ -23,13 +23,11 @@ Indie::Scenes::BPlay::BPlay(std::vector<std::shared_ptr<Input>> &input, Choice &
 
 void Indie::Scenes::BPlay::run()
 {
-    auto &map = _Game.getMap();
-
-    map.genMapBlocks();
     _btnAction = true;
-    _Game.setNbAlivePlayers(_Game.getNbPlayers());
+    // _Game.setNbAlivePlayers(_Game.getNbPlayers());
     for (size_t i = 0; i < _Game.getNbPlayers(); i++)
         _Game.getNames()[i]->setText(_input[i]->getText());
+    _Game.loadGame();
     _State.setScene(Indie::Scenes::Game);
     _State.setGameScene(Indie::Scenes::Hud);
     std::cerr << "SGame" << std::endl;
