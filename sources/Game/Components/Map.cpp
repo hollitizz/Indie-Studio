@@ -10,19 +10,6 @@
 #include <iostream>
 #include <cstdlib>
 
-bool isValidPosition(Vector3 position)
-{
-    for (auto pos : PLAYER_STARTS_POSITION) {
-        if (pos.x == position.x && pos.y == position.z ||
-            pos.x + 1 == position.x && pos.y == position.z ||
-            pos.x - 1 == position.x && pos.y == position.z ||
-            pos.x == position.x && pos.y + 1 == position.z ||
-            pos.x == position.x && pos.y - 1 == position.z)
-            return false;
-    }
-    return true;
-}
-
 Indie::GameComponents::Map::Map(Vector3 mapPosition) : _mapPosition(mapPosition),
     _imMap("assets/Game/Maps/basic_bomberman_map.png"), _cubicmap(_imMap),
     _mesh(_imMap), _texture("assets/Game/Maps/exemple_texture.png"),
@@ -30,21 +17,6 @@ Indie::GameComponents::Map::Map(Vector3 mapPosition) : _mapPosition(mapPosition)
     _model(_mesh, _texture)
 {
     std::cerr << "Map init" << std::endl;
-    Vector3 boxPosition = {0, _mapPosition.y + 0.5f, 0};
-    int randomNumber = 0;
-
-    for (float z = -7; z < 6; ++z) {
-        boxPosition.z = z;
-        for (float x = -6; x < 7; ++x) {
-            boxPosition.x = x;
-            randomNumber = std::rand() % 100;
-            if (!isCollisionAt({boxPosition.x, boxPosition.z}, 0.25) &&
-                isValidPosition(boxPosition) && randomNumber <= 80) // 80% of chance to create a box
-                _boxes.push_back(
-                    std::make_shared<Indie::GameComponents::Box>(boxPosition)
-                );
-        }
-    }
 }
 
 Indie::GameComponents::Map::~Map()
@@ -75,6 +47,31 @@ std::vector<Color> Indie::GameComponents::Map::getMapPixels() const
     return _mapPixels.getColors();
 }
 
+void Indie::GameComponents::Map::genMapBlocks()
+{
+    std::cerr << "Map genMapBlocks" << std::endl;
+    Vector3 boxPosition = {0, _mapPosition.y + 0.5f, 0};
+    int randomNumber = 0;
+
+    for (float z = -7; z < 6; ++z) {
+        boxPosition.z = z;
+        for (float x = -6; x < 7; ++x) {
+            boxPosition.x = x;
+            randomNumber = std::rand() % 100;
+            if (!isCollisionAt({boxPosition.x, boxPosition.z}, 0.25) &&
+                isValidPosition(boxPosition) && randomNumber <= 80) // 80% of chance to create a box
+                _boxes.push_back(
+                    std::make_shared<Indie::GameComponents::Box>(boxPosition)
+                );
+        }
+    }
+}
+
+void Indie::GameComponents::Map::setDensity(size_t density)
+{
+    _density = density;
+}
+
 bool Indie::GameComponents::Map::isCollisionAt(Vector2 position, float radius) const
 {
     auto cubicmap = getCubicmap();
@@ -93,4 +90,17 @@ bool Indie::GameComponents::Map::isCollisionAt(Vector2 position, float radius) c
         }
     }
     return false;
+}
+
+bool Indie::GameComponents::Map::isValidPosition(Vector3 position) const
+{
+    for (auto &pos : PLAYER_STARTS_POSITION) {
+        if (pos.x == position.x && pos.y == position.z ||
+            pos.x + 1 == position.x && pos.y == position.z ||
+            pos.x - 1 == position.x && pos.y == position.z ||
+            pos.x == position.x && pos.y + 1 == position.z ||
+            pos.x == position.x && pos.y - 1 == position.z)
+            return false;
+    }
+    return true;
 }

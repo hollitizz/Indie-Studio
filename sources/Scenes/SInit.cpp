@@ -65,7 +65,12 @@ Indie::Scenes::SInit::SInit(Indie::Game &game, Indie::State &state) : AScene(gam
     );
 
     for (size_t i = 0; i < 4; ++i)
-        _input.push_back(std::make_shared<Indie::Scenes::Input>("player " + std::to_string(i + 1), Vector2{300, 60}, Vector2{windowSize.x / 4 + (windowSize.x / 8 - 225 / 2), windowSize.y / 2 + i * 110}));
+        _input.push_back(std::make_shared<Indie::Scenes::Input>(
+                "player " + std::to_string(i + 1),
+                Vector2{300, 60},
+                Vector2{windowSize.x / 4 + (windowSize.x / 8 - 225 / 2), windowSize.y / 2 + i * 110}
+            )
+        );
     std::cerr << "SInit init" << std::endl;
 }
 
