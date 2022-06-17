@@ -14,8 +14,8 @@
 
 const std::array<Vector2, 4> PLAYER_STARTS_POSITION = {
     Vector2{-6, -7},
-    Vector2{6, -7},
     Vector2{6, 5},
+    Vector2{6, -7},
     Vector2{-6, 5}
 };
 
