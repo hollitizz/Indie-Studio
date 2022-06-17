@@ -53,6 +53,7 @@ namespace Indie {
                 std::vector<std::shared_ptr<Indie::GameComponents::Bonus>> _bonuses;
             private:
                 float _speed = 0.1;
+                bool _wallPass = false;
                 size_t _maximumBomb = 1;
                 size_t _explosionRange = 1;
                 std::vector<std::shared_ptr<Indie::GameComponents::Bomb>> _bombs;

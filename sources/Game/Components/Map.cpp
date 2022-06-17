@@ -19,6 +19,10 @@ Indie::GameComponents::Map::Map(Vector3 mapPosition) : _mapPosition(mapPosition)
     _model(_mesh, _texture)
 {
     std::cerr << "Map init" << std::endl;
+    _bonusTextures[Indie::GameComponents::BOMB_UP] = std::make_shared<Raylib::Texture2D>("assets/Game/Maps/BombUp.png");
+    _bonusTextures[Indie::GameComponents::FIRE_UP] = std::make_shared<Raylib::Texture2D>("assets/Game/Maps/FireUp.png");
+    _bonusTextures[Indie::GameComponents::SPEED_UP] = std::make_shared<Raylib::Texture2D>("assets/Game/Maps/SpeedUp.png");
+    _bonusTextures[Indie::GameComponents::WALL_PASS] = std::make_shared<Raylib::Texture2D>("assets/Game/Maps/WallPass.png");
 }
 
 Indie::GameComponents::Map::~Map()
@@ -46,10 +50,16 @@ std::shared_ptr<Indie::GameComponents::Bonus> Indie::GameComponents::Map::pickBo
 
 void Indie::GameComponents::Map::tryCreateBonus(Vector3 position)
 {
-    float randnumb = std::ceil(std::rand() % 4);
+    int isBonusSpawn = std::ceil(std::rand() % 4);
+    Indie::GameComponents::BONUS_ID bonusType = static_cast<BONUS_ID>(std::ceil(std::rand() % 4));
 
-    if (randnumb == 1) {
-        _bonuses.push_back(std::make_shared<Indie::GameComponents::Bonus>(position, BLUE));
+    if (isBonusSpawn == 1) {
+        _bonuses.push_back(std::make_shared<Indie::GameComponents::Bonus>(
+                position,
+                bonusType,
+                *_bonusTextures[bonusType]
+            )
+        );
     }
 }
 

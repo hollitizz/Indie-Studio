@@ -31,11 +31,18 @@ void Indie::GameComponents::APlayer::putBomb()
 void Indie::GameComponents::APlayer::computeBonus()
 {
     switch (_bonuses.back()->getId()) {
-        case BOMB:
+        case BOMB_UP:
             _maximumBomb++;
             break;
-        case EXPLOSION_RANGE:
+        case FIRE_UP:
             _explosionRange++;
+            break;
+        case SPEED_UP:
+            _speed += 0.1;
+            break;
+        case WALL_PASS:
+            _wallPass = true;
+            break;
         default:
             break;
     }
@@ -47,10 +54,10 @@ void Indie::GameComponents::APlayer::computeMove()
 
     _movement.x *= _speed;
     _movement.y *= _speed;
-    if (!_Map.isCollisionWithBoxAt({_position.x + _movement.x, _position.z}) &&
+    if ((!_Map.isCollisionWithBoxAt({_position.x + _movement.x, _position.z}) || _wallPass) &&
         !_Map.isCollisionAt({_position.x + _movement.x, _position.z})) _position.x += _movement.x;
     else _movement.x = 0;
-    if (!_Map.isCollisionWithBoxAt({_position.x, _position.z + _movement.y}) &&
+    if ((!_Map.isCollisionWithBoxAt({_position.x, _position.z + _movement.y}) || _wallPass) &&
         !_Map.isCollisionAt({_position.x, _position.z + _movement.y})) _position.z += _movement.y;
     else _movement.y = 0;
     bonusIndex = _Map.getBonusIfExistAt({_position.x, _position.z});

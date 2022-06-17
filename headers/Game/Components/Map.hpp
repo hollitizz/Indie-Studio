@@ -10,6 +10,7 @@
 #include "Model.hpp"
 #include "Box.hpp"
 #include "Bonus.hpp"
+#include <map>
 #include <vector>
 #include <memory>
 
@@ -43,6 +44,7 @@ namespace Indie {
                 Raylib::ImageColors _mapPixels;
                 Raylib::Model _model;
                 size_t _density = 80;
+                std::map<Indie::GameComponents::BONUS_ID, std::shared_ptr<Raylib::Texture2D>> _bonusTextures;
                 std::vector<std::shared_ptr<Indie::GameComponents::Box>> _boxes;
                 std::vector<std::shared_ptr<Indie::GameComponents::Bonus>> _bonuses;
         };
