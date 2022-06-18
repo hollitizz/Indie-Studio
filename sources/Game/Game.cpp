@@ -43,7 +43,7 @@ void Indie::Game::preLoadGame()
 {
     // _nbAlivePlayers = _nbPlayers;
     for (size_t i = 0; i < _nbPlayers; ++i) {
-        _players[i]->setPosition(PLAYER_STARTS_POSITION[i]);
+        _players[i]->setPosition(Vector2{PLAYER_STARTS_POSITION[i].x - 0.25f, PLAYER_STARTS_POSITION[i].y - 0.25f});
         _players[i]->setIsAlive(true);
         _players[i]->setAnimation(ANIMATIONS[IDLE]);
     }

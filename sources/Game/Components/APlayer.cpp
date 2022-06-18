@@ -130,14 +130,14 @@ void Indie::GameComponents::APlayer::display()
         if (!Bomb->getShouldVanished())
             Bomb->display();
     }
-    // DrawCube({_position.x + 0.25f, _position.y, _position.z + 0.25f}, 0.5, 1, 0.5, _color);
-    _modelAnimation->setFrameCounter(_modelAnimation->getFrameCounter() + 1);
-    UpdateModelAnimation(_model.getModel(), _modelAnimation->getAnimation()[0], _modelAnimation->getFrameCounter());
-    if (_modelAnimation->getFrameCounter() >= _modelAnimation->getAnimation()[0].frameCount) _modelAnimation->setFrameCounter(0);
-    if (_isAlive)
-        _model.drawExAt({_position.x + 0.25f, _position.y - 0.5f, _position.z + 0.25f},
-            _rotationAxis, _rotationAngle
-        );
+    DrawCube({_position.x + 0.25f, _position.y, _position.z + 0.25f}, 0.5, 1, 0.5, _color);
+    // _modelAnimation->setFrameCounter(_modelAnimation->getFrameCounter() + 1);
+    // UpdateModelAnimation(_model.getModel(), _modelAnimation->getAnimation()[0], _modelAnimation->getFrameCounter());
+    // if (_modelAnimation->getFrameCounter() >= _modelAnimation->getAnimation()[0].frameCount) _modelAnimation->setFrameCounter(0);
+    // if (_isAlive)
+        // _model.drawExAt({_position.x + 0.25f, _position.y - 0.5f, _position.z + 0.25f},
+            // _rotationAxis, _rotationAngle
+        // );
 }
 
 bool Indie::GameComponents::APlayer::getIsAlive() const
