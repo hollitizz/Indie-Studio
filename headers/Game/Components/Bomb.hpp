@@ -13,7 +13,7 @@
     #include <stdlib.h>
 #else
     #error "OS not supported!"
-#endif 
+#endif
 
 #include "Cube.hpp"
 #include "Clock.hpp"
@@ -28,7 +28,7 @@ namespace Indie {
         class Bomb {
             public:
                 Bomb(Indie::GameComponents::Map &map,
-                    Vector3 position, Vector3 bombSize, size_t _explosionRange, Raylib::Model &modelBomb, std::string modelBombAnimationPath);
+                    Vector3 position, Vector3 bombSize, size_t _explosionRange, Raylib::Model &modelBomb, std::string modelBombAnimationPath, Raylib::Model &modelExplosion);
                 Bomb(const Bomb&) = delete;
                 ~Bomb();
                 void display();
@@ -54,6 +54,7 @@ namespace Indie {
                 Raylib::Clock _clockVanish;
                 Raylib::Model _model;
                 Raylib::ModelAnimation _modelAnimation;
+                Raylib::Model _modelExplosion;
         };
     };
 };

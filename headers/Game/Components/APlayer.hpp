@@ -21,7 +21,7 @@ namespace Indie {
     namespace GameComponents {
         class APlayer {
             public:
-                APlayer(Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath, std::string modelPath, Color color, std::string modelBombPath, std::string modelBombAnimationPath);
+                APlayer(Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath, std::string modelPath, Color color, std::string modelBombPath, std::string modelBombAnimationPath, std::string modelExplosionPath);
                 ~APlayer() = default;
                 void display();
                 bool getIsAlive() const;
@@ -55,6 +55,7 @@ namespace Indie {
                 std::vector<std::shared_ptr<Indie::GameComponents::Bonus>> _bonuses;
                 Raylib::Model _modelBomb;
                 std::string _modelBombAnimationPath;
+                Raylib::Model _modelExplosion;
             private:
                 float _speed = 0.1;
                 bool _wallPass = false;
