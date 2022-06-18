@@ -9,9 +9,11 @@
 
 Indie::GameComponents::APlayer::APlayer(
     Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath,
-    std::string modelPath, Color color, std::string modelBombPath, std::string modelBombAnimationPath
+    std::string modelPath, Color color, std::string modelBombPath, std::string modelBombAnimationPath,
+    std::string modelExplosionPath
 ): _Map(map), _keyMap(keyMap), _texture(texturePath), _model(modelPath, _texture, color), _color(color),
-    _modelBomb(modelBombPath, _texture, WHITE), _modelBombAnimationPath(modelBombAnimationPath)
+    _modelBomb(modelBombPath, _texture, WHITE), _modelBombAnimationPath(modelBombAnimationPath),
+     _modelExplosion(modelExplosionPath, _texture, ORANGE)
 {
     _position = {position.x, _Map.getMapPosition().y + 0.5f, position.y};
     _rotationAngle = -90;
@@ -35,7 +37,7 @@ void Indie::GameComponents::APlayer::putBomb()
 {
     if (_bombs.size() < _maximumBomb) {
         _bombs.push_back(
-            std::make_shared<Indie::GameComponents::Bomb>(_Map, _position, Vector3{1, 1, 1}, _explosionRange, _modelBomb, _modelBombAnimationPath)
+            std::make_shared<Indie::GameComponents::Bomb>(_Map, _position, Vector3{1, 1, 1}, _explosionRange, _modelBomb, _modelBombAnimationPath, _modelExplosion)
         );
     }
 }
@@ -130,14 +132,14 @@ void Indie::GameComponents::APlayer::display()
         if (!Bomb->getShouldVanished())
             Bomb->display();
     }
-    DrawCube({_position.x + 0.25f, _position.y, _position.z + 0.25f}, 0.5, 1, 0.5, _color);
-    // _modelAnimation->setFrameCounter(_modelAnimation->getFrameCounter() + 1);
-    // UpdateModelAnimation(_model.getModel(), _modelAnimation->getAnimation()[0], _modelAnimation->getFrameCounter());
-    // if (_modelAnimation->getFrameCounter() >= _modelAnimation->getAnimation()[0].frameCount) _modelAnimation->setFrameCounter(0);
-    // if (_isAlive)
-        // _model.drawExAt({_position.x + 0.25f, _position.y - 0.5f, _position.z + 0.25f},
-            // _rotationAxis, _rotationAngle
-        // );
+    //DrawCube({_position.x + 0.25f, _position.y, _position.z + 0.25f}, 0.5, 1, 0.5, _color);
+    _modelAnimation->setFrameCounter(_modelAnimation->getFrameCounter() + 1);
+    UpdateModelAnimation(_model.getModel(), _modelAnimation->getAnimation()[0], _modelAnimation->getFrameCounter());
+    if (_modelAnimation->getFrameCounter() >= _modelAnimation->getAnimation()[0].frameCount) _modelAnimation->setFrameCounter(0);
+    if (_isAlive)
+        _model.drawExAt({_position.x + 0.25f, _position.y - 0.5f, _position.z + 0.25f},
+            _rotationAxis, _rotationAngle
+        );
 }
 
 bool Indie::GameComponents::APlayer::getIsAlive() const

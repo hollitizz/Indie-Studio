@@ -24,7 +24,8 @@ Indie::Game::Game():
             COLORS[i],
             ANIMATIONS[IDLE],
             "assets/Game/Player/models/bomb.iqm",
-            "assets/Game/Player/models/bombAnimation.iqm"
+            "assets/Game/Player/models/bombAnimation.iqm",
+            "assets/Game/Player/models/bombExplosion.obj"
         ));
         _names.push_back(std::make_shared<Raylib::Text>(
             "",
