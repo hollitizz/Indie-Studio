@@ -8,8 +8,10 @@
 #include "APlayer.hpp"
 
 Indie::GameComponents::APlayer::APlayer(
-    Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath, std::string modelPath, Color color, std::string modelBombPath, std::string modelBombAnimationPath
-): _Map(map), _keyMap(keyMap), _texture(texturePath), _model(modelPath, _texture), _color(color), _modelBomb(modelBombPath, _texture), _modelBombAnimationPath(modelBombAnimationPath)
+    Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath,
+    std::string modelPath, Color color, std::string modelBombPath, std::string modelBombAnimationPath
+): _Map(map), _keyMap(keyMap), _texture(texturePath), _model(modelPath, _texture, color), _color(color),
+    _modelBomb(modelBombPath, _texture, WHITE), _modelBombAnimationPath(modelBombAnimationPath)
 {
     _position = {position.x, _Map.getMapPosition().y + 0.5f, position.y};
     _rotationAngle = -90;
@@ -133,11 +135,8 @@ void Indie::GameComponents::APlayer::display()
     UpdateModelAnimation(_model.getModel(), _modelAnimation->getAnimation()[0], _modelAnimation->getFrameCounter());
     if (_modelAnimation->getFrameCounter() >= _modelAnimation->getAnimation()[0].frameCount) _modelAnimation->setFrameCounter(0);
     if (_isAlive)
-        DrawModelEx(
-            _model.getModel(),
-            {_position.x + 0.25f, _position.y - 0.5f, _position.z + 0.25f},
-            _rotationAxis, _rotationAngle, Vector3{ 0.3f, 0.3f, 0.3f },
-            _color
+        _model.drawExAt({_position.x + 0.25f, _position.y - 0.5f, _position.z + 0.25f},
+            _rotationAxis, _rotationAngle
         );
 }
 

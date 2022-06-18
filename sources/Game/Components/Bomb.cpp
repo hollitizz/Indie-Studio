@@ -68,11 +68,11 @@ void Indie::GameComponents::Bomb::display()
         displayExplosions(getExplosionsPos());
         return;
     }
-//    _bomb.draw(RED);
     _modelAnimation.setFrameCounter(_modelAnimation.getFrameCounter() + 1);
+    //TODO: Encapsulate this in a function
     UpdateModelAnimation(_model.getModel(), _modelAnimation.getAnimation()[0], _modelAnimation.getFrameCounter());
     if (_modelAnimation.getFrameCounter() >= _modelAnimation.getAnimation()[0].frameCount) _modelAnimation.setFrameCounter(0);
-    DrawModelEx(_model.getModel(), {_position.x + 0.2f, -0.5f, _position.z + 0.2f}, {1, 0, 0}, -90.0f, {0.3f, 0.3f, 0.3f}, WHITE);
+    _model.drawExAt({_position.x + 0.25f, -0.5f, _position.z + 0.25f}, {1, 0, 0}, -90.0f);
 }
 
 void Indie::GameComponents::Bomb::pause()

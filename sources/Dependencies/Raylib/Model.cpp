@@ -15,11 +15,12 @@ Raylib::Model::Model(Raylib::Mesh &mesh, Raylib::Texture2D &texture)
     _model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture.getTexture();
 }
 
-Raylib::Model::Model(std::string model, Raylib::Texture2D &texture)
+Raylib::Model::Model(std::string model, Raylib::Texture2D &texture, Color color)
 {
     std::cerr << "Model Init from string" << std::endl;
     _model = LoadModel(model.c_str());
     SetMaterialTexture(&_model.materials[0], MATERIAL_MAP_DIFFUSE, texture.getTexture());
+    _color = color;
 }
 
 Raylib::Model::~Model()
@@ -34,5 +35,10 @@ Raylib::Model::~Model()
 
 void Raylib::Model::draw(Vector3 position) const
 {
-    DrawModel(_model, position, 1, WHITE);
+    DrawModel(_model, position, 1, _color);
+}
+
+void Raylib::Model::drawExAt(Vector3 position, Vector3 rotationAxis, float rotationAngle) const
+{
+    DrawModelEx(_model, position, rotationAxis, rotationAngle, Vector3{ 0.3f, 0.3f, 0.3f }, _color);
 }
