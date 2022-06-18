@@ -53,7 +53,7 @@ std::vector<Vector3> Indie::GameComponents::Bomb::getExplosionsPos() const
 void Indie::GameComponents::Bomb::displayExplosions(std::vector<Vector3> explosion) const
 {
     for (auto &explosion : getExplosionsPos()) {
-        DrawModelEx(_modelExplosion.getModel(), explosion, (Vector3){ 1.0f, 0.0f, 0.0f }, -90.0f, (Vector3){ 0.07f, 0.07f, 0.07f }, ORANGE);
+        _modelExplosion.drawExAt(explosion, {1.0f, 0.0f, 0.0f}, -90.0f, {0.07f, 0.07f, 0.07f});
     }
 }
 
@@ -72,7 +72,7 @@ void Indie::GameComponents::Bomb::display()
     //TODO: Encapsulate this in a function
     UpdateModelAnimation(_model.getModel(), _modelAnimation.getAnimation()[0], _modelAnimation.getFrameCounter());
     if (_modelAnimation.getFrameCounter() >= _modelAnimation.getAnimation()[0].frameCount) _modelAnimation.setFrameCounter(0);
-    _model.drawExAt({_position.x + 0.25f, -0.5f, _position.z + 0.25f}, {1, 0, 0}, -90.0f);
+    _model.drawExAt({_position.x + 0.25f, 0, _position.z + 0.25f}, {1, 0, 0}, -90.0f, { 0.3f, 0.3f, 0.3f });
 }
 
 void Indie::GameComponents::Bomb::pause()

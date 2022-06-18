@@ -11,7 +11,7 @@
 
 Indie::Scenes::Slider::Slider(Vector2 size, Vector2 position, int min, int max):
     _box({position.x, position.y, size.x, size.y}),
-    _input("< 80 >", BLACK, 30), _min(min), _max(max), _value(80)
+    _input("< 60 >", BLACK, 30), _min(min), _max(max), _value(60)
 {
     _framesCounter = 0;
 }

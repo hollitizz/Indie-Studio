@@ -22,3 +22,9 @@ bool Raylib::Rectangle::isCollisionWithRec(Vector2 position, Vector2 size)
 {
     return CheckCollisionRecs(_rectangle, {position.x, position.y, size.x, size.y});
 }
+
+void Raylib::Rectangle::setPosition(Vector2 position)
+{
+    _rectangle.x = position.x;
+    _rectangle.y = position.y;
+}

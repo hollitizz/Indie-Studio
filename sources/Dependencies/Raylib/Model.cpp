@@ -38,7 +38,7 @@ void Raylib::Model::draw(Vector3 position) const
     DrawModel(_model, position, 1, _color);
 }
 
-void Raylib::Model::drawExAt(Vector3 position, Vector3 rotationAxis, float rotationAngle) const
+void Raylib::Model::drawExAt(Vector3 position, Vector3 rotationAxis, float rotationAngle, Vector3 scale) const
 {
-    DrawModelEx(_model, position, rotationAxis, rotationAngle, Vector3{ 0.3f, 0.3f, 0.3f }, _color);
+    DrawModelEx(_model, position, rotationAxis, rotationAngle, scale, _color);
 }

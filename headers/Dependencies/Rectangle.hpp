@@ -15,6 +15,7 @@ namespace Raylib {
             Rectangle(Vector2 position, Vector2 size);
             ~Rectangle();
             bool isCollisionWithRec(Vector2 position, Vector2 size);
+            void setPosition(Vector2 position);
         protected:
         private:
             ::Rectangle _rectangle;

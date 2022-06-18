@@ -6,6 +6,7 @@
 */
 
 #include "Game.hpp"
+#include "Rectangle.hpp"
 #include <cmath>
 
 Indie::Game::Game():
@@ -42,7 +43,6 @@ Indie::Game::~Game()
 
 void Indie::Game::preLoadGame()
 {
-    // _nbAlivePlayers = _nbPlayers;
     for (size_t i = 0; i < _nbPlayers; ++i) {
         _players[i]->setPosition(Vector2{PLAYER_STARTS_POSITION[i].x - 0.25f, PLAYER_STARTS_POSITION[i].y - 0.25f});
         _players[i]->setIsAlive(true);
@@ -55,26 +55,21 @@ void Indie::Game::loadGame()
 {
     _nbAlivePlayers = _nbPlayers;
     _map.genMapBlocks();
-    // for (size_t i = 0; i < _nbPlayers; ++i) {
-    //     _players[i]->setPosition(PLAYER_STARTS_POSITION[i]);
-    //     _players[i]->setIsAlive(true);
-    // }
 }
 
 void Indie::Game::killEntities(std::vector<Vector3> explodedPoints)
 {
-    Vector3 position;
+    Raylib::Rectangle playerHitBox({0, 0}, {0.5, 0.5});
 
     _map.cleanExplodedBoxes(explodedPoints);
     for (auto &player : _players) {
         if (!player->getIsAlive())
             continue;
-        position = player->getPosition();
+        playerHitBox.setPosition({player->getPosition().x, player->getPosition().z});
         for (auto &explodedPoint : explodedPoints) {
-                if (CheckCollisionRecs(
-                    {position.x, position.z, 0.5, 0.5},
-                    {explodedPoint.x - 0.5f, explodedPoint.z - 0.5f, 1, 1}
-                )) {
+                if (playerHitBox.isCollisionWithRec(
+                        {explodedPoint.x - 0.5f, explodedPoint.z - 0.5f}, {1, 1}
+                    )) {
                 std::cerr << "Player killed" << std::endl;
                 player->setIsAlive(false);
                 _nbAlivePlayers--;

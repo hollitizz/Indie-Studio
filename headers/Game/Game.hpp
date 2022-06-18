@@ -9,6 +9,7 @@
 #include "Window.hpp"
 #include "Map.hpp"
 #include "Human.hpp"
+#include "AI.hpp"
 #include "Text.hpp"
 #include <vector>
 #include <memory>

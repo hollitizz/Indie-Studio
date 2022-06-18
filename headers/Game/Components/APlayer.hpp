@@ -21,9 +21,9 @@ namespace Indie {
     namespace GameComponents {
         class APlayer {
             public:
-                APlayer(Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap,
-                std::string texturePath, std::string modelPath, Color color, std::string modelBombPath,
-                std::string modelBombAnimationPath, std::string modelExplosionPath);
+                APlayer(Map &map, Vector2 position, std::string texturePath,
+                    std::string modelPath, Color color, std::string modelBombPath,
+                    std::string modelBombAnimationPath, std::string modelExplosionPath);
                 ~APlayer() = default;
                 APlayer(const APlayer&) = delete;
                 void display();
@@ -46,7 +46,6 @@ namespace Indie {
                 bool _isAlive = true;
                 Vector3 _position;
                 Raylib::Texture2D _texture;
-                std::array<KeyboardKey, 5> _keyMap;
                 Raylib::Model _model;
                 Color _color;
                 Vector2 _movement;

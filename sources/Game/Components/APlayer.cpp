@@ -8,12 +8,12 @@
 #include "APlayer.hpp"
 
 Indie::GameComponents::APlayer::APlayer(
-    Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath,
+    Map &map, Vector2 position, std::string texturePath,
     std::string modelPath, Color color, std::string modelBombPath, std::string modelBombAnimationPath,
     std::string modelExplosionPath
-): _Map(map), _keyMap(keyMap), _texture(texturePath), _model(modelPath, _texture, color), _color(color),
+): _Map(map), _texture(texturePath), _model(modelPath, _texture, color), _color(color),
     _modelBomb(modelBombPath, _texture, WHITE), _modelBombAnimationPath(modelBombAnimationPath),
-     _modelExplosion(modelExplosionPath, _texture, ORANGE)
+    _modelExplosion(modelExplosionPath, _texture, ORANGE)
 {
     _position = {position.x, _Map.getMapPosition().y + 0.5f, position.y};
     _rotationAngle = -90;
@@ -57,7 +57,7 @@ void Indie::GameComponents::APlayer::computeBonus()
             _explosionRange++;
             break;
         case SPEED_UP:
-            _speed += 0.1;
+            _speed += 0.02;
             break;
         case WALL_PASS:
             _wallPass = true;
@@ -138,7 +138,7 @@ void Indie::GameComponents::APlayer::display()
     if (_modelAnimation->getFrameCounter() >= _modelAnimation->getAnimation()[0].frameCount) _modelAnimation->setFrameCounter(0);
     if (_isAlive)
         _model.drawExAt({_position.x + 0.25f, _position.y - 0.5f, _position.z + 0.25f},
-            _rotationAxis, _rotationAngle
+            _rotationAxis, _rotationAngle, {0.3f, 0.3f, 0.3f}
         );
 }
 
