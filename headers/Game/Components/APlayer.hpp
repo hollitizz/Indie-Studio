@@ -37,6 +37,7 @@ namespace Indie {
                 Vector3 getPosition() const;
                 void setPosition(Vector2 position);
                 size_t getBombsLen() const;
+                void clearBonuses();
                 std::shared_ptr<Indie::GameComponents::Bomb> getBomb(size_t index) const;
                 std::shared_ptr<Indie::GameComponents::Bomb> popBomb();
                 virtual void move() = 0;
@@ -59,10 +60,10 @@ namespace Indie {
                 std::string _modelBombAnimationPath;
                 Raylib::Model _modelExplosion;
             private:
-                float _speed = 0.1;
-                bool _wallPass = false;
-                size_t _maximumBomb = 1;
-                size_t _explosionRange = 1;
+                float _speed = BASE_SPEED;
+                bool _wallPass = BASE_WALL_PASS;
+                size_t _maximumBomb = BASE_BOMB;
+                size_t _explosionRange = BASE_FIRE;
                 std::vector<std::shared_ptr<Indie::GameComponents::Bomb>> _bombs;
         };
     };

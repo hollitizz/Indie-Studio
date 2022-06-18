@@ -11,6 +11,10 @@
 
 #define TIME_BEFORE_EXPLOSION 3
 #define TIME_BEFORE_VANISH 3.5
+#define BASE_SPEED 0.1
+#define BASE_BOMB 1
+#define BASE_FIRE 1
+#define BASE_WALL_PASS false
 
 static const std::array<Vector2, 4> PLAYER_STARTS_POSITION = {
     Vector2{-6, -7},

@@ -70,7 +70,6 @@ int Indie::GameComponents::Map::getBonusIfExistAt(Vector2 position)
     Raylib::Rectangle hitBox({position.x, position.y}, {0.5, 0.5});
 
     for (int i = 0; i < _bonuses.size(); ++i) {
-        std::cout << _bonuses.size() << std::endl;
         bonusPosition = _bonuses[i]->getPosition();
         if (hitBox.isCollisionWithRec(
                 {bonusPosition.x - 0.5f, bonusPosition.z - 0.5f},

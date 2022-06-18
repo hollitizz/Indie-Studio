@@ -33,6 +33,15 @@ void Indie::GameComponents::APlayer::setAnimation(std::string animation)
     }
 }
 
+void Indie::GameComponents::APlayer::clearBonuses()
+{
+    _bonuses.clear();
+    _speed = BASE_SPEED;
+    _explosionRange = BASE_FIRE;
+    _maximumBomb = BASE_BOMB;
+    _wallPass = BASE_WALL_PASS;
+}
+
 void Indie::GameComponents::APlayer::putBomb()
 {
     if (_bombs.size() < _maximumBomb) {
