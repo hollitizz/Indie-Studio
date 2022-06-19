@@ -16,14 +16,14 @@ Indie::Game::Game():
 {
     std::cerr << "Game Init" << std::endl;
     for (int i = 0; i < PLAYER_STARTS_POSITION.size(); ++i) {
-        _players.push_back(std::make_shared<Indie::GameComponents::Human>(
+        _players.push_back(std::make_shared<Indie::GameComponents::Player>(
             _map,
             Vector2{PLAYER_STARTS_POSITION[i].x - 0.25f, PLAYER_STARTS_POSITION[i].y - 0.25f},
+            false,
             PLAYER_KEY_MAP[i],
             "assets/Game/Player/textures/player1.png",
             "assets/Game/Player/models/playerModel.iqm",
             COLORS[i],
-            ANIMATIONS[IDLE],
             "assets/Game/Player/models/bomb.iqm",
             "assets/Game/Player/models/bombAnimation.iqm",
             "assets/Game/Player/models/bombExplosion.obj"
@@ -95,7 +95,7 @@ Indie::GameComponents::Map &Indie::Game::getMap()
     return _map;
 }
 
-std::vector<std::shared_ptr<Indie::GameComponents::APlayer>> Indie::Game::getPlayers() const
+std::vector<std::shared_ptr<Indie::GameComponents::Player>> Indie::Game::getPlayers() const
 {
     return _players;
 }

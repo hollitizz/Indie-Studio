@@ -9,7 +9,7 @@
 
 Indie::GameComponents::Human::Human(
     Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath, std::string modelPath, Color color,
-    std::string modelAnimationPath, std::string modelBombPath, std::string modelBombAnimationPath, std::string modelExplosionPath
+    std::string modelBombPath, std::string modelBombAnimationPath, std::string modelExplosionPath
 ):
     APlayer(map, position, texturePath, modelPath, color, modelBombPath, modelBombAnimationPath, modelExplosionPath),
     _keyMap(keyMap)

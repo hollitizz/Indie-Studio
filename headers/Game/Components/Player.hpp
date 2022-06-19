@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** B-YEP-400-PAR-4-1-indiestudio-enzo1.vallet
 ** File description:
-** APlayer
+** Player
 */
 
 #pragma once
@@ -19,13 +19,13 @@
 
 namespace Indie {
     namespace GameComponents {
-        class APlayer {
+        class Player {
             public:
-                APlayer(Map &map, Vector2 position, std::string texturePath,
-                    std::string modelPath, Color color, std::string modelBombPath,
+                Player(Map &map, Vector2 position, bool isHuman, std::array<KeyboardKey, 5> keyMap,
+                    std::string texturePath, std::string modelPath, Color color, std::string modelBombPath,
                     std::string modelBombAnimationPath, std::string modelExplosionPath);
-                ~APlayer() = default;
-                APlayer(const APlayer&) = delete;
+                ~Player() = default;
+                Player(const Player&) = delete;
                 void display();
                 bool getIsAlive() const;
                 void setIsAlive(bool alive);
@@ -40,11 +40,16 @@ namespace Indie {
                 void clearBonuses();
                 std::shared_ptr<Indie::GameComponents::Bomb> getBomb(size_t index) const;
                 std::shared_ptr<Indie::GameComponents::Bomb> popBomb();
-                virtual void move() = 0;
+                void move();
             protected:
+            private:
+                void aiMove();
+                void humanMove();
                 void computeBonus();
                 Map &_Map;
                 bool _isAlive = true;
+                bool _isHuman;
+                std::array<KeyboardKey, 5> _keyMap;
                 Vector3 _position;
                 Raylib::Texture2D _texture;
                 Raylib::Model _model;
@@ -59,7 +64,6 @@ namespace Indie {
                 Raylib::Model _modelBomb;
                 std::string _modelBombAnimationPath;
                 Raylib::Model _modelExplosion;
-            private:
                 float _speed = BASE_SPEED;
                 bool _wallPass = BASE_WALL_PASS;
                 size_t _maximumBomb = BASE_BOMB;

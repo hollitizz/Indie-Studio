@@ -2,18 +2,18 @@
 ** EPITECH PROJECT, 2022
 ** B-YEP-400-PAR-4-1-indiestudio-enzo1.vallet
 ** File description:
-** APlayer
+** Player
 */
 
-#include "APlayer.hpp"
+#include "Player.hpp"
 
-Indie::GameComponents::APlayer::APlayer(
-    Map &map, Vector2 position, std::string texturePath,
-    std::string modelPath, Color color, std::string modelBombPath, std::string modelBombAnimationPath,
-    std::string modelExplosionPath
+Indie::GameComponents::Player::Player(
+    Map &map, Vector2 position, bool isHuman, std::array<KeyboardKey, 5> keyMap, std::string texturePath,
+    std::string modelPath, Color color, std::string modelBombPath,
+    std::string modelBombAnimationPath, std::string modelExplosionPath
 ): _Map(map), _texture(texturePath), _model(modelPath, _texture, color), _color(color),
     _modelBomb(modelBombPath, _texture, WHITE), _modelBombAnimationPath(modelBombAnimationPath),
-    _modelExplosion(modelExplosionPath, _texture, ORANGE)
+    _modelExplosion(modelExplosionPath, _texture, ORANGE), _keyMap(keyMap), _isHuman(isHuman)
 {
     _position = {position.x, _Map.getMapPosition().y + 0.5f, position.y};
     _rotationAngle = -90;
@@ -23,7 +23,7 @@ Indie::GameComponents::APlayer::APlayer(
     _modelAnimation = _animations[1];
 }
 
-void Indie::GameComponents::APlayer::setAnimation(std::string animation)
+void Indie::GameComponents::Player::setAnimation(std::string animation)
 {
     if (animation == ANIMATIONS[RUN])
         _modelAnimation = _animations[0];
@@ -33,7 +33,7 @@ void Indie::GameComponents::APlayer::setAnimation(std::string animation)
     }
 }
 
-void Indie::GameComponents::APlayer::clearBonuses()
+void Indie::GameComponents::Player::clearBonuses()
 {
     _bonuses.clear();
     _speed = BASE_SPEED;
@@ -42,7 +42,7 @@ void Indie::GameComponents::APlayer::clearBonuses()
     _wallPass = BASE_WALL_PASS;
 }
 
-void Indie::GameComponents::APlayer::putBomb()
+void Indie::GameComponents::Player::putBomb()
 {
     if (_bombs.size() < _maximumBomb) {
         _bombs.push_back(
@@ -51,12 +51,12 @@ void Indie::GameComponents::APlayer::putBomb()
     }
 }
 
-void Indie::GameComponents::APlayer::setPosition(Vector2 position)
+void Indie::GameComponents::Player::setPosition(Vector2 position)
 {
     _position = {position.x, _Map.getMapPosition().y + 0.5f, position.y};
 }
 
-void Indie::GameComponents::APlayer::computeBonus()
+void Indie::GameComponents::Player::computeBonus()
 {
     switch (_bonuses.back()->getId()) {
         case BOMB_UP:
@@ -76,7 +76,7 @@ void Indie::GameComponents::APlayer::computeBonus()
     }
 }
 
-void Indie::GameComponents::APlayer::computeMove()
+void Indie::GameComponents::Player::computeMove()
 {
     int bonusIndex = -1;
 
@@ -99,43 +99,43 @@ void Indie::GameComponents::APlayer::computeMove()
         _modelAnimation = _animations[0] : _modelAnimation = _animations[1];
 }
 
-Vector3 Indie::GameComponents::APlayer::getPosition() const
+Vector3 Indie::GameComponents::Player::getPosition() const
 {
     return _position;
 }
 
-size_t Indie::GameComponents::APlayer::getBombsLen() const
+size_t Indie::GameComponents::Player::getBombsLen() const
 {
     return _bombs.size();
 }
 
-std::shared_ptr<Indie::GameComponents::Bomb> Indie::GameComponents::APlayer::getBomb(size_t index) const
+std::shared_ptr<Indie::GameComponents::Bomb> Indie::GameComponents::Player::getBomb(size_t index) const
 {
     return _bombs[index];
 }
 
-void Indie::GameComponents::APlayer::pauseBombs()
+void Indie::GameComponents::Player::pauseBombs()
 {
     for (auto &bomb : _bombs) {
         bomb->pause();
     }
 }
 
-void Indie::GameComponents::APlayer::resumeBombs()
+void Indie::GameComponents::Player::resumeBombs()
 {
     for (auto &bomb : _bombs) {
         bomb->resume();
     }
 }
 
-std::shared_ptr<Indie::GameComponents::Bomb> Indie::GameComponents::APlayer::popBomb()
+std::shared_ptr<Indie::GameComponents::Bomb> Indie::GameComponents::Player::popBomb()
 {
     auto bomb = *_bombs.begin();
     _bombs.erase(_bombs.begin());
     return bomb;
 }
 
-void Indie::GameComponents::APlayer::display()
+void Indie::GameComponents::Player::display()
 {
     for (auto &Bomb : _bombs) {
         if (!Bomb->getShouldVanished())
@@ -151,12 +151,68 @@ void Indie::GameComponents::APlayer::display()
         );
 }
 
-bool Indie::GameComponents::APlayer::getIsAlive() const
+bool Indie::GameComponents::Player::getIsAlive() const
 {
     return _isAlive;
 }
 
-void Indie::GameComponents::APlayer::setIsAlive(bool alive)
+void Indie::GameComponents::Player::setIsAlive(bool alive)
 {
     _isAlive = alive;
+}
+
+void Indie::GameComponents::Player::humanMove()
+{
+    if (IsKeyPressed(_keyMap[0])) putBomb();
+    if (IsKeyDown(_keyMap[1])){
+        _movement.y -= 1;
+        _rotationSide = UP;
+    }// Z
+    if (IsKeyDown(_keyMap[2])){
+        _movement.y += 1;
+        _rotationSide = DOWN;
+    }// S
+    if (IsKeyDown(_keyMap[3])){
+        _movement.x -= 1;
+        _rotationSide = LEFT;
+    }// A
+    if (IsKeyDown(_keyMap[4])){
+        _movement.x += 1;
+        _rotationSide = RIGHT;
+    }// D
+}
+
+void Indie::GameComponents::Player::aiMove()
+{
+    int aiMove = std::ceil(std::rand() % 10);
+
+    _movement = {0, 0};
+    if (aiMove == 0) putBomb();
+    if (aiMove == 1 || aiMove == 2) {
+        _movement.y -= 1;
+        _rotationSide = UP;
+    }// Z
+    if (aiMove == 3 || aiMove == 4) {
+        _movement.y += 1;
+        _rotationSide = DOWN;
+    }// S
+    if (aiMove == 5 || aiMove == 6) {
+        _movement.x -= 1;
+        _rotationSide = LEFT;
+    }// A
+    if (aiMove == 7 || aiMove == 8) {
+        _movement.x += 1;
+        _rotationSide = RIGHT;
+    }// D
+}
+
+void Indie::GameComponents::Player::move()
+{
+    _movement = {0, 0};
+    if (_isHuman) {
+        humanMove();
+    } else {
+        aiMove();
+    }
+    computeMove();
 }

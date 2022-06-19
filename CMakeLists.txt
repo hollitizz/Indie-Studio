@@ -29,7 +29,6 @@ IF(UNIX)
 ELSE(UNIX)
   SET(MY_MATH_LIB)
 ENDIF(UNIX)
-
 INCLUDE_DIRECTORIES(headers/)
 FILE(GLOB SOURCES sources/Raylib.cpp sources/main.cpp sources/Indie.cpp)
 INCLUDE_DIRECTORIES(headers/Scenes/)
