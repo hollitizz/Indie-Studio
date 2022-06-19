@@ -33,6 +33,16 @@ void Indie::GameComponents::Player::setAnimation(std::string animation)
     }
 }
 
+void Indie::GameComponents::Player::setIsHuman(bool isHuman)
+{
+    _isHuman = isHuman;
+}
+
+bool Indie::GameComponents::Player::getIsHuman()
+{
+    return _isHuman;
+}
+
 void Indie::GameComponents::Player::clearBonuses()
 {
     _bonuses.clear();

@@ -39,6 +39,8 @@ namespace Indie {
                 void setPosition(Vector2 position);
                 size_t getBombsLen() const;
                 void clearBonuses();
+                void setIsHuman(bool isHuman);
+                bool getIsHuman();
                 std::shared_ptr<Indie::GameComponents::Bomb> getBomb(size_t index) const;
                 std::shared_ptr<Indie::GameComponents::Bomb> popBomb();
                 void move();
