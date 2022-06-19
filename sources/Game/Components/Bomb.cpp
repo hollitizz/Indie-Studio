@@ -10,11 +10,12 @@
 #include <cmath>
 #include <iostream>
 
-Indie::GameComponents::Bomb::Bomb(Indie::GameComponents::Map &map, Vector3 position,
+Indie::GameComponents::Bomb::Bomb(Indie::GameComponents::Map &map, Raylib::Sound &soundBomb, Vector3 position,
     Vector3 bombSize, size_t explosionRange, Raylib::Model &modelBomb, std::string modelBombAnimationPath, Raylib::Model &modelExplosion):
     _map(map), _position({std::round(position.x), position.y, std::round(position.z)}),
     _bomb(_position, bombSize), _explosionRange(explosionRange), _clockExplosion(TIME_BEFORE_EXPLOSION),
-    _clockVanish(TIME_BEFORE_VANISH), _size(bombSize), _model(modelBomb), _modelAnimation(modelBombAnimationPath), _modelExplosion(modelExplosion)
+    _clockVanish(TIME_BEFORE_VANISH), _size(bombSize), _model(modelBomb), _modelAnimation(modelBombAnimationPath),
+    _modelExplosion(modelExplosion), _soundBomb(soundBomb)
 {
 }
 
@@ -65,6 +66,10 @@ void Indie::GameComponents::Bomb::display()
     }
     if (_clockExplosion.isClockFinished()) {
         _isExploded = true;
+        if (_playSound) {
+            _soundBomb.play();
+            _playSound = false;
+        }
         displayExplosions(getExplosionsPos());
         return;
     }

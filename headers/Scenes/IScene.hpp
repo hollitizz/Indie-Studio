@@ -15,7 +15,7 @@ namespace Indie
             public:
                 virtual ~IScene() = default;
                 virtual void display() = 0;
-                virtual void displayAll() = 0;
+                virtual void eventAll() = 0;
                 virtual void event() = 0;
             private:
         };

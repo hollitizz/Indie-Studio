@@ -24,6 +24,7 @@ Indie::Scenes::BPlay::BPlay(std::vector<std::shared_ptr<Input>> &input, Slider &
 void Indie::Scenes::BPlay::run()
 {
     _btnAction = true;
+    _Game.getMusicMenu().setMusic("assets/Musics/game.mp3");
     _Game.getMap().setDensity(_slider.getValue());
     _Game.getMap().genMapBlocks();
     for (size_t i = 0; i < _Game.getNbPlayers(); i++)

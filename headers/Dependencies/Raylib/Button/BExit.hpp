@@ -12,9 +12,9 @@ namespace Indie {
     namespace Scenes {
         class BExit: public Button {
             public:
-                BExit(Indie::Game &game, State state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
+                BExit(Indie::Game &game, State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
                     Texture2D texture, Texture2D hoverTexture, Texture2D pressedTexture);
-                BExit(Indie::Game &game, State state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
+                BExit(Indie::Game &game, State &state, Vector2 size, Vector2 position, std::string text, int fontSize, Font font,
                     ButtonColor color);
                 ~BExit() = default;
                 void run() override;

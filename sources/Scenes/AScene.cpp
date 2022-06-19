@@ -12,7 +12,7 @@ Indie::Scenes::AScene::AScene(Indie::Game &game, Indie::State &state):
     _State(state), _Game(game)
 {}
 
-void Indie::Scenes::AScene::displayAll()
+void Indie::Scenes::AScene::eventAll()
 {
-    DrawFPS(10, 10);
+    _Game.getMusicMenu().update();
 }

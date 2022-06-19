@@ -34,5 +34,6 @@ void Indie::Bomberman::loop()
         if (!window.isOpen())
             break;
         _scenes[_State.getScene()]->display();
+        _scenes[_State.getScene()]->eventAll();
     }
 }

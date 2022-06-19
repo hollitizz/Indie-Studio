@@ -12,12 +12,15 @@
 Indie::Game::Game():
     _window({1600, 900}, "Bomberman", 60,
         { 0, 30, 8 }, { 0, 4, 0 }, { 0, 1, 0 }, 35, 0),
-    _map(_mapPosition), _explosion({0, 0, 0}, {0, 0, 0})
+    _map(_mapPosition), _explosion({0, 0, 0}, {0, 0, 0}),
+    _soundBomb("assets/Sounds/bomb.wav"),
+    _musicMenu("assets/Musics/menu.mp3")
 {
     std::cerr << "Game Init" << std::endl;
     for (int i = 0; i < PLAYER_STARTS_POSITION.size(); ++i) {
         _players.push_back(std::make_shared<Indie::GameComponents::Player>(
             _map,
+            _soundBomb,
             Vector2{PLAYER_STARTS_POSITION[i].x - 0.25f, PLAYER_STARTS_POSITION[i].y - 0.25f},
             false,
             PLAYER_KEY_MAP[i],
@@ -34,6 +37,7 @@ Indie::Game::Game():
             20
         ));
     }
+    _musicMenu.start();
 }
 
 Indie::Game::~Game()
@@ -130,6 +134,16 @@ void Indie::Game::addPlayer()
 const int Indie::Game::getNbPlayers() const
 {
     return _nbPlayers;
+}
+
+Raylib::Sound &Indie::Game::getSoundBomb()
+{
+    return _soundBomb;
+}
+
+Raylib::Music &Indie::Game::getMusicMenu()
+{
+    return _musicMenu;
 }
 
 void Indie::Game::setNbAlivePlayers(int nb)

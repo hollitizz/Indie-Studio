@@ -6,6 +6,7 @@
 */
 
 #pragma once
+#include "Sound.hpp"
 #include "Map.hpp"
 #include "Texture2D.hpp"
 #include "ModelAnimation.hpp"
@@ -21,11 +22,11 @@ namespace Indie {
     namespace GameComponents {
         class Player {
             public:
-                Player(Map &map, Vector2 position, bool isHuman, std::array<KeyboardKey, 5> keyMap,
+                APlayer(Map &map, Raylib::Sound &_soundBomb, Vector2 position, bool isHuman, std::array<KeyboardKey, 5> keyMap,
                     std::string texturePath, std::string modelPath, Color color, std::string modelBombPath,
                     std::string modelBombAnimationPath, std::string modelExplosionPath);
-                ~Player() = default;
-                Player(const Player&) = delete;
+                ~APlayer() = default;
+                APlayer(const APlayer&) = delete;
                 void display();
                 bool getIsAlive() const;
                 void setIsAlive(bool alive);
@@ -69,6 +70,7 @@ namespace Indie {
                 size_t _maximumBomb = BASE_BOMB;
                 size_t _explosionRange = BASE_FIRE;
                 std::vector<std::shared_ptr<Indie::GameComponents::Bomb>> _bombs;
+                Raylib::Sound &_soundBomb;
         };
     };
 };

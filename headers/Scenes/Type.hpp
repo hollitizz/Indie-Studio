@@ -16,7 +16,6 @@ namespace Indie
             Game,
             Init,
             Hud,
-            Pause,
             Settings,
             Over
         };

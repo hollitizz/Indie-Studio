@@ -15,6 +15,7 @@
     #error "OS not supported!"
 #endif
 
+#include "Sound.hpp"
 #include "Cube.hpp"
 #include "Clock.hpp"
 #include "ModelAnimation.hpp"
@@ -27,8 +28,9 @@ namespace Indie {
     namespace GameComponents {
         class Bomb {
             public:
-                Bomb(Indie::GameComponents::Map &map,
-                    Vector3 position, Vector3 bombSize, size_t _explosionRange, Raylib::Model &modelBomb, std::string modelBombAnimationPath, Raylib::Model &modelExplosion);
+                Bomb(Indie::GameComponents::Map &map, Raylib::Sound &soundBomb, Vector3 position,
+                    Vector3 bombSize, size_t _explosionRange, Raylib::Model &modelBomb,
+                    std::string modelBombAnimationPath, Raylib::Model &modelExplosion);
                 Bomb(const Bomb&) = delete;
                 ~Bomb();
                 void display();
@@ -47,6 +49,7 @@ namespace Indie {
                 Vector3 _position;
                 Vector3 _size;
                 Raylib::Cube _bomb;
+                bool _playSound = true;
                 bool _isExploded = false;
                 bool _shouldVanished = false;
                 size_t _explosionRange;
@@ -55,6 +58,7 @@ namespace Indie {
                 Raylib::Model _model;
                 Raylib::ModelAnimation _modelAnimation;
                 Raylib::Model _modelExplosion;
+                Raylib::Sound &_soundBomb;
         };
     };
 };
