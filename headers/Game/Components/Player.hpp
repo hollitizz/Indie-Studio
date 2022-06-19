@@ -39,8 +39,8 @@ namespace Indie {
                 void setPosition(Vector2 position);
                 size_t getBombsLen() const;
                 void clearBonuses();
-                void setIsHuman(bool isHuman);
-                bool getIsHuman();
+                void setIsIa(bool isIa);
+                bool getIsIa();
                 std::shared_ptr<Indie::GameComponents::Bomb> getBomb(size_t index) const;
                 std::shared_ptr<Indie::GameComponents::Bomb> popBomb();
                 void move();
@@ -51,7 +51,7 @@ namespace Indie {
                 void computeBonus();
                 Map &_Map;
                 bool _isAlive = true;
-                bool _isHuman;
+                bool _isIa = false;
                 std::array<KeyboardKey, 5> _keyMap;
                 Vector3 _position;
                 Raylib::Texture2D _texture;

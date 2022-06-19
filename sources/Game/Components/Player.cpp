@@ -13,7 +13,7 @@ Indie::GameComponents::Player::Player(
     std::string modelBombAnimationPath, std::string modelExplosionPath
 ): _Map(map), _texture(texturePath), _model(modelPath, _texture, color), _color(color),
     _modelBomb(modelBombPath, _texture, WHITE), _modelBombAnimationPath(modelBombAnimationPath),
-    _modelExplosion(modelExplosionPath, _texture, ORANGE), _keyMap(keyMap), _isHuman(true), _soundBomb(soundBomb)
+    _modelExplosion(modelExplosionPath, _texture, ORANGE), _keyMap(keyMap), _soundBomb(soundBomb)
 {
     _position = {position.x, _Map.getMapPosition().y + 0.5f, position.y};
     _rotationAngle = -90;
@@ -33,14 +33,14 @@ void Indie::GameComponents::Player::setAnimation(std::string animation)
     }
 }
 
-void Indie::GameComponents::Player::setIsHuman(bool isHuman)
+void Indie::GameComponents::Player::setIsIa(bool isIa)
 {
-    _isHuman = isHuman;
+    _isIa = isIa;
 }
 
-bool Indie::GameComponents::Player::getIsHuman()
+bool Indie::GameComponents::Player::getIsIa()
 {
-    return _isHuman;
+    return _isIa;
 }
 
 void Indie::GameComponents::Player::clearBonuses()
@@ -177,19 +177,19 @@ void Indie::GameComponents::Player::humanMove()
     if (IsKeyDown(_keyMap[1])){
         _movement.y -= 1;
         _rotationSide = UP;
-    }// Z
+    }
     if (IsKeyDown(_keyMap[2])){
         _movement.y += 1;
         _rotationSide = DOWN;
-    }// S
+    }
     if (IsKeyDown(_keyMap[3])){
         _movement.x -= 1;
         _rotationSide = LEFT;
-    }// A
+    }
     if (IsKeyDown(_keyMap[4])){
         _movement.x += 1;
         _rotationSide = RIGHT;
-    }// D
+    }
 }
 
 void Indie::GameComponents::Player::aiMove()
@@ -201,28 +201,28 @@ void Indie::GameComponents::Player::aiMove()
     if (aiMove == 1 || aiMove == 2) {
         _movement.y -= 1;
         _rotationSide = UP;
-    }// Z
+    }
     if (aiMove == 3 || aiMove == 4) {
         _movement.y += 1;
         _rotationSide = DOWN;
-    }// S
+    }
     if (aiMove == 5 || aiMove == 6) {
         _movement.x -= 1;
         _rotationSide = LEFT;
-    }// A
+    }
     if (aiMove == 7 || aiMove == 8) {
         _movement.x += 1;
         _rotationSide = RIGHT;
-    }// D
+    }
 }
 
 void Indie::GameComponents::Player::move()
 {
     _movement = {0, 0};
-    if (_isHuman) {
-        humanMove();
-    } else {
+
+    if (_isIa)
         aiMove();
-    }
+    else
+        humanMove();
     computeMove();
 }

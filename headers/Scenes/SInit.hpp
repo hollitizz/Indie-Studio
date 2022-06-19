@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include "BIa.hpp"
 #include "Slider.hpp"
 #include "Choice.hpp"
 #include "Input.hpp"
@@ -30,6 +31,7 @@ namespace Indie
             private:
                 std::vector<std::shared_ptr<Button>> _buttons;
                 std::vector<std::shared_ptr<Input>> _input;
+                std::vector<std::shared_ptr<BIa>> _ia;
                 Choice _choice;
                 Slider _slider;
                 Raylib::Text _nbPlayers;

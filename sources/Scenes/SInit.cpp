@@ -53,6 +53,7 @@ Indie::Scenes::SInit::SInit(Indie::Game &game, Indie::State &state) : AScene(gam
     _buttons.push_back(
         std::make_shared<Indie::Scenes::BPlay>(
             _input,
+            _ia,
             _slider,
             _choice,
             game,
@@ -66,13 +67,23 @@ Indie::Scenes::SInit::SInit(Indie::Game &game, Indie::State &state) : AScene(gam
         )
     );
 
-    for (size_t i = 0; i < 4; ++i)
+    for (size_t i = 0; i < 4; ++i) {
         _input.push_back(std::make_shared<Indie::Scenes::Input>(
-                "player" + std::to_string(i + 1),
-                Vector2{225, 60},
-                Vector2{windowSize.x / 4 + (windowSize.x / 8 - 225 / 2), windowSize.y / 2 + i * 110}
-            )
-        );
+            "player" + std::to_string(i + 1),
+            Vector2{225, 60},
+            Vector2{windowSize.x / 4 + (windowSize.x / 8 - 225 / 2), windowSize.y / 2 + i * 110}
+        ));
+        _ia.push_back(std::make_shared<Indie::Scenes::BIa>(
+            _Game,
+            _State,
+            Vector2{225, 60},
+            Vector2{windowSize.x / 4 + (windowSize.x / 8 - 225 / 2), windowSize.y / 2 + (i) * 110},
+            "Ia: OFF",
+            30,
+            GetFontDefault(),
+            ButtonColor{BLUE, ORANGE, RED}
+        ));
+    }
     std::cerr << "SInit init" << std::endl;
 }
 
@@ -89,6 +100,7 @@ void Indie::Scenes::SInit::event()
     _slider.event();
     _choice.event();
     _input[_choice.getChoice()]->event();
+    _ia[_choice.getChoice()]->event();
 }
 
 void Indie::Scenes::SInit::displayButtons()
@@ -105,6 +117,8 @@ void Indie::Scenes::SInit::displayButtons()
     _choice.display();
     _input[_choice.getChoice()]->setPosition({(windowSize.x / 8 - 225 / 2), windowSize.y / 2 - 110});
     _input[_choice.getChoice()]->display();
+    _ia[_choice.getChoice()]->setPosition({(windowSize.x / 8 - 225 / 2), windowSize.y / 2});
+    _ia[_choice.getChoice()]->display();
 }
 
 void Indie::Scenes::SInit::displayTexts()
