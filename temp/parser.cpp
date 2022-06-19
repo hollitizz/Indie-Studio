@@ -43,11 +43,11 @@ void parseMap()
 }
 
 void parseConfig()
-{                                            
+{
     // (?::(\\d*))? for :x
     const std::regex title("\\[(\\w*)\\]");
-    const std::regex value("\\s*(\\w+)\\s*=\\s*(\\d+)\\s*");    
-    std::string line, current; 
+    const std::regex value("\\s*(\\w+)\\s*=\\s*(\\d+)\\s*");
+    std::string line, current;
     std::smatch match;
 
     std::ifstream file ("save.ini");

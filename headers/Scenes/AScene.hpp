@@ -20,7 +20,7 @@ namespace Indie
             public:
                 AScene(Indie::Game &game, Indie::State &state);
                 ~AScene() = default;
-                virtual void displayAll();
+                virtual void eventAll();
                 virtual void event() = 0;
             protected:
                 virtual void display() = 0;

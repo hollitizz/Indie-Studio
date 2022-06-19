@@ -25,6 +25,7 @@ namespace Indie {
                 Vector3 getMapPosition() const;
                 std::vector<Color> getMapPixels() const;
                 void genMapBlocks();
+                void remMapBlocks();
                 void setDensity(size_t density);
                 std::shared_ptr<Indie::GameComponents::Bonus> pickBonus(int index);
                 int getBonusIfExistAt(Vector2 position);
@@ -43,7 +44,7 @@ namespace Indie {
                 Raylib::Mesh _mesh;
                 Raylib::ImageColors _mapPixels;
                 Raylib::Model _model;
-                size_t _density = 80;
+                size_t _density;
                 std::map<Indie::GameComponents::BONUS_ID, std::shared_ptr<Raylib::Texture2D>> _bonusTextures;
                 std::vector<std::shared_ptr<Indie::GameComponents::Box>> _boxes;
                 std::vector<std::shared_ptr<Indie::GameComponents::Bonus>> _bonuses;

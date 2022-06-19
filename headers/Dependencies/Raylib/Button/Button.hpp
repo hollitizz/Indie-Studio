@@ -44,9 +44,9 @@ namespace Indie {
                 State &_State;
                 Indie::Game &_Game;
                 bool _btnAction;
+                Raylib::Text _text;
             private:
                 Rectangle _button;
-                Raylib::Text _text;
                 bool _isTextured;
                 ButtonType _btnState;
                 std::map<ButtonType, Texture2D> _textures;

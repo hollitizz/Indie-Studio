@@ -10,16 +10,20 @@
 #include <string>
 
 #define TIME_BEFORE_EXPLOSION 3
-#define TIME_BEFORE_VANISH 4
+#define TIME_BEFORE_VANISH 3.5
+#define BASE_SPEED 0.1
+#define BASE_BOMB 1
+#define BASE_FIRE 1
+#define BASE_WALL_PASS false
 
-const std::array<Vector2, 4> PLAYER_STARTS_POSITION = {
+static const std::array<Vector2, 4> PLAYER_STARTS_POSITION = {
     Vector2{-6, -7},
     Vector2{6, 5},
     Vector2{6, -7},
     Vector2{-6, 5}
 };
 
-const std::array<std::array<KeyboardKey, 5>, 4> PLAYER_KEY_MAP = {
+static const std::array<std::array<KeyboardKey, 5>, 4> PLAYER_KEY_MAP = {
     std::array<KeyboardKey, 5> {KEY_Q, KEY_W, KEY_S, KEY_A, KEY_D},
     std::array<KeyboardKey, 5> {KEY_SLASH, KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT},
     std::array<KeyboardKey, 5> {KEY_R, KEY_T, KEY_G, KEY_F, KEY_H},
@@ -29,7 +33,7 @@ const std::array<std::array<KeyboardKey, 5>, 4> PLAYER_KEY_MAP = {
 #define LIGHTRED       CLITERAL(Color){ 255, 102, 102, 255 }
 #define LIGHTGREEN       CLITERAL(Color){ 118, 255, 102, 255 }
 
-const std::array<Color, 4> COLORS = {
+static const std::array<Color, 4> COLORS = {
     LIGHTGREEN,
     LIGHTRED,
     GOLD,

@@ -6,9 +6,12 @@
 */
 
 #pragma once
+#include "Music.hpp"
+#include "Sound.hpp"
 #include "Window.hpp"
 #include "Map.hpp"
 #include "Human.hpp"
+#include "AI.hpp"
 #include "Text.hpp"
 #include <vector>
 #include <memory>
@@ -19,6 +22,8 @@ namespace Indie {
             Game();
             Game(const Game&) = delete;
             ~Game();
+            void preLoadGame();
+            void loadGame();
             void killEntities(std::vector<Vector3> explodedPoints);
             Raylib::Window &getWindow();
             Vector2 getWindowSize() const;
@@ -31,6 +36,8 @@ namespace Indie {
             const size_t getLastPlayer() const;
             const int getNbAlivePlayers() const;
             const int getNbPlayers() const;
+            Raylib::Sound &getSoundBomb();
+            Raylib::Music &getMusicMenu();
             Raylib::Cube _explosion;
         private:
             Vector2 _mapDeplacement = {9, 0};
@@ -41,5 +48,7 @@ namespace Indie {
             std::vector<std::shared_ptr<Raylib::Text>> _names;
             int _nbPlayers = 4;
             int _nbAlivePlayers;
+            Raylib::Sound _soundBomb;
+            Raylib::Music _musicMenu;
     };
 };

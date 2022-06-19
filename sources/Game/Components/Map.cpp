@@ -7,6 +7,7 @@
 
 #include "Map.hpp"
 #include "Const.hpp"
+#include "Rectangle.hpp"
 #include <iostream>
 #include <cstdlib>
 #include <cmath>
@@ -50,7 +51,7 @@ std::shared_ptr<Indie::GameComponents::Bonus> Indie::GameComponents::Map::pickBo
 
 void Indie::GameComponents::Map::tryCreateBonus(Vector3 position)
 {
-    int isBonusSpawn = std::ceil(std::rand() % 4);
+    int isBonusSpawn = std::ceil(std::rand() % 5);
     Indie::GameComponents::BONUS_ID bonusType = static_cast<BONUS_ID>(std::ceil(std::rand() % 4));
 
     if (isBonusSpawn == 1) {
@@ -66,12 +67,14 @@ void Indie::GameComponents::Map::tryCreateBonus(Vector3 position)
 int Indie::GameComponents::Map::getBonusIfExistAt(Vector2 position)
 {
     Vector3 bonusPosition;
+    Raylib::Rectangle hitBox({position.x, position.y}, {0.5, 0.5});
 
     for (int i = 0; i < _bonuses.size(); ++i) {
-        std::cout << _bonuses.size() << std::endl;
         bonusPosition = _bonuses[i]->getPosition();
-        if (CheckCollisionRecs({position.x, position.y, 0.5, 0.5},
-            {bonusPosition.x - 0.5f, bonusPosition.z - 0.5f, 1, 1}))
+        if (hitBox.isCollisionWithRec(
+                {bonusPosition.x - 0.5f, bonusPosition.z - 0.5f},
+                {1, 1}
+            ))
             return i;
     }
     return -1;
@@ -113,6 +116,8 @@ void Indie::GameComponents::Map::genMapBlocks()
     Vector3 boxPosition = {0, _mapPosition.y + 0.5f, 0};
     int randomNumber = 0;
 
+    if (_density == 0)
+        return;
     for (float z = -7; z < 6; ++z) {
         boxPosition.z = z;
         for (float x = -6; x < 7; ++x) {
@@ -129,6 +134,13 @@ void Indie::GameComponents::Map::genMapBlocks()
     }
 }
 
+void Indie::GameComponents::Map::remMapBlocks()
+{
+    std::cerr << "Map remMapBlocks" << std::endl;
+    _boxes.clear();
+    _bonuses.clear();
+}
+
 void Indie::GameComponents::Map::setDensity(size_t density)
 {
     _density = density;
@@ -139,11 +151,14 @@ bool Indie::GameComponents::Map::isCollisionWithBoxAt(Vector2 position) const
     auto cubicmap = getCubicmap();
     auto mapPixels = getMapPixels();
     Vector3 boxPosition;
+    Raylib::Rectangle hitBox({position.x, position.y}, {0.5, 0.5});
 
     for (auto &box : _boxes) {
         boxPosition = box->getPosition();
-        if (CheckCollisionRecs({position.x, position.y, 0.5, 0.5},
-            {boxPosition.x - 0.5f, boxPosition.z - 0.5f, 1, 1}))
+        if (hitBox.isCollisionWithRec(
+                {boxPosition.x - 0.5f, boxPosition.z - 0.5f},
+                {1, 1}
+            ))
             return true;
     }
     return false;
@@ -153,13 +168,15 @@ bool Indie::GameComponents::Map::isCollisionAt(Vector2 position) const
 {
     auto cubicmap = getCubicmap();
     auto mapPixels = getMapPixels();
+    Raylib::Rectangle hitBox({position.x, position.y}, {0.5, 0.5});
 
     for (int y = 0; y < cubicmap.height; y++) {
         for (int x = 0; x < cubicmap.width; x++)
         {
             if (mapPixels[y*cubicmap.width + x].r == 255 &&
-                CheckCollisionRecs({position.x, position.y, 0.5, 0.5},
-                {_mapPosition.x - 0.5f + x, _mapPosition.z - 0.5f + y, 1, 1}
+                hitBox.isCollisionWithRec(
+                    {_mapPosition.x - 0.5f + x, _mapPosition.z - 0.5f + y},
+                    {1, 1}
                 ))
                 return true;
         }

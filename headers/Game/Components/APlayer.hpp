@@ -6,6 +6,7 @@
 */
 
 #pragma once
+#include "Sound.hpp"
 #include "Map.hpp"
 #include "Texture2D.hpp"
 #include "ModelAnimation.hpp"
@@ -21,17 +22,23 @@ namespace Indie {
     namespace GameComponents {
         class APlayer {
             public:
-                APlayer(Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath, std::string modelPath, Color color);
+                APlayer(Map &map, Raylib::Sound &_soundBomb, Vector2 position, std::string texturePath,
+                    std::string modelPath, Color color, std::string modelBombPath,
+                    std::string modelBombAnimationPath, std::string modelExplosionPath);
                 ~APlayer() = default;
+                APlayer(const APlayer&) = delete;
                 void display();
                 bool getIsAlive() const;
                 void setIsAlive(bool alive);
                 void pauseBombs();
                 void resumeBombs();
                 void putBomb();
+                void setAnimation(std::string animation);
                 void computeMove();
                 Vector3 getPosition() const;
+                void setPosition(Vector2 position);
                 size_t getBombsLen() const;
+                void clearBonuses();
                 std::shared_ptr<Indie::GameComponents::Bomb> getBomb(size_t index) const;
                 std::shared_ptr<Indie::GameComponents::Bomb> popBomb();
                 virtual void move() = 0;
@@ -41,7 +48,6 @@ namespace Indie {
                 bool _isAlive = true;
                 Vector3 _position;
                 Raylib::Texture2D _texture;
-                std::array<KeyboardKey, 5> _keyMap;
                 Raylib::Model _model;
                 Color _color;
                 Vector2 _movement;
@@ -51,12 +57,16 @@ namespace Indie {
                 std::shared_ptr<Raylib::ModelAnimation> _modelAnimation;
                 std::vector<std::shared_ptr<Raylib::ModelAnimation>> _animations;
                 std::vector<std::shared_ptr<Indie::GameComponents::Bonus>> _bonuses;
+                Raylib::Model _modelBomb;
+                std::string _modelBombAnimationPath;
+                Raylib::Model _modelExplosion;
             private:
-                float _speed = 0.1;
-                bool _wallPass = false;
-                size_t _maximumBomb = 1;
-                size_t _explosionRange = 1;
+                float _speed = BASE_SPEED;
+                bool _wallPass = BASE_WALL_PASS;
+                size_t _maximumBomb = BASE_BOMB;
+                size_t _explosionRange = BASE_FIRE;
                 std::vector<std::shared_ptr<Indie::GameComponents::Bomb>> _bombs;
+                Raylib::Sound &_soundBomb;
         };
     };
 };

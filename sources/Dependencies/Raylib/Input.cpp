@@ -29,12 +29,9 @@ void Indie::Scenes::Input::event()
     if (_mouseOnText) {
         SetMouseCursor(MOUSE_CURSOR_IBEAM);
 
-        int key = GetCharPressed();
-        while (key > 0) {
-            if ((key >= 32) && (key <= 125) && (_input.getTextSize() < 12))
+        for (int key = GetCharPressed(); key > 0; key = GetCharPressed())
+            if (std::isalpha(key) && _input.getTextSize() < 9)
                 _input.setText(_input.getText() + (char)key);
-            key = GetCharPressed();
-        }
 
         if (IsKeyPressed(KEY_BACKSPACE))
             if (_input.getTextSize() > 0)
@@ -57,12 +54,12 @@ void Indie::Scenes::Input::display()
     else
         DrawRectangleLines((int)_box.x, (int)_box.y, (int)_box.width, (int)_box.height, DARKGRAY);
 
-    DrawText(_input.getText().c_str(), (int)_box.x + 5, (int)_box.y + 8, 40, MAROON);
+    _input.setPosition({_box.x + 5, _box.y + _box.height / 2 - _input.getSize().y / 2});
+    _input.draw();
 
-    if (_mouseOnText)
-        if (_input.getTextSize() < 12)
-            if (((_framesCounter/20)%2) == 0)
-                DrawText("_", (int)_box.x + 8 + MeasureText(_input.getText().c_str(), 40), (int)_box.y + 12, 40, MAROON);
+    if (_mouseOnText && _input.getTextSize() < 9)
+        if (((_framesCounter/20)%2) == 0)
+            DrawText("_", (int)_box.x + 9 + MeasureText(_input.getText().c_str(), 40), (int)(_box.y + _box.height / 2 - _input.getSize().y / 2), 30, MAROON);
 }
 
 void Indie::Scenes::Input::setPosition(Vector2 pos)

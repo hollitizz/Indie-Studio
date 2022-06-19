@@ -14,11 +14,6 @@
 
 namespace Indie {
     namespace Scenes {
-        typedef struct InputColor_s {
-            Color color;
-            Color hoverColor;
-            Color pressedColor;
-        } InputColor;
         class Input {
             public:
                 Input(Vector2 size, Vector2 position);
@@ -31,12 +26,6 @@ namespace Indie {
 
                 void setPosition(Vector2 pos);
                 std::string getText();
-
-                enum InputType {
-                    Normal,
-                    Hover,
-                    Click
-                };
             protected:
             private:
                 Rectangle _box;

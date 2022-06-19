@@ -22,6 +22,7 @@ Indie::Scenes::BInit::BInit(Indie::Game &game, State &state, Vector2 size, Vecto
 void Indie::Scenes::BInit::run()
 {
     _btnAction = true;
+    _Game.preLoadGame();
     _State.setScene(Indie::Scenes::Game);
     _State.setGameScene(Indie::Scenes::Init);
     std::cerr << "SGame" << std::endl;

@@ -6,23 +6,30 @@
 */
 
 #include "Game.hpp"
+#include "Rectangle.hpp"
 #include <cmath>
 
 Indie::Game::Game():
     _window({1600, 900}, "Bomberman", 60,
         { 0, 30, 8 }, { 0, 4, 0 }, { 0, 1, 0 }, 35, 0),
-    _map(_mapPosition), _explosion({0, 0, 0}, {0, 0, 0})
+    _map(_mapPosition), _explosion({0, 0, 0}, {0, 0, 0}),
+    _soundBomb("assets/Sounds/bomb.wav"),
+    _musicMenu("assets/Musics/menu.mp3")
 {
     std::cerr << "Game Init" << std::endl;
     for (int i = 0; i < PLAYER_STARTS_POSITION.size(); ++i) {
         _players.push_back(std::make_shared<Indie::GameComponents::Human>(
             _map,
+            _soundBomb,
             Vector2{PLAYER_STARTS_POSITION[i].x - 0.25f, PLAYER_STARTS_POSITION[i].y - 0.25f},
             PLAYER_KEY_MAP[i],
             "assets/Game/Player/textures/player1.png",
             "assets/Game/Player/models/playerModel.iqm",
             COLORS[i],
-            ANIMATIONS[IDLE]
+            ANIMATIONS[IDLE],
+            "assets/Game/Player/models/bomb.iqm",
+            "assets/Game/Player/models/bombAnimation.iqm",
+            "assets/Game/Player/models/bombExplosion.obj"
         ));
         _names.push_back(std::make_shared<Raylib::Text>(
             "",
@@ -30,6 +37,7 @@ Indie::Game::Game():
             20
         ));
     }
+    _musicMenu.start();
 }
 
 Indie::Game::~Game()
@@ -37,20 +45,36 @@ Indie::Game::~Game()
     std::cerr << "Game Destroy" << std::endl;
 }
 
+void Indie::Game::preLoadGame()
+{
+    for (size_t i = 0; i < _nbPlayers; ++i) {
+        _players[i]->setPosition(Vector2{PLAYER_STARTS_POSITION[i].x - 0.25f, PLAYER_STARTS_POSITION[i].y - 0.25f});
+        _players[i]->setIsAlive(true);
+        _players[i]->setAnimation(ANIMATIONS[IDLE]);
+        _players[i]->clearBonuses();
+    }
+    _map.remMapBlocks();
+}
+
+void Indie::Game::loadGame()
+{
+    _nbAlivePlayers = _nbPlayers;
+    _map.genMapBlocks();
+}
+
 void Indie::Game::killEntities(std::vector<Vector3> explodedPoints)
 {
-    Vector3 position;
+    Raylib::Rectangle playerHitBox({0, 0}, {0.5, 0.5});
 
     _map.cleanExplodedBoxes(explodedPoints);
     for (auto &player : _players) {
         if (!player->getIsAlive())
             continue;
-        position = player->getPosition();
+        playerHitBox.setPosition({player->getPosition().x, player->getPosition().z});
         for (auto &explodedPoint : explodedPoints) {
-                if (CheckCollisionRecs(
-                    {position.x, position.z, 0.5, 0.5},
-                    {explodedPoint.x - 0.5f, explodedPoint.z - 0.5f, 1, 1}
-                )) {
+                if (playerHitBox.isCollisionWithRec(
+                        {explodedPoint.x - 0.5f, explodedPoint.z - 0.5f}, {1, 1}
+                    )) {
                 std::cerr << "Player killed" << std::endl;
                 player->setIsAlive(false);
                 _nbAlivePlayers--;
@@ -110,6 +134,16 @@ void Indie::Game::addPlayer()
 const int Indie::Game::getNbPlayers() const
 {
     return _nbPlayers;
+}
+
+Raylib::Sound &Indie::Game::getSoundBomb()
+{
+    return _soundBomb;
+}
+
+Raylib::Music &Indie::Game::getMusicMenu()
+{
+    return _musicMenu;
 }
 
 void Indie::Game::setNbAlivePlayers(int nb)

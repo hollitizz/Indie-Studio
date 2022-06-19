@@ -6,12 +6,13 @@
 */
 
 #include "Human.hpp"
-#include <tuple>
 
 Indie::GameComponents::Human::Human(
-    Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath, std::string modelPath, Color color, std::string modelAnimationPath
+    Map &map, Raylib::Sound &soundBomb, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath, std::string modelPath, Color color,
+    std::string modelAnimationPath, std::string modelBombPath, std::string modelBombAnimationPath, std::string modelExplosionPath
 ):
-    APlayer(map, position, keyMap, texturePath, modelPath, color)
+    APlayer(map, soundBomb, position, texturePath, modelPath, color, modelBombPath, modelBombAnimationPath, modelExplosionPath),
+    _keyMap(keyMap)
 {}
 
 Indie::GameComponents::Human::~Human()

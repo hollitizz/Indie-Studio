@@ -8,8 +8,12 @@
 #include "APlayer.hpp"
 
 Indie::GameComponents::APlayer::APlayer(
-    Map &map, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath, std::string modelPath, Color color
-): _Map(map), _keyMap(keyMap), _texture(texturePath), _model(modelPath, _texture), _color(color)
+    Map &map, Raylib::Sound &soundBomb, Vector2 position, std::string texturePath,
+    std::string modelPath, Color color, std::string modelBombPath, std::string modelBombAnimationPath,
+    std::string modelExplosionPath
+): _Map(map), _texture(texturePath), _model(modelPath, _texture, color), _color(color),
+    _modelBomb(modelBombPath, _texture, WHITE), _modelBombAnimationPath(modelBombAnimationPath),
+    _modelExplosion(modelExplosionPath, _texture, ORANGE), _soundBomb(soundBomb)
 {
     _position = {position.x, _Map.getMapPosition().y + 0.5f, position.y};
     _rotationAngle = -90;
@@ -19,13 +23,37 @@ Indie::GameComponents::APlayer::APlayer(
     _modelAnimation = _animations[1];
 }
 
+void Indie::GameComponents::APlayer::setAnimation(std::string animation)
+{
+    if (animation == ANIMATIONS[RUN])
+        _modelAnimation = _animations[0];
+    else if (animation == ANIMATIONS[IDLE]) {
+        _modelAnimation = _animations[1];
+        _rotationAxis = {1.0, 0.0, 0.0};
+    }
+}
+
+void Indie::GameComponents::APlayer::clearBonuses()
+{
+    _bonuses.clear();
+    _speed = BASE_SPEED;
+    _explosionRange = BASE_FIRE;
+    _maximumBomb = BASE_BOMB;
+    _wallPass = BASE_WALL_PASS;
+}
+
 void Indie::GameComponents::APlayer::putBomb()
 {
     if (_bombs.size() < _maximumBomb) {
         _bombs.push_back(
-            std::make_shared<Indie::GameComponents::Bomb>(_Map, _position, Vector3{1, 1, 1}, _explosionRange)
+            std::make_shared<Indie::GameComponents::Bomb>(_Map, _soundBomb,  _position, Vector3{1, 1, 1}, _explosionRange, _modelBomb, _modelBombAnimationPath, _modelExplosion)
         );
     }
+}
+
+void Indie::GameComponents::APlayer::setPosition(Vector2 position)
+{
+    _position = {position.x, _Map.getMapPosition().y + 0.5f, position.y};
 }
 
 void Indie::GameComponents::APlayer::computeBonus()
@@ -38,7 +66,7 @@ void Indie::GameComponents::APlayer::computeBonus()
             _explosionRange++;
             break;
         case SPEED_UP:
-            _speed += 0.1;
+            _speed += 0.02;
             break;
         case WALL_PASS:
             _wallPass = true;
@@ -113,16 +141,13 @@ void Indie::GameComponents::APlayer::display()
         if (!Bomb->getShouldVanished())
             Bomb->display();
     }
-    // DrawCube({_position.x + 0.25f, _position.y, _position.z + 0.25f}, 0.5, 1, 0.5, _color);
+    //DrawCube({_position.x + 0.25f, _position.y, _position.z + 0.25f}, 0.5, 1, 0.5, _color);
     _modelAnimation->setFrameCounter(_modelAnimation->getFrameCounter() + 1);
     UpdateModelAnimation(_model.getModel(), _modelAnimation->getAnimation()[0], _modelAnimation->getFrameCounter());
     if (_modelAnimation->getFrameCounter() >= _modelAnimation->getAnimation()[0].frameCount) _modelAnimation->setFrameCounter(0);
     if (_isAlive)
-        DrawModelEx(
-            _model.getModel(),
-            {_position.x + 0.25f, _position.y - 0.5f, _position.z + 0.25f},
-            _rotationAxis, _rotationAngle, (Vector3){ 0.3f, 0.3f, 0.3f },
-            _color
+        _model.drawExAt({_position.x + 0.25f, _position.y - 0.5f, _position.z + 0.25f},
+            _rotationAxis, _rotationAngle, {0.3f, 0.3f, 0.3f}
         );
 }
 

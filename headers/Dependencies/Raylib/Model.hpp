@@ -16,13 +16,15 @@ namespace Raylib {
    class Model {
         public:
             Model(Raylib::Mesh &mesh, Raylib::Texture2D &texture);
-            Model(std::string model, Raylib::Texture2D &texture);
+            Model(std::string model, Raylib::Texture2D &texture, Color color);
             Model(const Image&) = delete;
             ~Model();
+            void drawExAt(Vector3 position, Vector3 rotationAxis, float rotationAngle, Vector3 scale) const;
             ::Model getModel() const;
             void draw(Vector3 position)const;
         protected:
         private:
             ::Model _model;
+            Color _color = WHITE;
     };
 };
