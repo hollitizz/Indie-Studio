@@ -22,7 +22,7 @@ namespace Indie {
     namespace GameComponents {
         class Player {
             public:
-                Player(Map &map, Raylib::Sound &_soundBomb, Vector2 position, bool isHuman, std::array<KeyboardKey, 5> keyMap,
+                Player(Map &map, Raylib::Sound &_soundBomb, Vector2 position, std::array<KeyboardKey, 5> keyMap,
                     std::string texturePath, std::string modelPath, Color color, std::string modelBombPath,
                     std::string modelBombAnimationPath, std::string modelExplosionPath);
                 ~Player() = default;

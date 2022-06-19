@@ -8,12 +8,12 @@
 #include "Player.hpp"
 
 Indie::GameComponents::Player::Player(
-    Map &map, Raylib::Sound &soundBomb, Vector2 position, bool isHuman, std::array<KeyboardKey, 5> keyMap, std::string texturePath,
+    Map &map, Raylib::Sound &soundBomb, Vector2 position, std::array<KeyboardKey, 5> keyMap, std::string texturePath,
     std::string modelPath, Color color, std::string modelBombPath,
     std::string modelBombAnimationPath, std::string modelExplosionPath
 ): _Map(map), _texture(texturePath), _model(modelPath, _texture, color), _color(color),
     _modelBomb(modelBombPath, _texture, WHITE), _modelBombAnimationPath(modelBombAnimationPath),
-    _modelExplosion(modelExplosionPath, _texture, ORANGE), _keyMap(keyMap), _isHuman(isHuman), _soundBomb(soundBomb)
+    _modelExplosion(modelExplosionPath, _texture, ORANGE), _keyMap(keyMap), _isHuman(true), _soundBomb(soundBomb)
 {
     _position = {position.x, _Map.getMapPosition().y + 0.5f, position.y};
     _rotationAngle = -90;
