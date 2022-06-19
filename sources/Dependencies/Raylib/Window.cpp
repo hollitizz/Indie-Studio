@@ -19,6 +19,7 @@ Raylib::Window::Window(Vector2 size, std::string title, size_t fps,
     SetWindowMinSize(1300, 800);
     SetTargetFPS(fps);
     SetExitKey(KEY_NULL);
+    SetCameraMode(_camera.getCamera(), CAMERA_FREE);
 }
 
 Raylib::Window::~Window()

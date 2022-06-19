@@ -27,7 +27,6 @@ void Indie::Bomberman::loop()
 {
     Raylib::Window &window = _Game.getWindow();
 
-    SetCameraMode(window.getCamera().getCamera(), CAMERA_FREE);
     while (window.isOpen()) {
         window.getCamera().update();
         _scenes[_State.getScene()]->event();
