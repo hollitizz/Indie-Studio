@@ -22,7 +22,7 @@ Indie::Game::Game():
             _map,
             _soundBomb,
             Vector2{PLAYER_STARTS_POSITION[i].x - 0.25f, PLAYER_STARTS_POSITION[i].y - 0.25f},
-            false,
+            true,
             PLAYER_KEY_MAP[i],
             "assets/Game/Player/textures/player1.png",
             "assets/Game/Player/models/playerModel.iqm",

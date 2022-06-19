@@ -8,12 +8,12 @@
 #include "Player.hpp"
 
 Indie::GameComponents::Player::Player(
-    Map &map, Vector2 position, bool isHuman, std::array<KeyboardKey, 5> keyMap, std::string texturePath,
+    Map &map, Raylib::Sound &soundBomb, Vector2 position, bool isHuman, std::array<KeyboardKey, 5> keyMap, std::string texturePath,
     std::string modelPath, Color color, std::string modelBombPath,
     std::string modelBombAnimationPath, std::string modelExplosionPath
 ): _Map(map), _texture(texturePath), _model(modelPath, _texture, color), _color(color),
     _modelBomb(modelBombPath, _texture, WHITE), _modelBombAnimationPath(modelBombAnimationPath),
-    _modelExplosion(modelExplosionPath, _texture, ORANGE), _keyMap(keyMap), _isHuman(isHuman)
+    _modelExplosion(modelExplosionPath, _texture, ORANGE), _keyMap(keyMap), _isHuman(isHuman), _soundBomb(soundBomb)
 {
     _position = {position.x, _Map.getMapPosition().y + 0.5f, position.y};
     _rotationAngle = -90;
@@ -46,7 +46,7 @@ void Indie::GameComponents::Player::putBomb()
 {
     if (_bombs.size() < _maximumBomb) {
         _bombs.push_back(
-            std::make_shared<Indie::GameComponents::Bomb>(_Map, _position, Vector3{1, 1, 1}, _explosionRange, _modelBomb, _modelBombAnimationPath, _modelExplosion)
+            std::make_shared<Indie::GameComponents::Bomb>(_Map, _soundBomb,  _position, Vector3{1, 1, 1}, _explosionRange, _modelBomb, _modelBombAnimationPath, _modelExplosion)
         );
     }
 }
